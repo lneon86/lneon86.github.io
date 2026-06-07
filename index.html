@@ -1,362 +1,300 @@
 <!doctype html>
-<html lang="bn" class="h-full">
+<html lang="en" class="h-full">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosmic Ink Transform</title>
+  <title>Naive Art Style Transfer</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&amp;family=Noto+Sans+Bengali:wght@300;400;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <style>
     html, body { height: 100%; margin: 0; }
-    body { font-family: 'Noto Sans Bengali', sans-serif; }
-    .cinzel { font-family: 'Cinzel', serif; }
-    .paper-bg {
-      background: #f5f0e8;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    }
-    .glow-pulse {
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-      to { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in { animation: fadeIn 0.6s ease forwards; }
-    .ink-border {
-      border: 2px solid #1a1a2e;
-      box-shadow: 0 0 0 1px rgba(59,130,246,0.2), inset 0 0 30px rgba(0,0,0,0.1);
-    }
-    canvas { image-rendering: auto; }
+    .app-wrap { height: 100%; overflow: auto; }
+    .drop-zone { transition: all 0.3s ease; }
+    .drop-zone.dragover { border-color: #e85d04; background: rgba(232,93,4,0.08); transform: scale(1.01); }
+    .dot-pattern { background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 8px 8px; }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.5s ease forwards; }
+    .fade-up-d1 { animation-delay: 0.1s; opacity: 0; }
+    .fade-up-d2 { animation-delay: 0.2s; opacity: 0; }
+    .fade-up-d3 { animation-delay: 0.3s; opacity: 0; }
+    .slider-thumb::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #e85d04; cursor: pointer; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    .slider-thumb::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #e85d04; cursor: pointer; border: 2px solid #fff; }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  <script src="/_sdk/telemetry_sdk.js"></script></head>
- <body class="h-full overflow-auto">
-  <div id="app" class="h-full w-full paper-bg flex flex-col items-center p-6 min-h-full"><!-- Header -->
-   <header class="text-center mb-8 fade-in">
-    <h1 id="mainTitle" class="cinzel text-4xl md:text-5xl font-900 text-[#1a1a2e] tracking-wider mb-2">COSMIC INK TRANSFORM</h1>
-    <p id="subtitleText" class="text-[#4a4a6a] text-lg">যেকোনো ছবি আপলোড করুন — কসমিক ইনক আর্টে রূপান্তরিত হবে</p>
-   </header><!-- Upload Area -->
-   <div id="uploadArea" class="w-full max-w-2xl ink-border rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-all duration-300 mb-6 fade-in bg-white/50" style="animation-delay:0.2s"><input type="file" id="fileInput" accept="image/*" class="hidden" aria-label="Upload image">
-    <div class="flex flex-col items-center gap-3">
-     <div class="w-16 h-16 rounded-full bg-[#1a1a2e] flex items-center justify-center glow-pulse"><i data-lucide="upload" class="text-blue-400" style="width:28px;height:28px"></i>
+ <body class="h-full">
+  <div class="app-wrap w-full bg-stone-900 text-stone-100" id="app-container"><!-- Header -->
+   <header class="px-6 py-5 border-b border-stone-800 fade-up">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-orange-600 flex items-center justify-center dot-pattern text-stone-900 opacity-60"></div>
+      <h1 id="app-title" class="text-xl font-bold" style="font-family:'Zilla Slab',serif;">Naive Art Style Transfer</h1>
      </div>
-     <p class="text-[#1a1a2e] font-semibold text-lg">ছবি আপলোড করুন</p>
-     <p class="text-[#6a6a8a] text-sm">PNG, JPG, WEBP সাপোর্টেড</p>
+     <p class="text-stone-400 text-sm hidden sm:block" style="font-family:'DM Sans',sans-serif;">Transform photos into raw pointillist paintings</p>
     </div>
-   </div><!-- Controls -->
-   <div id="controls" class="hidden w-full max-w-2xl mb-6 flex flex-wrap gap-3 justify-center fade-in"><button id="btnProcess" class="px-5 py-2.5 bg-[#1a1a2e] text-blue-300 rounded-lg font-semibold hover:bg-[#2a2a4e] transition flex items-center gap-2"> <i data-lucide="sparkles" style="width:18px;height:18px"></i> ট্রান্সফর্ম করুন </button> <button id="btnDownload" class="hidden px-5 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2"> <i data-lucide="download" style="width:18px;height:18px"></i> ডাউনলোড </button> <button id="btnReset" class="px-5 py-2.5 border-2 border-[#1a1a2e] text-[#1a1a2e] rounded-lg font-semibold hover:bg-[#1a1a2e] hover:text-white transition flex items-center gap-2"> <i data-lucide="rotate-ccw" style="width:18px;height:18px"></i> নতুন ছবি </button>
-   </div><!-- Intensity Slider -->
-   <div id="sliderWrap" class="hidden w-full max-w-md mb-6 text-center"><label for="intensity" class="text-[#1a1a2e] font-semibold text-sm mb-1 block">ইনটেনসিটি</label> <input type="range" id="intensity" min="1" max="10" value="6" class="w-full accent-blue-600">
-   </div><!-- Canvas Output -->
-   <div id="outputWrap" class="hidden w-full max-w-3xl fade-in">
-    <div class="ink-border rounded-lg overflow-hidden bg-[#f5f0e8] p-4">
-     <canvas id="outputCanvas" class="w-full rounded"></canvas>
-    </div>
-    <p class="text-center text-[#6a6a8a] text-xs mt-2">Cosmic Ink Splatter • Symmetrical Rorschach Style</p>
-   </div><!-- Processing Indicator -->
-   <div id="processing" class="hidden flex flex-col items-center gap-3 my-8">
-    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    <p class="text-[#1a1a2e] font-semibold">কসমিক ট্রান্সফর্মেশন চলছে...</p>
-   </div>
+   </header>
+   <main class="max-w-6xl mx-auto px-6 py-8"><!-- Upload Section -->
+    <section id="upload-section" class="fade-up fade-up-d1">
+     <div id="drop-zone" class="drop-zone border-2 border-dashed border-stone-600 rounded-2xl p-12 text-center cursor-pointer hover:border-orange-500 transition-colors">
+      <div class="flex flex-col items-center gap-4">
+       <div class="w-16 h-16 rounded-full bg-stone-800 flex items-center justify-center"><i data-lucide="image-plus" class="w-8 h-8 text-orange-400"></i>
+       </div>
+       <div>
+        <p class="text-lg font-semibold" style="font-family:'Zilla Slab',serif;">Drop your image here</p>
+        <p class="text-stone-400 text-sm mt-1" style="font-family:'DM Sans',sans-serif;">or click to browse • JPG, PNG supported</p>
+       </div>
+      </div><input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+     </div>
+    </section><!-- Controls -->
+    <section id="controls-section" class="mt-6 fade-up fade-up-d2 hidden">
+     <div class="bg-stone-800 rounded-xl p-5 grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div><label class="text-xs text-stone-400 uppercase tracking-wide block mb-2" style="font-family:'DM Sans',sans-serif;">Dot Size</label> <input type="range" id="dot-size" min="2" max="8" value="4" class="w-full slider-thumb accent-orange-600"> <span id="dot-size-val" class="text-xs text-orange-400 mt-1 block">4px</span>
+      </div>
+      <div><label class="text-xs text-stone-400 uppercase tracking-wide block mb-2" style="font-family:'DM Sans',sans-serif;">Color Quantize</label> <input type="range" id="quantize" min="4" max="24" value="12" class="w-full slider-thumb accent-orange-600"> <span id="quantize-val" class="text-xs text-orange-400 mt-1 block">12 levels</span>
+      </div>
+      <div><label class="text-xs text-stone-400 uppercase tracking-wide block mb-2" style="font-family:'DM Sans',sans-serif;">Distortion</label> <input type="range" id="distortion" min="0" max="5" value="2" class="w-full slider-thumb accent-orange-600"> <span id="distortion-val" class="text-xs text-orange-400 mt-1 block">2</span>
+      </div>
+     </div>
+     <div class="mt-4 flex gap-3"><button id="process-btn" class="px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2" style="font-family:'DM Sans',sans-serif;"> <i data-lucide="wand-2" class="w-4 h-4"></i> Apply Style </button> <button id="reset-btn" class="px-6 py-3 bg-stone-700 hover:bg-stone-600 text-stone-200 font-semibold rounded-lg transition-colors" style="font-family:'DM Sans',sans-serif;"> Reset </button>
+     </div>
+    </section><!-- Processing Indicator -->
+    <div id="processing" class="hidden mt-8 text-center">
+     <div class="inline-flex items-center gap-3 bg-stone-800 px-6 py-4 rounded-xl">
+      <div class="w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div><span class="text-stone-300" style="font-family:'DM Sans',sans-serif;">Painting your masterpiece...</span>
+     </div>
+    </div><!-- Result Section -->
+    <section id="result-section" class="mt-8 hidden fade-up fade-up-d3">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+       <h3 class="text-sm text-stone-400 uppercase tracking-wide mb-3" style="font-family:'DM Sans',sans-serif;">Original</h3>
+       <div class="bg-stone-800 rounded-xl overflow-hidden aspect-square flex items-center justify-center">
+        <canvas id="original-canvas" class="max-w-full max-h-full object-contain"></canvas>
+       </div>
+      </div>
+      <div>
+       <h3 class="text-sm text-stone-400 uppercase tracking-wide mb-3" style="font-family:'DM Sans',sans-serif;">Naïve Art Output</h3>
+       <div class="bg-stone-800 rounded-xl overflow-hidden aspect-square flex items-center justify-center">
+        <canvas id="output-canvas" class="max-w-full max-h-full object-contain"></canvas>
+       </div>
+      </div>
+     </div>
+     <div class="mt-5 flex gap-3 justify-center"><button id="download-btn" class="px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2" style="font-family:'DM Sans',sans-serif;"> <i data-lucide="download" class="w-4 h-4"></i> Download Art </button> <button id="new-btn" class="px-6 py-3 bg-stone-700 hover:bg-stone-600 text-stone-200 font-semibold rounded-lg transition-colors" style="font-family:'DM Sans',sans-serif;"> New Image </button>
+     </div>
+    </section>
+   </main>
   </div>
   <script>
-    const defaultConfig = {
-      main_title: 'COSMIC INK TRANSFORM',
-      subtitle_text: 'যেকোনো ছবি আপলোড করুন — কসমিক ইনক আর্টে রূপান্তরিত হবে',
-      primary_color: '#1a1a2e',
-      surface_color: '#f5f0e8',
-      text_color: '#1a1a2e',
-      accent_color: '#3b82f6',
-      secondary_action_color: '#4a4a6a',
-      font_family: 'Cinzel',
-      font_size: 16
-    };
+  // === ELEMENT SDK ===
+  const defaultConfig = {
+    app_title: "Naive Art Style Transfer",
+    background_color: "#1c1917",
+    surface_color: "#292524",
+    text_color: "#f5f5f4",
+    primary_action: "#e85d04",
+    secondary_action: "#78716c"
+  };
 
-    let config = { ...defaultConfig };
+  function applyConfig(config) {
+    const c = { ...defaultConfig, ...config };
+    const app = document.getElementById('app-container');
+    app.style.backgroundColor = c.background_color;
+    app.style.color = c.text_color;
+    document.getElementById('app-title').textContent = c.app_title;
+    document.querySelectorAll('.bg-orange-600, #process-btn, #download-btn').forEach(el => {
+      el.style.backgroundColor = c.primary_action;
+    });
+    document.querySelectorAll('.bg-stone-700, #reset-btn, #new-btn').forEach(el => {
+      el.style.backgroundColor = c.secondary_action;
+    });
+    document.querySelectorAll('.bg-stone-800').forEach(el => {
+      el.style.backgroundColor = c.surface_color;
+    });
+  }
 
-    window.elementSdk.init({
-      defaultConfig,
-      onConfigChange: async (c) => {
-        config = c;
-        document.getElementById('mainTitle').textContent = c.main_title || defaultConfig.main_title;
-        document.getElementById('subtitleText').textContent = c.subtitle_text || defaultConfig.subtitle_text;
-        const font = c.font_family || defaultConfig.font_family;
-        document.getElementById('mainTitle').style.fontFamily = `${font}, Cinzel, serif`;
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action || defaultConfig.primary_action, set: (v) => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+        { get: () => config.secondary_action || defaultConfig.secondary_action, set: (v) => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || "Zilla Slab",
+        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
       },
-      mapToCapabilities: (c) => ({
-        recolorables: [
-          { get: () => c.surface_color || defaultConfig.surface_color, set: (v) => { c.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }},
-          { get: () => c.primary_color || defaultConfig.primary_color, set: (v) => { c.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); }},
-          { get: () => c.text_color || defaultConfig.text_color, set: (v) => { c.text_color = v; window.elementSdk.setConfig({ text_color: v }); }},
-          { get: () => c.accent_color || defaultConfig.accent_color, set: (v) => { c.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); }},
-          { get: () => c.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { c.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); }}
-        ],
-        borderables: [],
-        fontEditable: { get: () => c.font_family || defaultConfig.font_family, set: (v) => { c.font_family = v; window.elementSdk.setConfig({ font_family: v }); }},
-        fontSizeable: { get: () => c.font_size || defaultConfig.font_size, set: (v) => { c.font_size = v; window.elementSdk.setConfig({ font_size: v }); }}
-      }),
-      mapToEditPanelValues: (c) => new Map([
-        ['main_title', c.main_title || defaultConfig.main_title],
-        ['subtitle_text', c.subtitle_text || defaultConfig.subtitle_text]
-      ])
+      fontSizeable: undefined
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ["app_title", config.app_title || defaultConfig.app_title]
+    ])
+  });
+
+  // === IMAGE PROCESSING ENGINE ===
+  let uploadedImage = null;
+
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const controlsSection = document.getElementById('controls-section');
+  const resultSection = document.getElementById('result-section');
+  const processingEl = document.getElementById('processing');
+
+  // Drag & drop
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+  fileInput.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+  // Sliders
+  document.getElementById('dot-size').addEventListener('input', (e) => { document.getElementById('dot-size-val').textContent = e.target.value + 'px'; });
+  document.getElementById('quantize').addEventListener('input', (e) => { document.getElementById('quantize-val').textContent = e.target.value + ' levels'; });
+  document.getElementById('distortion').addEventListener('input', (e) => { document.getElementById('distortion-val').textContent = e.target.value; });
+
+  function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => { uploadedImage = img; controlsSection.classList.remove('hidden'); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('process-btn').addEventListener('click', processImage);
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    controlsSection.classList.add('hidden');
+    resultSection.classList.add('hidden');
+    uploadedImage = null;
+    fileInput.value = '';
+  });
+  document.getElementById('new-btn').addEventListener('click', () => {
+    resultSection.classList.add('hidden');
+    fileInput.value = '';
+    uploadedImage = null;
+    controlsSection.classList.add('hidden');
+    document.getElementById('upload-section').classList.remove('hidden');
+  });
+  document.getElementById('download-btn').addEventListener('click', () => {
+    const canvas = document.getElementById('output-canvas');
+    const link = document.createElement('a');
+    link.download = 'naive-art-output.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  function processImage() {
+    if (!uploadedImage) return;
+    processingEl.classList.remove('hidden');
+    resultSection.classList.add('hidden');
+
+    const dotSize = parseInt(document.getElementById('dot-size').value);
+    const quantizeLevels = parseInt(document.getElementById('quantize').value);
+    const distortion = parseInt(document.getElementById('distortion').value);
+
+    // Use requestAnimationFrame to let UI update
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        renderOriginal();
+        applyNaiveArtStyle(dotSize, quantizeLevels, distortion);
+        processingEl.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+      }, 50);
     });
+  }
 
-    // App Logic
-    const fileInput = document.getElementById('fileInput');
-    const uploadArea = document.getElementById('uploadArea');
-    const controls = document.getElementById('controls');
-    const sliderWrap = document.getElementById('sliderWrap');
-    const outputWrap = document.getElementById('outputWrap');
-    const outputCanvas = document.getElementById('outputCanvas');
-    const processing = document.getElementById('processing');
-    const btnProcess = document.getElementById('btnProcess');
-    const btnDownload = document.getElementById('btnDownload');
-    const btnReset = document.getElementById('btnReset');
-    const intensitySlider = document.getElementById('intensity');
+  function renderOriginal() {
+    const canvas = document.getElementById('original-canvas');
+    const ctx = canvas.getContext('2d');
+    const maxSize = 512;
+    let w = uploadedImage.width, h = uploadedImage.height;
+    if (w > h) { h = Math.round(h * maxSize / w); w = maxSize; }
+    else { w = Math.round(w * maxSize / h); h = maxSize; }
+    canvas.width = w; canvas.height = h;
+    ctx.drawImage(uploadedImage, 0, 0, w, h);
+  }
 
-    let uploadedImage = null;
+  function applyNaiveArtStyle(dotSize, quantizeLevels, distortion) {
+    const srcCanvas = document.getElementById('original-canvas');
+    const outCanvas = document.getElementById('output-canvas');
+    const w = srcCanvas.width, h = srcCanvas.height;
+    outCanvas.width = w; outCanvas.height = h;
 
-    uploadArea.addEventListener('click', () => fileInput.click());
-    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('border-blue-500'); });
-    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('border-blue-500'));
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove('border-blue-500');
-      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-    });
+    const srcCtx = srcCanvas.getContext('2d');
+    const outCtx = outCanvas.getContext('2d');
+    const srcData = srcCtx.getImageData(0, 0, w, h).data;
 
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files[0]) handleFile(e.target.files[0]);
-    });
+    // Fill background with slightly warm off-white/cream
+    outCtx.fillStyle = '#f0e6d3';
+    outCtx.fillRect(0, 0, w, h);
 
-    function handleFile(file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          uploadedImage = img;
-          uploadArea.classList.add('hidden');
-          controls.classList.remove('hidden');
-          sliderWrap.classList.remove('hidden');
-          btnDownload.classList.add('hidden');
-          outputWrap.classList.add('hidden');
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    // Naive art pointillism: sample grid, quantize colors, draw irregular dots
+    const step = dotSize;
 
-    btnProcess.addEventListener('click', () => {
-      if (!uploadedImage) return;
-      processing.classList.remove('hidden');
-      controls.classList.add('hidden');
-      setTimeout(() => applyCosmicInkEffect(), 100);
-    });
+    for (let y = 0; y < h; y += step) {
+      for (let x = 0; x < w; x += step) {
+        // Sample center pixel with slight random offset for distortion
+        const ox = Math.round(x + (Math.random() - 0.5) * distortion * 2);
+        const oy = Math.round(y + (Math.random() - 0.5) * distortion * 2);
+        const sx = Math.max(0, Math.min(w - 1, ox));
+        const sy = Math.max(0, Math.min(h - 1, oy));
+        const idx = (sy * w + sx) * 4;
 
-    btnReset.addEventListener('click', () => {
-      uploadedImage = null;
-      fileInput.value = '';
-      uploadArea.classList.remove('hidden');
-      controls.classList.add('hidden');
-      sliderWrap.classList.add('hidden');
-      outputWrap.classList.add('hidden');
-      btnDownload.classList.add('hidden');
-    });
+        let r = srcData[idx], g = srcData[idx + 1], b = srcData[idx + 2];
 
-    btnDownload.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = 'cosmic-ink-art.png';
-      link.href = outputCanvas.toDataURL('image/png');
-      link.click();
-    });
+        // Quantize colors to get flat, naive art palette
+        const q = 256 / quantizeLevels;
+        r = Math.round(Math.round(r / q) * q);
+        g = Math.round(Math.round(g / q) * q);
+        b = Math.round(Math.round(b / q) * q);
 
-    function applyCosmicInkEffect() {
-      const intensity = parseInt(intensitySlider.value);
-      const w = Math.min(uploadedImage.width, 1200);
-      const h = Math.round((w / uploadedImage.width) * uploadedImage.height);
+        // Boost saturation slightly for vibrant naive look
+        const avg = (r + g + b) / 3;
+        const satBoost = 1.3;
+        r = Math.min(255, Math.max(0, Math.round(avg + (r - avg) * satBoost)));
+        g = Math.min(255, Math.max(0, Math.round(avg + (g - avg) * satBoost)));
+        b = Math.min(255, Math.max(0, Math.round(avg + (b - avg) * satBoost)));
 
-      outputCanvas.width = w;
-      outputCanvas.height = h;
-      const ctx = outputCanvas.getContext('2d');
+        // Draw dot with slight size variation
+        const sizeVar = dotSize * (0.7 + Math.random() * 0.6);
+        const drawX = x + (Math.random() - 0.5) * distortion;
+        const drawY = y + (Math.random() - 0.5) * distortion;
 
-      // Draw paper texture background
-      ctx.fillStyle = '#f5f0e8';
-      ctx.fillRect(0, 0, w, h);
+        outCtx.fillStyle = `rgb(${r},${g},${b})`;
+        outCtx.beginPath();
 
-      // Draw source image to temp canvas
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = w; tempCanvas.height = h;
-      const tctx = tempCanvas.getContext('2d');
-      tctx.drawImage(uploadedImage, 0, 0, w, h);
-      const imgData = tctx.getImageData(0, 0, w, h);
-      const pixels = imgData.data;
-
-      // Convert to grayscale and invert for ink effect
-      for (let i = 0; i < pixels.length; i += 4) {
-        const gray = pixels[i] * 0.299 + pixels[i+1] * 0.587 + pixels[i+2] * 0.114;
-        pixels[i] = pixels[i+1] = pixels[i+2] = 255 - gray;
-        pixels[i+3] = 255;
-      }
-      tctx.putImageData(imgData, 0, 0);
-
-      // Create symmetrical mirrored version (left half mirrored to right)
-      const halfW = Math.floor(w / 2);
-      const symCanvas = document.createElement('canvas');
-      symCanvas.width = w; symCanvas.height = h;
-      const sctx = symCanvas.getContext('2d');
-      sctx.drawImage(tempCanvas, 0, 0, halfW, h, 0, 0, halfW, h);
-      sctx.save();
-      sctx.translate(w, 0);
-      sctx.scale(-1, 1);
-      sctx.drawImage(tempCanvas, 0, 0, halfW, h, 0, 0, halfW, h);
-      sctx.restore();
-
-      // Apply ink wash with deep blue/black color mapping
-      const symData = sctx.getImageData(0, 0, w, h);
-      const sp = symData.data;
-      for (let i = 0; i < sp.length; i += 4) {
-        const val = sp[i]; // grayscale inverted value
-        const threshold = 255 - (intensity * 20);
-        if (val > threshold) {
-          // Dark ink areas - deep blue to black
-          const t = (val - threshold) / (255 - threshold);
-          sp[i] = Math.round(10 + t * 20);      // R - very dark
-          sp[i+1] = Math.round(15 + t * 40);    // G
-          sp[i+2] = Math.round(40 + t * 140);   // B - blue dominant
-          sp[i+3] = Math.round(180 + t * 75);
+        // Mix between circles and rough squares for texture variety
+        if (Math.random() > 0.3) {
+          outCtx.arc(drawX, drawY, sizeVar / 2, 0, Math.PI * 2);
         } else {
-          // Transparent - show paper
-          sp[i+3] = 0;
+          // Rough rectangle
+          outCtx.rect(drawX - sizeVar / 2, drawY - sizeVar / 2, sizeVar, sizeVar * (0.8 + Math.random() * 0.4));
         }
-      }
-      sctx.putImageData(symData, 0, 0);
-
-      // Draw ink on paper
-      ctx.drawImage(symCanvas, 0, 0);
-
-      // Add splatter particles
-      addSplatters(ctx, w, h, intensity);
-
-      // Add glowing eyes effect at center
-      addGlowingElements(ctx, w, h, intensity);
-
-      // Add fractal thread connections
-      addFractalThreads(ctx, w, h, intensity);
-
-      // Add paper grain overlay
-      addPaperGrain(ctx, w, h);
-
-      processing.classList.add('hidden');
-      controls.classList.remove('hidden');
-      btnDownload.classList.remove('hidden');
-      outputWrap.classList.remove('hidden');
-    }
-
-    function addSplatters(ctx, w, h, intensity) {
-      const count = intensity * 80;
-      for (let i = 0; i < count; i++) {
-        const x = Math.random() * w;
-        const y = Math.random() * h;
-        const mirrorX = w - x;
-        const r = Math.random() * 3 + 0.5;
-        const alpha = Math.random() * 0.6 + 0.2;
-        const isBlue = Math.random() > 0.4;
-        const color = isBlue
-          ? `rgba(30, 60, ${Math.round(150 + Math.random()*105)}, ${alpha})`
-          : `rgba(10, 10, 20, ${alpha})`;
-
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-
-        // Mirror
-        ctx.beginPath();
-        ctx.arc(mirrorX, y, r, 0, Math.PI * 2);
-        ctx.fill();
+        outCtx.fill();
       }
     }
 
-    function addGlowingElements(ctx, w, h, intensity) {
-      const cx = w / 2;
-      const eyeY = h * 0.35;
-      const eyeSpacing = w * 0.06;
-
-      // Glowing eyes
-      for (let side = -1; side <= 1; side += 2) {
-        const ex = cx + side * eyeSpacing;
-        const grad = ctx.createRadialGradient(ex, eyeY, 0, ex, eyeY, 12 + intensity);
-        grad.addColorStop(0, 'rgba(100, 200, 255, 0.9)');
-        grad.addColorStop(0.5, 'rgba(59, 130, 246, 0.5)');
-        grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(ex - 20, eyeY - 20, 40, 40);
-      }
-
-      // Heart core
-      const coreY = h * 0.55;
-      const coreGrad = ctx.createRadialGradient(cx, coreY, 0, cx, coreY, 25 + intensity * 2);
-      coreGrad.addColorStop(0, 'rgba(100, 180, 255, 0.8)');
-      coreGrad.addColorStop(0.4, 'rgba(59, 130, 246, 0.4)');
-      coreGrad.addColorStop(1, 'rgba(30, 60, 180, 0)');
-      ctx.fillStyle = coreGrad;
-      ctx.fillRect(cx - 40, coreY - 40, 80, 80);
+    // Add subtle canvas grain texture overlay
+    const grainData = outCtx.getImageData(0, 0, w, h);
+    const gd = grainData.data;
+    for (let i = 0; i < gd.length; i += 4) {
+      const noise = (Math.random() - 0.5) * 15;
+      gd[i] = Math.min(255, Math.max(0, gd[i] + noise));
+      gd[i + 1] = Math.min(255, Math.max(0, gd[i + 1] + noise));
+      gd[i + 2] = Math.min(255, Math.max(0, gd[i + 2] + noise));
     }
+    outCtx.putImageData(grainData, 0, 0);
+  }
 
-    function addFractalThreads(ctx, w, h, intensity) {
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.15)';
-      ctx.lineWidth = 0.5;
-      const points = [];
-      const numPoints = intensity * 12;
-
-      for (let i = 0; i < numPoints; i++) {
-        points.push({ x: Math.random() * (w/2), y: Math.random() * h });
-      }
-
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const dx = points[i].x - points[j].x;
-          const dy = points[i].y - points[j].y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(points[i].x, points[i].y);
-            ctx.lineTo(points[j].x, points[j].y);
-            ctx.stroke();
-            // Mirror
-            ctx.beginPath();
-            ctx.moveTo(w - points[i].x, points[i].y);
-            ctx.lineTo(w - points[j].x, points[j].y);
-            ctx.stroke();
-          }
-        }
-        // Draw node dots
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
-        ctx.beginPath(); ctx.arc(points[i].x, points[i].y, 1.5, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(w - points[i].x, points[i].y, 1.5, 0, Math.PI*2); ctx.fill();
-      }
-    }
-
-    function addPaperGrain(ctx, w, h) {
-      const grainData = ctx.getImageData(0, 0, w, h);
-      const gp = grainData.data;
-      for (let i = 0; i < gp.length; i += 4) {
-        const noise = (Math.random() - 0.5) * 12;
-        gp[i] = Math.max(0, Math.min(255, gp[i] + noise));
-        gp[i+1] = Math.max(0, Math.min(255, gp[i+1] + noise));
-        gp[i+2] = Math.max(0, Math.min(255, gp[i+2] + noise));
-      }
-      ctx.putImageData(grainData, 0, 0);
-    }
-
-    lucide.createIcons();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0517c908faf6eca',t:'MTc4MDM1MTE3OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a050e0e83a03d895',t:'MTc4MDM0NDgwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
