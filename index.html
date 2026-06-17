@@ -619,7 +619,26 @@ function createCard(nftIndex,imageUrl){
     if(imageUrl)loadImg(imageUrl);
   });
 
-  ctrl.appendChild(rndBtn);ctrl.appendChild(animBtn);ctrl.appendChild(resetBtn);
+  const dlBtn=document.createElement('button');dlBtn.className='c-btn';dlBtn.textContent='💾';
+  dlBtn.title='Download PNG';
+  dlBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    const cv=document.createElement('canvas');
+    cv.width=GRID*10;cv.height=GRID*10;
+    const ctx=cv.getContext('2d');
+    for(let i=0;i<TOTAL;i++){
+      const x=(i%GRID)*10,y=Math.floor(i/GRID)*10;
+      const s=colorSets[i];
+      ctx.fillStyle=PALETTE[s[colorIdx[i]%s.length]];
+      ctx.fillRect(x,y,10,10);
+    }
+    const a=document.createElement('a');
+    a.href=cv.toDataURL('image/png');
+    a.download='404punk-'+(nftIndex+1)+'.png';
+    a.click();
+  });
+
+  ctrl.appendChild(rndBtn);ctrl.appendChild(animBtn);ctrl.appendChild(resetBtn);ctrl.appendChild(dlBtn);
   card.appendChild(ctrl);
 
   // Click to enlarge
