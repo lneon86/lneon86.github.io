@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>MR.STONK — The NFT That Trades The Market</title>
+<link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/usdg-logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,11 +13,11 @@
    MR.STONK — Design tokens
    ========================================================================== */
 :root{
-  --bg: #060b08;
-  --bg-alt: #081109;
-  --panel: #0b1610;
-  --panel-2: #0d1a13;
-  --border: #1c3524;
+  --bg: #000000;
+  --bg-alt: #030503;
+  --panel: #060b07;
+  --panel-2: #08120a;
+  --border: #17301f;
   --border-bright: #2c5238;
 
   --green: #35ff8f;
@@ -74,11 +75,7 @@ img{ max-width:100%; display:block; }
     linear-gradient(rgba(53,255,143,.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(53,255,143,.055) 1px, transparent 1px);
   background-size:42px 42px;
-  animation:grid-drift 40s linear infinite;
-}
-@keyframes grid-drift{
-  0%{ background-position:0 0, 0 0; }
-  100%{ background-position:0 420px, 420px 0; }
+  /* static grid — no drift/movement, per design direction */
 }
 .vignette{
   position:fixed; inset:0; z-index:-1; pointer-events:none;
@@ -277,6 +274,10 @@ img{ max-width:100%; display:block; }
 @keyframes scan-move{ 0%{ top:0; } 100%{ top:100%; } }
 .nft-glyph{ width:62%; color:var(--green); filter:drop-shadow(0 0 10px var(--green-glow)); position:relative; z-index:1; }
 .nft-glyph.gold-glyph{ color:var(--gold); filter:drop-shadow(0 0 10px var(--gold-glow)); }
+.nft-art img{
+  width:70%; height:70%; object-fit:contain; position:relative; z-index:1;
+  filter:drop-shadow(0 0 14px var(--green-glow));
+}
 .nft-art-label{
   position:absolute; bottom:10px; left:10px; font-size:10px; letter-spacing:.14em; font-weight:700;
   color:var(--text-faint);
@@ -395,7 +396,8 @@ img{ max-width:100%; display:block; }
 .ticker-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:16px; margin-bottom:24px; }
 .ticker-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-m); padding:18px; text-align:center; transition:border-color .2s, transform .2s; }
 .ticker-card:hover{ border-color:var(--gold-dim); transform:translateY(-3px); }
-.ticker-card .symbol{ display:block; font-size:20px; font-weight:800; letter-spacing:.04em; margin-bottom:8px; }
+.ticker-card .logo-img{ width:44px; height:44px; object-fit:contain; margin:0 auto 10px; filter:drop-shadow(0 0 8px var(--green-glow)); display:block; }
+.ticker-card .symbol{ display:block; font-size:16px; font-weight:800; letter-spacing:.04em; margin-bottom:8px; }
 .ticker-card .mini-chart{ width:100%; height:28px; margin-bottom:8px; }
 .ticker-card .pct{ font-size:11px; font-weight:700; }
 .ticker-card .pct.up{ color:var(--green); }
@@ -418,25 +420,26 @@ img{ max-width:100%; display:block; }
 .current-reward{ margin-top:18px; display:flex; align-items:center; gap:10px; font-size:12px; color:var(--text-dim); letter-spacing:.08em; }
 .current-reward strong{ color:var(--green); font-size:16px; }
 
-.spin-machine{ display:flex; flex-direction:column; align-items:center; margin:44px auto; max-width:560px; }
+.spin-machine{ display:flex; flex-direction:column; align-items:center; margin:44px auto; max-width:520px; }
 .machine-frame{
   width:100%; background:var(--panel); border:2px solid var(--border-bright); border-radius:var(--radius-m);
   padding:14px; position:relative; box-shadow:0 0 40px rgba(0,0,0,.5) inset;
+  display:flex; gap:8px;
 }
-.machine-row{ height:76px; overflow:hidden; border:1px solid var(--border); border-radius:var(--radius-s); margin-bottom:8px; position:relative; background:var(--bg-alt); }
-.machine-row:last-child{ margin-bottom:0; }
-.reel-track{ display:flex; height:100%; will-change:transform; }
+.reel-col{
+  flex:1; height:96px; overflow:hidden; border:1px solid var(--border); border-radius:var(--radius-s);
+  position:relative; background:var(--bg-alt);
+}
+.reel-track{ display:flex; flex-direction:column; width:100%; will-change:transform; }
 .reel-cell{
-  width:76px; height:76px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
-  font-size:30px; border-right:1px solid var(--border); color:var(--green);
+  width:100%; height:96px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  padding:10px; box-sizing:border-box; border-bottom:1px solid var(--border);
 }
-.machine-selector-line{
-  position:absolute; left:8px; right:8px; top:50%; height:82px; transform:translateY(-50%);
-  border-top:2px dashed var(--gold); border-bottom:2px dashed var(--gold); pointer-events:none; opacity:.55;
-}
-.machine-row.spinning .reel-track{ animation:reel-spin .12s linear infinite; }
-@keyframes reel-spin{ from{ transform:translateX(0); } to{ transform:translateX(-76px); } }
-.machine-row.win{ border-color:var(--gold); box-shadow:0 0 24px var(--gold-glow); }
+.reel-cell img{ width:56px; height:56px; object-fit:contain; filter:drop-shadow(0 0 8px var(--green-glow)); }
+.reel-col.spinning .reel-track{ animation:reel-spin-v .1s linear infinite; }
+@keyframes reel-spin-v{ from{ transform:translateY(0); } to{ transform:translateY(-96px); } }
+.reel-col.win{ border-color:var(--gold); box-shadow:0 0 24px var(--gold-glow); }
+.reel-col.win .reel-cell img{ filter:drop-shadow(0 0 12px var(--gold-glow)); }
 
 .btn-spin{
   margin-top:24px; width:170px; height:60px; border-radius:50px; font-size:16px; letter-spacing:.16em;
@@ -710,10 +713,7 @@ img{ max-width:100%; display:block; }
         </div>
         <div class="nft-art">
           <div class="nft-art-scan"></div>
-          <svg viewBox="0 0 200 200" class="nft-glyph">
-            <polyline points="10,150 55,90 90,120 140,50 190,20" fill="none" stroke="currentColor" stroke-width="4"/>
-            <circle cx="190" cy="20" r="5" fill="currentColor"/>
-          </svg>
+          <img src="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/1.png" alt="MR.STONK #0001">
           <div class="nft-art-label">STONK INDEX</div>
         </div>
         <div class="nft-card-footer">
@@ -780,10 +780,7 @@ img{ max-width:100%; display:block; }
         </div>
         <div class="nft-art">
           <div class="nft-art-scan"></div>
-          <svg viewBox="0 0 200 200" class="nft-glyph gold-glyph">
-            <polyline points="10,170 40,120 70,150 100,60 130,90 190,10" fill="none" stroke="currentColor" stroke-width="4"/>
-            <circle cx="190" cy="10" r="5" fill="currentColor"/>
-          </svg>
+          <img src="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/2.png" alt="MR.STONK #1024">
           <div class="nft-art-label">STONK INDEX</div>
         </div>
         <div class="tag-row">
@@ -977,10 +974,9 @@ img{ max-width:100%; display:block; }
     <!-- ============ SPIN MACHINE ============ -->
     <div class="spin-machine" id="spin-machine">
       <div class="machine-frame">
-        <div class="machine-row" id="row-1"><div class="reel-track" id="reel-1"></div></div>
-        <div class="machine-row" id="row-2"><div class="reel-track" id="reel-2"></div></div>
-        <div class="machine-row" id="row-3"><div class="reel-track" id="reel-3"></div></div>
-        <div class="machine-selector-line"></div>
+        <div class="reel-col" id="row-1"><div class="reel-track" id="reel-1"></div></div>
+        <div class="reel-col" id="row-2"><div class="reel-track" id="reel-2"></div></div>
+        <div class="reel-col" id="row-3"><div class="reel-track" id="reel-3"></div></div>
       </div>
       <button class="btn btn-primary btn-spin" id="spin-btn">SPIN</button>
       <span class="spin-status" id="spin-status">1 SPIN AVAILABLE</span>
@@ -1243,7 +1239,21 @@ img{ max-width:100%; display:block; }
     freeClaim:{ step:1, followed:false, liked:false, reposted:false }
   };
 
-  const SYMBOLS = ['◆','▲','●','■','★'];
+  /* ---------------- Asset library ---------------- */
+  const ASSET_BASE = 'https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/';
+  const NFT_IMAGES = Array.from({length:10}, (_,i)=> ASSET_BASE + (i+1) + '.png'); // 1.png .. 10.png
+  const STOCK_LOGOS = [
+    { symbol:'AAPL', img: ASSET_BASE + 'AAPL.png' },
+    { symbol:'AMZN', img: ASSET_BASE + 'AMZN.png' },
+    { symbol:'MSFT', img: ASSET_BASE + 'MSFT.png' },
+    { symbol:'NVDA', img: ASSET_BASE + 'NVDA.png' },
+    { symbol:'TSLA', img: ASSET_BASE + 'TSLA.png' },
+    { symbol:'ETH',  img: ASSET_BASE + 'eth-logo.svg' },
+    { symbol:'USDG', img: ASSET_BASE + 'usdg-logo.svg' }
+  ];
+  function randomNftImg(){ return NFT_IMAGES[Math.floor(Math.random()*NFT_IMAGES.length)]; }
+
+  const SYMBOLS = NFT_IMAGES; // spin reels use the Mr.Stonk NFT artwork
   const REEL_COUNT = 24; // cells per reel for spin illusion
 
   /* ---------------- Utility: toast ---------------- */
@@ -1595,12 +1605,12 @@ img{ max-width:100%; display:block; }
     { id:'#5820', staked:false, remaining:'—', daily:0, earned:0 }
   ];
 
-  function stakeCardHTML(nft){
+  function stakeCardHTML(nft, idx){
     return `
     <div class="stake-card" data-id="${nft.id}">
       <div class="nft-art">
         <div class="nft-art-scan"></div>
-        <svg viewBox="0 0 200 200" class="nft-glyph"><polyline points="10,160 50,110 90,140 130,70 190,30" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+        <img src="${NFT_IMAGES[idx % NFT_IMAGES.length]}" alt="MR.STONK ${nft.id}">
         <div class="nft-art-label">MR.STONK ${nft.id}</div>
       </div>
       <div class="stake-meta">
@@ -1621,7 +1631,7 @@ img{ max-width:100%; display:block; }
   function renderStakingGrid(){
     const grid = document.getElementById('staking-grid');
     if(!grid) return;
-    grid.innerHTML = stakingData.map(stakeCardHTML).join('');
+    grid.innerHTML = stakingData.map((nft, idx)=> stakeCardHTML(nft, idx)).join('');
   }
   renderStakingGrid();
 
@@ -1663,36 +1673,30 @@ img{ max-width:100%; display:block; }
   });
 
   /* =========================================================================
-     REWARD TICKER GRID (stock tokens)
+     REWARD TICKER GRID (stock + token rewards farmed by staked NFTs)
      ========================================================================= */
   const rewardTickers = [
-    { symbol:'TSLA', pct:'+3.8%', up:true, avail:true },
-    { symbol:'NVDA', pct:'+5.2%', up:true, avail:true },
     { symbol:'AAPL', pct:'-0.6%', up:false, avail:false },
     { symbol:'AMZN', pct:'+1.4%', up:true, avail:false },
     { symbol:'MSFT', pct:'+0.9%', up:true, avail:true },
-    { symbol:'META', pct:'-1.2%', up:false, avail:false },
-    { symbol:'GOOGL', pct:'+2.1%', up:true, avail:false },
-    { symbol:'SP500', pct:'+0.4%', up:true, avail:true },
-    { symbol:'NASDAQ', pct:'+0.7%', up:true, avail:false }
+    { symbol:'NVDA', pct:'+5.2%', up:true, avail:true },
+    { symbol:'TSLA', pct:'+3.8%', up:true, avail:true },
+    { symbol:'ETH',  pct:'+2.3%', up:true, avail:false },
+    { symbol:'USDG', pct:'+0.0%', up:true, avail:true }
   ];
-  function miniChartSVG(up){
-    const pts = up
-      ? '0,24 15,20 30,22 45,12 60,15 75,6 90,2'
-      : '0,4 15,8 30,6 45,14 60,12 75,20 90,24';
-    return `<svg class="mini-chart" viewBox="0 0 90 26" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${up?'#35ff8f':'#ff5c5c'}" stroke-width="2"/></svg>`;
-  }
   function renderTickerGrid(){
     const grid = document.getElementById('ticker-grid');
     if(!grid) return;
-    grid.innerHTML = rewardTickers.map(t=> `
+    grid.innerHTML = rewardTickers.map(t=>{
+      const logo = STOCK_LOGOS.find(s=> s.symbol === t.symbol);
+      return `
       <div class="ticker-card">
+        <img class="logo-img" src="${logo.img}" alt="${t.symbol}">
         <span class="symbol">${t.symbol}</span>
-        ${miniChartSVG(t.up)}
         <span class="pct ${t.up ? 'up' : 'down'}">${t.pct}</span>
         <span class="avail ${t.avail ? 'on' : 'off'}">${t.avail ? 'AVAILABLE' : 'NEXT REWARD'}</span>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   }
   renderTickerGrid();
 
@@ -1710,7 +1714,7 @@ img{ max-width:100%; display:block; }
   function renderMyNftGrid(){
     const grid = document.getElementById('mynft-grid');
     if(!grid) return;
-    grid.innerHTML = myNfts.map(n=> `
+    grid.innerHTML = myNfts.map((n, idx)=> `
       <div class="nft-card" data-tilt>
         <div class="nft-card-top">
           <span class="nft-card-id">MR.STONK ${n.id}</span>
@@ -1718,7 +1722,7 @@ img{ max-width:100%; display:block; }
         </div>
         <div class="nft-art">
           <div class="nft-art-scan"></div>
-          <svg viewBox="0 0 200 200" class="nft-glyph"><polyline points="10,160 50,110 90,140 130,70 190,30" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+          <img src="${NFT_IMAGES[(idx + 4) % NFT_IMAGES.length]}" alt="MR.STONK ${n.id}">
         </div>
         <div class="tag-row">
           <span class="tag ${n.staked ? 'tag-green':'tag-gold'}">${n.staked ? 'STAKED' : 'UNSTAKED'}</span>
@@ -1766,8 +1770,7 @@ img{ max-width:100%; display:block; }
     const track = document.getElementById(reelId);
     let html = '';
     for(let i=0;i<REEL_COUNT;i++){
-      const sym = SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
-      html += `<div class="reel-cell">${sym}</div>`;
+      html += `<div class="reel-cell"><img src="${randomNftImg()}" alt="MR.STONK"></div>`;
     }
     track.innerHTML = html;
   }
@@ -1805,23 +1808,24 @@ img{ max-width:100%; display:block; }
     /* Decide outcome: small chance of a win, for demonstration purposes.
        INTEGRATION POINT: replace with server/contract-verified randomness. */
     const willWin = Math.random() < 0.28;
-    const finalSymbol = SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
+    const finalSymbol = randomNftImg();
+    const cellHeight = 96;
 
     const stopDelays = [1400, 2000, 2600];
     rows.forEach((r, i)=>{
       setTimeout(()=>{
-        const rowEl = document.getElementById(r);
-        rowEl.classList.remove('spinning');
+        const colEl = document.getElementById(r);
+        colEl.classList.remove('spinning');
         const track = document.getElementById('reel-' + (i+1));
-        const symbolForRow = willWin ? finalSymbol : SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
-        // rebuild with the resulting symbol centered under the selector
+        const symbolForRow = willWin ? finalSymbol : randomNftImg();
+        // rebuild vertically with the resulting NFT image centered in the window
         let html = '';
         for(let c=0;c<REEL_COUNT;c++){
-          const sym = c === Math.floor(REEL_COUNT/2) ? symbolForRow : SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
-          html += `<div class="reel-cell">${sym}</div>`;
+          const img = c === Math.floor(REEL_COUNT/2) ? symbolForRow : randomNftImg();
+          html += `<div class="reel-cell"><img src="${img}" alt="MR.STONK"></div>`;
         }
         track.innerHTML = html;
-        track.style.transform = `translateX(-${Math.floor(REEL_COUNT/2)*76}px)`;
+        track.style.transform = `translateY(-${Math.floor(REEL_COUNT/2)*cellHeight}px)`;
 
         if(i === rows.length - 1){
           finishSpin(willWin);
@@ -1833,7 +1837,7 @@ img{ max-width:100%; display:block; }
   function finishSpin(won){
     state.spinning = false;
     if(won){
-      document.querySelectorAll('.machine-row').forEach(r=> r.classList.add('win'));
+      document.querySelectorAll('.reel-col').forEach(r=> r.classList.add('win'));
       setTimeout(()=> showWinModal(), 400);
     } else {
       toast('No match this round — try again in 24h');
@@ -1850,7 +1854,7 @@ img{ max-width:100%; display:block; }
 
   document.querySelector('[data-action="claim-jackpot"]').addEventListener('click', function(){
     closeAllModals();
-    document.querySelectorAll('.machine-row').forEach(r=> r.classList.remove('win'));
+    document.querySelectorAll('.reel-col').forEach(r=> r.classList.remove('win'));
     toast('Jackpot reward claimed to wallet');
   });
 
