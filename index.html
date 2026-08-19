@@ -614,6 +614,72 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
 @keyframes toast-out{ to{ opacity:0; transform:translateX(20px); } }
 
 /* ==========================================================================
+   $STONK Token Packages — premium banknote-style cards
+   ========================================================================== */
+.note-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-bottom:30px; }
+.stonk-note{
+  position:relative; cursor:pointer; border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--panel); border:1px solid var(--border); box-shadow:var(--shadow-card);
+  transition:all .3s var(--ease); display:flex; flex-direction:column;
+}
+.stonk-note:hover{ transform:translateY(-4px); border-color:var(--border-strong); }
+.stonk-note.selected{ border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft), var(--shadow-soft); }
+
+.note-face{
+  position:relative; aspect-ratio:16/9; margin:14px 14px 0; border-radius:var(--radius-md);
+  background:
+    repeating-linear-gradient(115deg, rgba(240,196,25,.035) 0px, rgba(240,196,25,.035) 1px, transparent 1px, transparent 7px),
+    linear-gradient(135deg, #0c1310, #070b08 60%);
+  border:1px solid var(--gold-dim); overflow:hidden; padding:16px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.note-face::before{
+  content:''; position:absolute; inset:5px; border:1px dashed rgba(240,196,25,.28); border-radius:calc(var(--radius-md) - 4px); pointer-events:none;
+}
+.note-watermark{
+  position:absolute; right:-6%; top:50%; transform:translateY(-50%); width:62%; height:120%;
+  opacity:.14; filter:grayscale(1) contrast(1.1); pointer-events:none;
+}
+.note-watermark img{ width:100%; height:100%; object-fit:contain; }
+.note-top-row{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; }
+.note-currency-tag{ font-size:9.5px; letter-spacing:.14em; color:var(--gold); font-weight:700; text-transform:uppercase; font-family:var(--font-mono); }
+.note-seal{
+  font-size:10px; font-weight:700; color:#04140a; background:var(--primary); padding:4px 9px; border-radius:20px;
+  font-family:var(--font-mono); letter-spacing:.02em;
+}
+.note-denom{ position:relative; z-index:1; font-family:var(--font-mono); font-weight:700; color:var(--text); font-size:clamp(22px,2.4vw,28px); letter-spacing:-.01em; line-height:1; }
+.note-denom span{ font-size:13px; color:var(--text-faint); font-weight:600; margin-left:6px; }
+.note-bottom-row{ display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:1; }
+.note-serial{ font-size:9px; color:var(--text-faint); letter-spacing:.08em; font-family:var(--font-mono); }
+.note-eth{ font-size:12.5px; font-weight:700; color:var(--gold); font-family:var(--font-mono); }
+
+.stonk-note .pkg-check{
+  position:absolute; top:22px; right:22px; width:22px; height:22px; border-radius:50%; border:1px solid var(--border-strong);
+  background:var(--bg-deep); display:flex; align-items:center; justify-content:center; font-size:12px; color:transparent; transition:all .2s var(--ease); z-index:2;
+}
+.stonk-note.selected .pkg-check{ background:var(--primary); border-color:var(--primary); color:#04140a; }
+
+.note-info{ padding:16px 18px 18px; text-align:left; }
+.note-info h4{ font-size:13.5px; font-weight:700; letter-spacing:.02em; color:var(--text); margin:0 0 6px; text-transform:uppercase; }
+.note-info p{ font-size:12.5px; color:var(--text-muted); line-height:1.6; margin:0; }
+
+.package-summary{
+  display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap;
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:18px 24px;
+  max-width:640px; margin:0 auto; font-size:13px; color:var(--text-muted); animation:fade-in .3s var(--ease);
+}
+.package-summary strong{ color:var(--text); font-family:var(--font-mono); }
+.package-summary-price strong{ color:var(--gold); }
+
+@media (max-width:980px){
+  .note-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:600px){
+  .note-grid{ grid-template-columns:1fr; }
+  .package-summary{ flex-direction:column; gap:10px; text-align:center; }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width:980px){
@@ -671,6 +737,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
     <nav class="nav" id="main-nav">
       <a href="#home" class="nav-link active">HOME</a>
       <a href="#collection" class="nav-link">COLLECTION</a>
+      <a href="#packages" class="nav-link">PACKAGES</a>
       <a href="#how" class="nav-link">HOW IT WORKS</a>
       <a href="#farm" class="nav-link">FARM</a>
       <a href="#jackpot" class="nav-link">JACKPOT</a>
@@ -693,6 +760,7 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
 <div class="mobile-drawer" id="mobile-drawer">
   <a href="#home" class="nav-link">HOME</a>
   <a href="#collection" class="nav-link">COLLECTION</a>
+      <a href="#packages" class="nav-link">PACKAGES</a>
   <a href="#how" class="nav-link">HOW IT WORKS</a>
   <a href="#farm" class="nav-link">FARM</a>
   <a href="#jackpot" class="nav-link">JACKPOT</a>
@@ -829,6 +897,25 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
         <div class="progress-bar"><div class="progress-fill" style="width:72.1%"></div></div>
         <a href="#mint" class="btn btn-primary btn-block">MINT MR.STONK</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STONK TOKEN PACKAGES ============ -->
+<section class="section alt" id="packages">
+  <div class="section-inner">
+    <div class="section-head center">
+      <span class="eyebrow">CLAIM OR BUY $STONK</span>
+      <h2 class="section-title">$STONK TOKEN PACKAGES</h2>
+      <p class="section-text center">Claim or purchase $STONK in fixed denominations with ETH — the exact balance you need toward minting, staking, and jackpot spins. 1,000 $STONK ≈ 0.0005 ETH.</p>
+    </div>
+
+    <div class="note-grid" id="package-grid"><!-- injected by JS --></div>
+
+    <div class="package-summary" id="package-summary" hidden>
+      <span>SELECTED: <strong id="package-summary-name">—</strong></span>
+      <span class="package-summary-price">PRICE: <strong id="package-summary-price" class="text-gold">0 ETH</strong></span>
+      <a href="#mint" class="btn btn-primary btn-sm" data-action="proceed-mint">PROCEED TO MINT</a>
     </div>
   </div>
 </section>
@@ -1579,6 +1666,75 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
       toast('Whitelist application received');
     }, 1000);
   });
+
+  /* =========================================================================
+     $STONK TOKEN PACKAGES
+     ========================================================================= */
+  const packageData = [
+    { amount:1000,  eth:'0.0005', img: NFT_IMAGES[0], title:'STARTER TOP-UP',  desc:'Top up your balance and get started with $STONK.' },
+    { amount:7000,  eth:'0.0035', img: NFT_IMAGES[1], title:'FARM BOOST',      desc:'Accelerate daily farming rewards on staked NFTs.' },
+    { amount:10000, eth:'0.0050', img: NFT_IMAGES[2], title:'STAKE READY',     desc:'40% of the balance needed toward one NFT mint.' },
+    { amount:15000, eth:'0.0075', img: NFT_IMAGES[3], title:'MINT BUILDER',    desc:'60% of the balance needed toward one NFT mint.' },
+    { amount:20000, eth:'0.0100', img: NFT_IMAGES[4], title:'ALMOST THERE',    desc:'80% of the balance needed toward one NFT mint.' },
+    { amount:25000, eth:'0.0125', img: NFT_IMAGES[5], title:'FULL MINT',       desc:'Exactly enough $STONK to mint 1 Mr.Stonk NFT.' }
+  ];
+  let selectedPackage = null;
+
+  function renderPackageGrid(){
+    const grid = document.getElementById('package-grid');
+    if(!grid) return;
+    grid.innerHTML = packageData.map((p, idx)=> `
+      <div class="stonk-note" data-idx="${idx}">
+        <span class="pkg-check">✓</span>
+        <div class="note-face">
+          <div class="note-watermark"><img src="${p.img}" alt=""></div>
+          <div class="note-top-row">
+            <span class="note-currency-tag">MR.STONK PROTOCOL</span>
+            <span class="note-seal">${p.eth} ETH</span>
+          </div>
+          <div class="note-denom">${p.amount.toLocaleString('en-US')}<span>$STONK</span></div>
+          <div class="note-bottom-row">
+            <span class="note-serial">PKG-${String(idx+1).padStart(2,'0')} · MAINNET</span>
+            <span class="note-eth">${p.eth} ETH</span>
+          </div>
+        </div>
+        <div class="note-info">
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+        </div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.stonk-note').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const idx = parseInt(card.dataset.idx, 10);
+        selectPackage(idx);
+      });
+    });
+  }
+
+  function selectPackage(idx){
+    selectedPackage = packageData[idx];
+    document.querySelectorAll('.stonk-note').forEach((c,i)=> c.classList.toggle('selected', i === idx));
+
+    const summary = document.getElementById('package-summary');
+    summary.hidden = false;
+    document.getElementById('package-summary-name').textContent = selectedPackage.amount.toLocaleString('en-US') + ' $STONK';
+    document.getElementById('package-summary-price').textContent = selectedPackage.eth + ' ETH';
+    toast(`${selectedPackage.amount.toLocaleString('en-US')} $STONK package selected — ${selectedPackage.eth} ETH`);
+  }
+
+  renderPackageGrid();
+
+  const proceedMintBtn = document.querySelector('[data-action="proceed-mint"]');
+  if(proceedMintBtn){
+    proceedMintBtn.addEventListener('click', ()=>{
+      if(!selectedPackage) return;
+      /* Carry the selected package's $STONK amount over to the mint total display */
+      const mintTotal = document.getElementById('mint-total');
+      if(mintTotal) mintTotal.textContent = selectedPackage.amount.toLocaleString('en-US') + ' $STONK';
+    });
+  }
 
   /* =========================================================================
      MINT
