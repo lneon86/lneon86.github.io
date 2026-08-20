@@ -2,55 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>MR.STONK — Whitelist Access</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MR.STONK — Exclusive Whitelist Protocol</title>
 <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/usdg-logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   MR.STONK — Premium Design System (Exact Match)
-   ========================================================================== */
 :root{
   --bg: #050706;
   --bg-deep: #000000;
   --panel: #0a100c;
   --panel-2: #0d1611;
-  --panel-glass: rgba(13,22,17,.6);
   --border: rgba(255,255,255,.08);
   --border-strong: rgba(255,255,255,.14);
   --border-hairline: rgba(255,255,255,.06);
 
   --primary: #35ff8f;
-  --primary-dim: #1f8f55;
   --primary-soft: rgba(53,255,143,.12);
   --primary-glow: rgba(53,255,143,.22);
 
   --gold: #f0c419;
-  --gold-dim: #a88a2a;
   --gold-soft: rgba(240,196,25,.12);
-  --gold-glow: rgba(240,196,25,.22);
 
   --error: #ff5c5c;
-  --error-soft: rgba(255,92,92,.12);
 
   --text: #f1f5f2;
   --text-muted: #8b9a90;
   --text-faint: #56655b;
 
-  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 10px;
-  --radius-xs: 6px;
 
   --container: 1280px;
-  --shadow-soft: 0 24px 60px -24px rgba(0,0,0,.65);
-  --shadow-card: 0 12px 32px -16px rgba(0,0,0,.5);
+  --shadow-soft: 0 24px 60px -24px rgba(0,0,0,.8);
   --ease: cubic-bezier(.4,0,.2,1);
 }
 
@@ -64,7 +54,6 @@ body{
   font-size:15px;
   line-height:1.65;
   overflow-x:hidden;
-  position:relative;
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -74,203 +63,170 @@ body{
 
 a{ color:inherit; text-decoration:none; }
 button{ font-family:inherit; cursor:pointer; }
-.mono{ font-family:var(--font-mono); }
 
-/* Background Grid + Glow */
+/* Dynamic Glow Grid */
 .grid-bg{
   position:fixed; inset:0; z-index:-2;
   background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-  background-size:48px 48px;
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:40px 40px;
 }
 .vignette{
   position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:
-    radial-gradient(ellipse 900px 500px at 20% -5%, rgba(53,255,143,.05), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(240,196,25,.035), transparent 60%),
-    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(0,0,0,.7), transparent 60%),
-    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, rgba(0,0,0,.55) 100%);
+    radial-gradient(ellipse 800px 400px at 20% -5%, rgba(53,255,143,.06), transparent 60%),
+    radial-gradient(ellipse 600px 400px at 100% 10%, rgba(240,196,25,.04), transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,.7) 100%);
 }
 
-/* Header */
+/* Glass Header */
 .header{
   position:fixed; top:0; left:0; right:0; z-index:100;
-  background:rgba(5,7,6,.72); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+  background:rgba(5,7,6,.8); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border-hairline);
 }
 .header-inner{
-  max-width:var(--container); margin:0 auto; padding:0 24px; height:76px;
-  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  max-width:var(--container); margin:0 auto; padding:0 20px; height:72px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
 .logo{ display:flex; align-items:center; gap:10px; }
-.logo-mark{ color:var(--primary); display:flex; filter:drop-shadow(0 0 6px var(--primary-glow)); }
-.logo-text{ font-family:var(--font-display); font-weight:700; font-size:19px; letter-spacing:-.01em; }
+.logo-mark{ color:var(--primary); display:flex; filter:drop-shadow(0 0 8px var(--primary-glow)); }
+.logo-text{ font-family:var(--font-display); font-weight:700; font-size:18px; letter-spacing:-.01em; }
 .logo-text .dot{ color:var(--gold); }
 
 .header-actions{ display:flex; align-items:center; gap:12px; }
 .network-pill{
-  display:flex; align-items:center; gap:7px; font-size:12px; font-weight:500;
-  color:var(--text-muted); border:1px solid var(--border); padding:8px 13px; border-radius:20px;
+  display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600;
+  color:var(--text-muted); border:1px solid var(--border); padding:6px 12px; border-radius:20px;
   font-family:var(--font-mono);
 }
 .dot-pulse{
   width:6px; height:6px; border-radius:50%; background:var(--primary);
   box-shadow:0 0 6px var(--primary); animation:pulse-dot 2s ease-in-out infinite;
 }
-@keyframes pulse-dot{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
+@keyframes pulse-dot{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
 
-/* Buttons */
+/* Premium Buttons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:13px 24px; font-family:var(--font-body); font-weight:600;
-  font-size:14px; letter-spacing:-.005em;
-  border-radius:var(--radius-sm); border:1px solid transparent;
-  cursor:pointer; transition:all .2s var(--ease); white-space:nowrap; position:relative;
-  text-transform:uppercase;
+  padding:12px 22px; font-family:var(--font-body); font-weight:600;
+  font-size:13.5px; border-radius:var(--radius-sm); border:1px solid transparent;
+  cursor:pointer; transition:all .2s var(--ease); white-space:nowrap;
+  text-transform:uppercase; letter-spacing:.02em;
 }
 .btn-primary{
   background:var(--primary); color:#04140a; border-color:var(--primary);
-  box-shadow:0 1px 0 rgba(255,255,255,.15) inset, 0 8px 24px -8px var(--primary-glow);
+  box-shadow:0 0 20px -5px var(--primary-glow);
 }
-.btn-primary:hover{ background:#4dffa1; transform:translateY(-1px); box-shadow:0 1px 0 rgba(255,255,255,.2) inset, 0 12px 28px -8px var(--primary-glow); }
-.btn-primary:active{ transform:translateY(0); }
+.btn-primary:hover{ background:#4dffa1; transform:translateY(-1px); }
 .btn-ghost{
   background:rgba(255,255,255,.03); color:var(--text); border:1px solid var(--border-strong);
 }
 .btn-ghost:hover{ border-color:var(--primary); color:var(--primary); background:var(--primary-soft); }
 .btn-block{ width:100%; }
-.btn-sm{ padding:9px 16px; font-size:12.5px; }
 
-/* Whitelist Container */
+/* Main Container */
 .main-content{
-  padding:120px 24px 60px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-grow:1;
+  padding:110px 16px 50px;
+  display:flex; align-items:center; justify-content:center; flex-grow:1;
 }
 .wl-panel{
-  width:100%;
-  max-width:580px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:44px;
-  box-shadow:var(--shadow-soft);
-  position:relative;
+  width:100%; max-width:540px;
+  background:var(--panel); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:36px;
+  box-shadow:var(--shadow-soft); position:relative;
 }
-.wl-header{
-  text-align:center;
-  margin-bottom:32px;
-}
+.wl-header{ text-align:center; margin-bottom:28px; }
 .eyebrow{
-  display:inline-flex; align-items:center; gap:8px; color:var(--primary); font-size:12px; letter-spacing:.14em;
-  font-weight:600; margin-bottom:12px; text-transform:uppercase; font-family:var(--font-body);
+  display:inline-flex; align-items:center; gap:8px; color:var(--primary); font-size:11px; letter-spacing:.14em;
+  font-weight:700; margin-bottom:8px; text-transform:uppercase; font-family:var(--font-mono);
 }
 .wl-title{
-  font-size:clamp(26px, 4vw, 36px); letter-spacing:-.02em; font-weight:700; margin:0 0 10px; color:var(--text); line-height:1.2;
+  font-size:clamp(24px, 4vw, 32px); letter-spacing:-.02em; font-weight:700; margin:0 0 8px; color:var(--text); line-height:1.2;
 }
-.wl-desc{
-  color:var(--text-muted); font-size:14px; margin:0; line-height:1.6;
-}
+.wl-desc{ color:var(--text-muted); font-size:13.5px; margin:0; line-height:1.5; }
 
-/* Progress Stepper */
-.wl-progress{ display:flex; align-items:center; margin-bottom:36px; justify-content:space-between; }
+/* Stepper Bar */
+.wl-progress{ display:flex; align-items:center; margin-bottom:32px; justify-content:space-between; }
 .wl-progress-step{
-  width:38px; height:38px; border-radius:50%; border:1px solid var(--border-strong); display:flex; align-items:center; justify-content:center;
-  font-size:13px; font-weight:700; color:var(--text-faint); flex-shrink:0; transition:all .3s var(--ease); font-family:var(--font-mono);
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--border-strong); display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:var(--text-faint); flex-shrink:0; transition:all .3s var(--ease); font-family:var(--font-mono);
   background:var(--bg-deep);
 }
 .wl-progress-step.active{ border-color:var(--primary); color:var(--primary); box-shadow:0 0 0 4px var(--primary-soft); }
 .wl-progress-step.done{ background:var(--primary); color:#04140a; border-color:var(--primary); }
 .wl-progress-line{ flex:1; height:1px; background:var(--border-strong); margin:0 8px; }
 
-/* Steps Content */
-.wl-step{ display:none; animation:fade-in .35s var(--ease); }
+/* Dynamic Steps */
+.wl-step{ display:none; animation:fade-in .3s var(--ease); }
 .wl-step.active{ display:block; }
-.wl-step h3{ font-size:18px; letter-spacing:-.01em; margin:0 0 8px; font-weight:700; color:var(--text); }
-.wl-step p{ color:var(--text-muted); font-size:14px; margin:0 0 24px; line-height:1.6; }
-@keyframes fade-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.wl-step h3{ font-size:16px; margin:0 0 6px; font-weight:700; color:var(--text); font-family:var(--font-display); }
+.wl-step p{ color:var(--text-muted); font-size:13.5px; margin:0 0 20px; }
+@keyframes fade-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
 
-/* Form inputs */
-.input-group{ margin-bottom:20px; text-align:left; }
-.input-label{ display:block; font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:8px; font-family:var(--font-mono); letter-spacing:.05em; text-transform:uppercase; }
+/* Inputs */
+.input-group{ margin-bottom:18px; text-align:left; }
+.input-label{ display:block; font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px; font-family:var(--font-mono); text-transform:uppercase; }
 .input-field{
   width:100%; background:var(--panel-2); border:1px solid var(--border-strong);
-  color:var(--text); padding:14px 16px; border-radius:var(--radius-sm); font-size:14px;
+  color:var(--text); padding:12px 14px; border-radius:var(--radius-sm); font-size:13.5px;
   font-family:var(--font-mono); transition:border-color .2s var(--ease); outline:none;
 }
 .input-field:focus{ border-color:var(--primary); box-shadow:0 0 0 2px var(--primary-soft); }
 
-.wallet-display{
-  font-size:13.5px; font-weight:600; color:var(--primary); background:var(--panel-2); border:1px solid var(--border);
-  padding:14px 16px; border-radius:var(--radius-sm); margin-bottom:20px; font-family:var(--font-mono); display:flex; align-items:center; justify-content:space-between;
-}
-.badge-status{ font-size:11px; padding:4px 8px; border-radius:12px; background:var(--primary-soft); color:var(--primary); font-weight:700; border:1px solid rgba(53,255,143,.3); }
-
 .status-tag{
-  display:inline-block; margin-top:16px; font-size:11.5px; font-weight:600; letter-spacing:.02em;
-  color:var(--gold); background:var(--gold-soft); padding:7px 13px; border-radius:20px; font-family:var(--font-mono);
+  display:inline-block; font-size:11px; font-weight:600;
+  color:var(--gold); background:var(--gold-soft); padding:5px 10px; border-radius:14px; font-family:var(--font-mono);
 }
 .status-tag.success{ color:var(--primary); background:var(--primary-soft); }
 
-.wl-success{ text-align:center; padding:20px 0; }
-.welcome-text{ font-size:26px; margin-top:16px; color:var(--text); letter-spacing:-.02em; font-weight:700; }
-.success-card{ background:var(--panel-2); border:1px solid var(--border-strong); border-radius:var(--radius-md); padding:20px; margin-top:20px; text-align:left; font-family:var(--font-mono); font-size:13px; }
+.wl-success{ text-align:center; padding:10px 0; }
+.welcome-text{ font-size:24px; margin-top:12px; color:var(--text); font-weight:700; }
+.success-card{ background:var(--panel-2); border:1px solid var(--border-strong); border-radius:var(--radius-md); padding:16px; margin-top:16px; text-align:left; font-family:var(--font-mono); font-size:12.5px; }
 .success-card-row{ display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid var(--border-hairline); padding-bottom:8px; }
 .success-card-row:last-child{ margin-bottom:0; border-bottom:none; padding-bottom:0; }
-.success-card-row span{ color:var(--text-faint); }
-.success-card-row strong{ color:var(--text); }
 
-/* Modals */
+/* Responsive Modals */
 .modal-overlay{
   position:fixed; inset:0; background:rgba(2,4,3,.85); backdrop-filter:blur(8px); z-index:1000;
-  display:none; align-items:center; justify-content:center; padding:20px;
+  display:none; align-items:center; justify-content:center; padding:16px;
 }
 .modal-overlay.open{ display:flex; }
 .modal{
   position:relative; background:var(--panel); border:1px solid var(--border-strong); border-radius:var(--radius-lg);
-  padding:36px; max-width:420px; width:100%; text-align:left; animation:modal-in .3s var(--ease);
-  box-shadow:var(--shadow-soft);
+  padding:28px; max-width:400px; width:100%; text-align:left; animation:modal-in .25s var(--ease);
 }
-@keyframes modal-in{ from{ opacity:0; transform:scale(.96) translateY(8px); } to{ opacity:1; transform:none; } }
+@keyframes modal-in{ from{ opacity:0; transform:scale(.96); } to{ opacity:1; transform:none; } }
 .modal-close{
-  position:absolute; top:16px; right:16px; background:rgba(255,255,255,.04); border:1px solid var(--border); color:var(--text-muted); font-size:14px;
-  width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .2s; cursor:pointer;
+  position:absolute; top:16px; right:16px; background:transparent; border:none; color:var(--text-muted); font-size:16px; cursor:pointer;
 }
-.modal-close:hover{ color:var(--text); border-color:var(--border-strong); }
-.wallet-options{ display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+.wallet-options{ display:flex; flex-direction:column; gap:8px; margin-top:16px; }
 .wallet-option{
   display:flex; align-items:center; gap:12px; background:var(--panel-2); border:1px solid var(--border);
-  color:var(--text); padding:15px 16px; border-radius:var(--radius-sm); font-size:13.5px; font-weight:600;
-  transition:border-color .2s var(--ease), background .2s var(--ease); cursor:pointer; width:100%; text-align:left;
+  color:var(--text); padding:14px; border-radius:var(--radius-sm); font-size:13px; font-weight:600;
+  transition:all .2s var(--ease); width:100%; text-align:left;
 }
 .wallet-option:hover{ border-color:var(--primary); background:var(--primary-soft); color:var(--primary); }
-.connecting-state{ display:flex; align-items:center; gap:12px; padding:20px 0 0; font-size:12.5px; color:var(--primary); font-family:var(--font-mono); }
-.spinner{ width:16px; height:16px; border:2px solid var(--border-strong); border-top-color:var(--primary); border-radius:50%; animation:spin 0.8s linear infinite; }
-@keyframes spin{ to{ transform:rotate(360deg); } }
 
-/* Toasts */
-.toast-container{ position:fixed; top:96px; right:20px; z-index:1100; display:flex; flex-direction:column; gap:10px; }
+/* Custom Toasts */
+.toast-container{ position:fixed; top:80px; right:16px; z-index:1100; display:flex; flex-direction:column; gap:8px; max-width:calc(100vw - 32px); }
 .toast{
   background:var(--panel); border:1px solid var(--border-strong); border-left:3px solid var(--primary); border-radius:var(--radius-sm);
-  padding:15px 18px; font-size:13px; color:var(--text); min-width:260px; box-shadow:var(--shadow-soft);
-  animation:toast-in .3s var(--ease); font-family:var(--font-mono);
+  padding:12px 16px; font-size:12.5px; color:var(--text); box-shadow:var(--shadow-soft); font-family:var(--font-mono);
 }
-.toast.error{ border-color:var(--border-strong); border-left-color:var(--error); }
-.toast.warning{ border-color:var(--border-strong); border-left-color:var(--gold); }
-@keyframes toast-in{ from{ opacity:0; transform:translateX(20px); } to{ opacity:1; transform:none; } }
-.toast.hide{ animation:toast-out .25s var(--ease) forwards; }
-@keyframes toast-out{ to{ opacity:0; transform:translateX(20px); } }
+.toast.error{ border-left-color:var(--error); }
+.toast.warning{ border-left-color:var(--gold); }
 
 /* Footer */
-.footer{ border-top:1px solid var(--border-hairline); padding:28px 0; background:var(--panel); }
-.footer-bottom{ max-width:var(--container); margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--text-faint); font-family:var(--font-mono); }
+.footer{ border-top:1px solid var(--border-hairline); padding:20px 0; background:var(--panel); }
+.footer-bottom{ max-width:var(--container); margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono); }
 
-@media (max-width:600px){
-  .wl-panel{ padding:28px 20px; }
-  .main-content{ padding:100px 16px 40px; }
+@media (max-width:480px){
+  .wl-panel{ padding:24px 16px; }
+  .main-content{ padding:90px 12px 30px; }
+  .header-inner{ padding:0 14px; }
+  .network-pill{ display:none; }
 }
 </style>
 </head>
@@ -280,12 +236,11 @@ button{ font-family:inherit; cursor:pointer; }
 <div class="vignette"></div>
 <div id="toast-container" class="toast-container"></div>
 
-<!-- ============ HEADER ============ -->
 <header class="header">
   <div class="header-inner">
     <a href="#" class="logo">
       <span class="logo-mark">
-        <svg viewBox="0 0 32 32" width="26" height="26"><path d="M3 24L11 14L17 19L29 5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="square"/><path d="M22 5H29V12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="square"/></svg>
+        <svg viewBox="0 0 32 32" width="24" height="24"><path d="M3 24L11 14L17 19L29 5" stroke="currentColor" stroke-width="2.5" fill="none"/><path d="M22 5H29V12" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
       </span>
       <span class="logo-text">MR<span class="dot">.</span>STONK</span>
     </a>
@@ -299,16 +254,14 @@ button{ font-family:inherit; cursor:pointer; }
   </div>
 </header>
 
-<!-- ============ MAIN CONTENT ============ -->
 <main class="main-content">
   <div class="wl-panel">
     <div class="wl-header">
       <span class="eyebrow">EARLY ACCESS</span>
-      <h1 class="wl-title">JOIN THE WHITELIST</h1>
-      <p class="wl-desc">Complete all tasks below to verify your eligibility for the exclusive Mr.Stonk NFT whitelist.</p>
+      <h1 class="wl-title">WHITELIST ACCESS</h1>
+      <p class="wl-desc">Complete tasks below to register your EVM address for guaranteed allocation.</p>
     </div>
 
-    <!-- Step Progress Bar -->
     <div class="wl-progress">
       <div class="wl-progress-step active" data-step-indicator="1">01</div>
       <div class="wl-progress-line"></div>
@@ -319,113 +272,91 @@ button{ font-family:inherit; cursor:pointer; }
       <div class="wl-progress-step" data-step-indicator="4">04</div>
     </div>
 
-    <!-- STEP 1: Connect Wallet -->
     <div class="wl-step active" data-step="1">
-      <h3>STEP 01 — CONNECT WALLET</h3>
-      <p>Connect your Web3 wallet to begin the whitelist verification process.</p>
-      <button class="btn btn-primary btn-block" id="btn-step1-connect">CONNECT WALLET</button>
+      <h3>STEP 01 — AUTHENTICATE WALLET</h3>
+      <p>Connect your Web3 Web3 EVM wallet (MetaMask, Coinbase, Trust) to proceed.</p>
+      <button class="btn btn-primary btn-block" id="btn-step1-connect">CONNECT WEB3 WALLET</button>
     </div>
 
-    <!-- STEP 2: Follow on X & Input Username -->
     <div class="wl-step" data-step="2">
-      <h3>STEP 02 — FOLLOW ON X</h3>
-      <p>Follow our official X handle to receive announcements and updates.</p>
+      <h3>STEP 02 — FOLLOW OFFICIAL X</h3>
+      <p>Follow our official channel on X to authorize account sync.</p>
       
-      <div style="margin-bottom:20px;">
-        <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" id="btn-x-follow" style="margin-bottom:16px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          FOLLOW @MRSTONK ON X
-        </a>
-      </div>
+      <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        FOLLOW @MRSTONK
+      </a>
 
       <div class="input-group">
-        <label class="input-label" for="x-username">X Username (@handle)</label>
+        <label class="input-label" for="x-username">Your Twitter Handle</label>
         <input type="text" id="x-username" class="input-field" placeholder="@username">
       </div>
 
-      <button class="btn btn-primary btn-block" id="btn-step2-next">VERIFY & NEXT STEP</button>
+      <button class="btn btn-primary btn-block" id="btn-step2-next">VERIFY & CONTINUE</button>
     </div>
 
-    <!-- STEP 3: Like, Repost & Repost Link -->
     <div class="wl-step" data-step="3">
-      <h3>STEP 03 — LIKE & REPOST</h3>
-      <p>Like & repost our official pinned announcement post on X, then paste your repost link below.</p>
+      <h3>STEP 03 — LIKE & REPOST PIN</h3>
+      <p>Interact with our pinned post and paste your post link below.</p>
       
-      <div style="margin-bottom:20px;">
-        <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" id="btn-x-post" style="margin-bottom:16px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          OPEN PINNED POST
-        </a>
-      </div>
+      <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
+        OPEN PINNED TWEET
+      </a>
 
       <div class="input-group">
         <label class="input-label" for="repost-link">Repost Tweet URL</label>
-        <input type="url" id="repost-link" class="input-field" placeholder="https://x.com/username/status/123456789">
+        <input type="url" id="repost-link" class="input-field" placeholder="https://x.com/username/status/...">
       </div>
 
       <button class="btn btn-primary btn-block" id="btn-step3-submit">SUBMIT APPLICATION</button>
     </div>
 
-    <!-- STEP 4: Success / Congratulations -->
     <div class="wl-step" data-step="4">
       <div class="wl-success">
         <span class="status-tag success">✓ APPLICATION CONFIRMED</span>
-        <h2 class="welcome-text">CONGRATULATIONS!</h2>
-        <p style="color:var(--text-muted); font-size:14px; margin-top:10px;">Your wallet has been successfully registered for the Mr.Stonk Whitelist.</p>
+        <h2 class="welcome-text">YOU'RE ON THE LIST!</h2>
+        <p style="color:var(--text-muted); font-size:13px; margin-top:8px;">Your EVM wallet address is bound to the mint whitelist.</p>
 
         <div class="success-card">
           <div class="success-card-row">
-            <span>REGISTERED WALLET:</span>
-            <strong id="summary-wallet">0x000...000</strong>
+            <span style="color:var(--text-faint)">WALLET:</span>
+            <strong id="summary-wallet" style="color:var(--primary)">0x000...000</strong>
           </div>
           <div class="success-card-row">
-            <span>X USERNAME:</span>
+            <span style="color:var(--text-faint)">HANDLE:</span>
             <strong id="summary-x">@username</strong>
           </div>
           <div class="success-card-row">
-            <span>STATUS:</span>
-            <strong style="color:var(--primary);">WHITELISTED</strong>
+            <span style="color:var(--text-faint)">STATUS:</span>
+            <strong style="color:var(--primary)">ELIGIBLE</strong>
           </div>
         </div>
-
-        <p style="font-size:12px; color:var(--text-faint); margin-top:24px;">Note: You cannot re-submit with this wallet address. Your access allocation is tied directly to your connected address.</p>
       </div>
     </div>
 
   </div>
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="footer-bottom">
     <span>© 2026 MR.STONK PROTOCOL</span>
-    <span>EXCLUSIVE WHITELIST LANDING PAGE</span>
-    <span class="status-tag success" style="margin:0;">● SYSTEM ONLINE</span>
+    <span class="status-tag success" style="margin:0;">● SYSTEM OPERATIONAL</span>
   </div>
 </footer>
 
-<!-- ============ WALLET MODAL ============ -->
 <div class="modal-overlay" id="wallet-modal">
   <div class="modal">
     <button class="modal-close" id="modal-close">✕</button>
-    <h3 style="margin:0 0 6px; font-size:18px;">CONNECT WALLET</h3>
-    <p style="margin:0; font-size:13px; color:var(--text-muted);">Select your preferred Web3 provider to proceed.</p>
+    <h3 style="margin:0 0 4px; font-size:16px; font-family:var(--font-display);">CONNECT WALLET</h3>
+    <p style="margin:0; font-size:12px; color:var(--text-muted);">Choose EVM wallet provider.</p>
     
-    <div class="wallet-options" id="wallet-options">
-      <button class="wallet-option" data-provider="MetaMask">
-        <span style="color:var(--primary);">◆</span> METAMASK
+    <div class="wallet-options">
+      <button class="wallet-option" id="connect-metamask">
+        <span style="color:var(--primary);">◆</span> METAMASK / BROWSER WALLET
       </button>
-      <button class="wallet-option" data-provider="WalletConnect">
-        <span style="color:var(--primary);">◇</span> WALLETCONNECT
-      </button>
-      <button class="wallet-option" data-provider="Coinbase">
+      <button class="wallet-option" id="connect-coinbase">
         <span style="color:var(--primary);">●</span> COINBASE WALLET
       </button>
-    </div>
-
-    <div class="connecting-state" id="connecting-state" hidden>
-      <div class="spinner"></div>
-      <span>ESTABLISHING SECURE CONNECTION...</span>
     </div>
   </div>
 </div>
@@ -434,16 +365,13 @@ button{ font-family:inherit; cursor:pointer; }
 (function(){
   'use strict';
 
-  // State Management & LocalStorage Duplication Check
   const STORAGE_KEY = 'mrstonk_whitelisted_wallets';
   
   function getSubmittedWallets(){
     try {
       const data = localStorage.getItem(STORAGE_KEY);
       return data ? JSON.parse(data) : {};
-    } catch(e) {
-      return {};
-    }
+    } catch(e) { return {}; }
   }
 
   function saveSubmittedWallet(address, data){
@@ -467,7 +395,6 @@ button{ font-family:inherit; cursor:pointer; }
     repostLink: ''
   };
 
-  /* Toast Notification */
   function toast(msg, type = 'info'){
     const container = document.getElementById('toast-container');
     if(!container) return;
@@ -476,8 +403,7 @@ button{ font-family:inherit; cursor:pointer; }
     el.textContent = msg;
     container.appendChild(el);
     setTimeout(()=>{
-      el.classList.add('hide');
-      setTimeout(()=> el.remove(), 260);
+      el.remove();
     }, 3200);
   }
 
@@ -486,14 +412,6 @@ button{ font-family:inherit; cursor:pointer; }
     return addr.slice(0,6) + '...' + addr.slice(-4);
   }
 
-  function generateFakeAddress(){
-    const chars = '0123456789abcdef';
-    let out = '0x';
-    for(let i=0; i<40; i++) out += chars[Math.floor(Math.random()*chars.length)];
-    return out;
-  }
-
-  /* Stepper Logic */
   function goToStep(stepNumber){
     document.querySelectorAll('.wl-step').forEach(step=>{
       step.classList.toggle('active', parseInt(step.dataset.step) === stepNumber);
@@ -506,63 +424,66 @@ button{ font-family:inherit; cursor:pointer; }
     });
   }
 
-  /* Wallet Modal Control */
   const walletModal = document.getElementById('wallet-modal');
-  const connectingState = document.getElementById('connecting-state');
-  const walletOptions = document.getElementById('wallet-options');
 
-  function openWalletModal(){
-    connectingState.hidden = true;
-    walletOptions.hidden = false;
-    walletModal.classList.add('open');
-  }
-
-  function closeWalletModal(){
-    walletModal.classList.remove('open');
-  }
+  function openWalletModal(){ walletModal.classList.add('open'); }
+  function closeWalletModal(){ walletModal.classList.remove('open'); }
 
   document.getElementById('modal-close').addEventListener('click', closeWalletModal);
-  walletModal.addEventListener('click', (e)=>{ if(e.target === walletModal) closeWalletModal(); });
 
-  /* Wallet Connect Simulation */
-  function connectWallet(provider){
-    connectingState.hidden = false;
-    walletOptions.hidden = true;
-
-    setTimeout(()=>{
-      state.walletConnected = true;
-      state.walletAddress = generateFakeAddress();
-      closeWalletModal();
-      toast('Wallet Connected Successfully!', 'info');
-
-      // Update Header Button
-      document.getElementById('header-wallet-text').textContent = shortAddr(state.walletAddress);
-
-      // Check Duplicate Address Submission
-      if(isWalletSubmitted(state.walletAddress)){
-        const submittedData = getSubmittedWallets()[state.walletAddress.toLowerCase()];
-        document.getElementById('summary-wallet').textContent = shortAddr(state.walletAddress);
-        document.getElementById('summary-x').textContent = submittedData.xUsername || '@registered';
-        goToStep(4);
-        toast('Wallet already registered on Whitelist!', 'warning');
-      } else {
-        // Auto transition to Step 2
-        goToStep(2);
+  /* REAL ETHEREUM WEB3 CONNECTION ENGINE */
+  async function requestRealWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        if(accounts.length > 0) {
+          handleWalletSuccess(accounts[0]);
+        }
+      } catch (error) {
+        toast('Connection Rejected: ' + (error.message || 'User denied access'), 'error');
       }
-    }, 1200);
+    } else {
+      toast('No Web3 Wallet detected! Installing MetaMask recommended.', 'warning');
+      window.open('https://metamask.io/download/', '_blank');
+    }
   }
 
-  document.querySelectorAll('.wallet-option').forEach(btn=>{
-    btn.addEventListener('click', ()=> connectWallet(btn.dataset.provider));
-  });
+  function handleWalletSuccess(address) {
+    state.walletConnected = true;
+    state.walletAddress = address;
+    closeWalletModal();
+    
+    document.getElementById('header-wallet-text').textContent = shortAddr(address);
+    toast('Wallet Authenticated!', 'info');
+
+    if(isWalletSubmitted(address)){
+      const data = getSubmittedWallets()[address.toLowerCase()];
+      document.getElementById('summary-wallet').textContent = shortAddr(address);
+      document.getElementById('summary-x').textContent = data.xUsername || '@registered';
+      goToStep(4);
+      toast('Address already whitelisted!', 'warning');
+    } else {
+      goToStep(2);
+    }
+  }
+
+  /* Network & Account Change Listeners */
+  if (typeof window.ethereum !== 'undefined') {
+    window.ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length > 0) {
+        handleWalletSuccess(accounts[0]);
+      } else {
+        location.reload();
+      }
+    });
+  }
+
+  document.getElementById('connect-metamask').addEventListener('click', requestRealWallet);
+  document.getElementById('connect-coinbase').addEventListener('click', requestRealWallet);
 
   document.getElementById('header-wallet-btn').addEventListener('click', ()=>{
     if(state.walletConnected){
-      if(isWalletSubmitted(state.walletAddress)){
-        toast('Connected: ' + shortAddr(state.walletAddress) + ' (Whitelisted)', 'info');
-      } else {
-        toast('Connected: ' + shortAddr(state.walletAddress), 'info');
-      }
+      toast('Connected: ' + shortAddr(state.walletAddress), 'info');
     } else {
       openWalletModal();
     }
@@ -570,20 +491,16 @@ button{ font-family:inherit; cursor:pointer; }
 
   document.getElementById('btn-step1-connect').addEventListener('click', openWalletModal);
 
-  /* Step 2 Validation */
   document.getElementById('btn-step2-next').addEventListener('click', ()=>{
     const usernameInput = document.getElementById('x-username').value.trim();
     if(!usernameInput){
-      toast('Please enter your X username!', 'error');
+      toast('Please enter your X handle!', 'error');
       return;
     }
-    
     state.xUsername = usernameInput.startsWith('@') ? usernameInput : '@' + usernameInput;
-    toast('X Username Verified!', 'info');
     goToStep(3);
   });
 
-  /* Step 3 Submission & Duplicate Protection */
   document.getElementById('btn-step3-submit').addEventListener('click', ()=>{
     const repostLinkInput = document.getElementById('repost-link').value.trim();
     if(!repostLinkInput){
@@ -591,26 +508,19 @@ button{ font-family:inherit; cursor:pointer; }
       return;
     }
 
-    if(!repostLinkInput.includes('x.com') && !repostLinkInput.includes('twitter.com')){
-      toast('Please provide a valid X / Twitter link!', 'error');
-      return;
-    }
-
     state.repostLink = repostLinkInput;
 
-    // Save submission to prevent duplicates
     saveSubmittedWallet(state.walletAddress, {
       xUsername: state.xUsername,
       repostLink: state.repostLink,
       timestamp: new Date().toISOString()
     });
 
-    // Populate Success Summary
     document.getElementById('summary-wallet').textContent = shortAddr(state.walletAddress);
     document.getElementById('summary-x').textContent = state.xUsername;
 
     goToStep(4);
-    toast('Congratulations! Whitelist application submitted.', 'info');
+    toast('Whitelist application completed!', 'info');
   });
 
 })();
