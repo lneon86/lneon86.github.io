@@ -63,6 +63,7 @@ body{
 
 a{ color:inherit; text-decoration:none; }
 button{ font-family:inherit; cursor:pointer; }
+button:disabled{ opacity:.55; cursor:not-allowed; }
 
 /* Dynamic Glow Grid */
 .grid-bg{
@@ -125,6 +126,15 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .btn-ghost:hover{ border-color:var(--primary); color:var(--primary); background:var(--primary-soft); }
 .btn-block{ width:100%; }
+.btn-connected{ background:var(--primary-soft); color:var(--primary); border-color:rgba(53,255,143,.35); }
+
+/* Spinner */
+.spinner{
+  width:14px; height:14px; border-radius:50%;
+  border:2px solid rgba(4,20,10,.35); border-top-color:#04140a;
+  animation:spin .7s linear infinite; flex-shrink:0;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
 
 /* Main Container */
 .main-content{
@@ -182,45 +192,48 @@ button{ font-family:inherit; cursor:pointer; }
 .status-tag.success{ color:var(--primary); background:var(--primary-soft); }
 
 .wl-success{ text-align:center; padding:10px 0; }
+.check-ring{
+  width:64px; height:64px; margin:14px auto 4px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--primary-soft); box-shadow:0 0 0 6px rgba(53,255,143,.06);
+}
+.check-ring svg{ width:30px; height:30px; }
+.check-ring path{
+  fill:none; stroke:var(--primary); stroke-width:3; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:40; stroke-dashoffset:40; animation:draw-check .5s var(--ease) .1s forwards;
+}
+@keyframes draw-check{ to{ stroke-dashoffset:0; } }
 .welcome-text{ font-size:24px; margin-top:12px; color:var(--text); font-weight:700; }
 .success-card{ background:var(--panel-2); border:1px solid var(--border-strong); border-radius:var(--radius-md); padding:16px; margin-top:16px; text-align:left; font-family:var(--font-mono); font-size:12.5px; }
-.success-card-row{ display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid var(--border-hairline); padding-bottom:8px; }
+.success-card-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; border-bottom:1px solid var(--border-hairline); padding-bottom:8px; }
 .success-card-row:last-child{ margin-bottom:0; border-bottom:none; padding-bottom:0; }
+.copy-btn{
+  background:transparent; border:1px solid var(--border-strong); color:var(--text-muted);
+  font-size:10px; padding:4px 8px; border-radius:8px; font-family:var(--font-mono); flex-shrink:0;
+  transition:all .2s var(--ease);
+}
+.copy-btn:hover{ border-color:var(--primary); color:var(--primary); }
 
-/* Responsive Modals */
-.modal-overlay{
-  position:fixed; inset:0; background:rgba(2,4,3,.85); backdrop-filter:blur(8px); z-index:1000;
-  display:none; align-items:center; justify-content:center; padding:16px;
+.trust-row{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:22px; flex-wrap:wrap; }
+.trust-pill{
+  display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--text-faint);
+  font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.04em;
 }
-.modal-overlay.open{ display:flex; }
-.modal{
-  position:relative; background:var(--panel); border:1px solid var(--border-strong); border-radius:var(--radius-lg);
-  padding:28px; max-width:400px; width:100%; text-align:left; animation:modal-in .25s var(--ease);
-}
-@keyframes modal-in{ from{ opacity:0; transform:scale(.96); } to{ opacity:1; transform:none; } }
-.modal-close{
-  position:absolute; top:16px; right:16px; background:transparent; border:none; color:var(--text-muted); font-size:16px; cursor:pointer;
-}
-.wallet-options{ display:flex; flex-direction:column; gap:8px; margin-top:16px; }
-.wallet-option{
-  display:flex; align-items:center; gap:12px; background:var(--panel-2); border:1px solid var(--border);
-  color:var(--text); padding:14px; border-radius:var(--radius-sm); font-size:13px; font-weight:600;
-  transition:all .2s var(--ease); width:100%; text-align:left;
-}
-.wallet-option:hover{ border-color:var(--primary); background:var(--primary-soft); color:var(--primary); }
+.trust-pill svg{ width:12px; height:12px; opacity:.7; }
+
+/* Footer */
+.footer{ border-top:1px solid var(--border-hairline); padding:20px 0; background:var(--panel); }
+.footer-bottom{ max-width:var(--container); margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono); }
 
 /* Custom Toasts */
 .toast-container{ position:fixed; top:80px; right:16px; z-index:1100; display:flex; flex-direction:column; gap:8px; max-width:calc(100vw - 32px); }
 .toast{
   background:var(--panel); border:1px solid var(--border-strong); border-left:3px solid var(--primary); border-radius:var(--radius-sm);
   padding:12px 16px; font-size:12.5px; color:var(--text); box-shadow:var(--shadow-soft); font-family:var(--font-mono);
+  animation:fade-in .25s var(--ease);
 }
 .toast.error{ border-left-color:var(--error); }
 .toast.warning{ border-left-color:var(--gold); }
-
-/* Footer */
-.footer{ border-top:1px solid var(--border-hairline); padding:20px 0; background:var(--panel); }
-.footer-bottom{ max-width:var(--container); margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono); }
 
 @media (max-width:480px){
   .wl-panel{ padding:24px 16px; }
@@ -246,7 +259,7 @@ button{ font-family:inherit; cursor:pointer; }
     </a>
 
     <div class="header-actions">
-      <span class="network-pill"><span class="dot-pulse"></span>MAINNET</span>
+      <span class="network-pill"><span class="dot-pulse"></span>ETHEREUM MAINNET</span>
       <button class="btn btn-primary" id="header-wallet-btn">
         <span id="header-wallet-text">CONNECT WALLET</span>
       </button>
@@ -259,7 +272,7 @@ button{ font-family:inherit; cursor:pointer; }
     <div class="wl-header">
       <span class="eyebrow">EARLY ACCESS</span>
       <h1 class="wl-title">WHITELIST ACCESS</h1>
-      <p class="wl-desc">Complete tasks below to register your EVM address for guaranteed allocation.</p>
+      <p class="wl-desc">Complete the tasks below to register your EVM address for guaranteed allocation.</p>
     </div>
 
     <div class="wl-progress">
@@ -274,22 +287,24 @@ button{ font-family:inherit; cursor:pointer; }
 
     <div class="wl-step active" data-step="1">
       <h3>STEP 01 — AUTHENTICATE WALLET</h3>
-      <p>Connect your Web3 Web3 EVM wallet (MetaMask, Coinbase, Trust) to proceed.</p>
-      <button class="btn btn-primary btn-block" id="btn-step1-connect">CONNECT WEB3 WALLET</button>
+      <p>Connect your EVM wallet (MetaMask, Coinbase, Trust, Rainbow, and 600+ more via WalletConnect) to continue.</p>
+      <button class="btn btn-primary btn-block" id="btn-step1-connect">
+        <span id="btn-step1-text">CONNECT WALLET</span>
+      </button>
     </div>
 
     <div class="wl-step" data-step="2">
       <h3>STEP 02 — FOLLOW OFFICIAL X</h3>
-      <p>Follow our official channel on X to authorize account sync.</p>
-      
-      <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
+      <p>Follow our official channel on X, then confirm your handle below.</p>
+
+      <a href="https://x.com/0xMrStonk" target="_blank" rel="noopener" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        FOLLOW @MRSTONK
+        FOLLOW @0xMrStonk
       </a>
 
       <div class="input-group">
-        <label class="input-label" for="x-username">Your Twitter Handle</label>
-        <input type="text" id="x-username" class="input-field" placeholder="@username">
+        <label class="input-label" for="x-username">Your X (Twitter) Handle</label>
+        <input type="text" id="x-username" class="input-field" placeholder="@username" autocomplete="off">
       </div>
 
       <button class="btn btn-primary btn-block" id="btn-step2-next">VERIFY & CONTINUE</button>
@@ -297,30 +312,39 @@ button{ font-family:inherit; cursor:pointer; }
 
     <div class="wl-step" data-step="3">
       <h3>STEP 03 — LIKE & REPOST PIN</h3>
-      <p>Interact with our pinned post and paste your post link below.</p>
-      
-      <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
-        OPEN PINNED TWEET
+      <p>Like and repost our pinned post, then paste the link to your repost below.</p>
+
+      <a href="https://x.com/0xMrStonk/status/2090126209619226706" target="_blank" rel="noopener" class="btn btn-ghost btn-block" style="margin-bottom:16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        OPEN PINNED POST
       </a>
 
       <div class="input-group">
-        <label class="input-label" for="repost-link">Repost Tweet URL</label>
-        <input type="url" id="repost-link" class="input-field" placeholder="https://x.com/username/status/...">
+        <label class="input-label" for="repost-link">Your Repost URL</label>
+        <input type="url" id="repost-link" class="input-field" placeholder="https://x.com/username/status/..." autocomplete="off">
       </div>
 
-      <button class="btn btn-primary btn-block" id="btn-step3-submit">SUBMIT APPLICATION</button>
+      <button class="btn btn-primary btn-block" id="btn-step3-submit">
+        <span id="btn-step3-text">SUBMIT APPLICATION</span>
+      </button>
     </div>
 
     <div class="wl-step" data-step="4">
       <div class="wl-success">
+        <div class="check-ring">
+          <svg viewBox="0 0 24 24"><path d="M4 12.5L9.5 18L20 6"/></svg>
+        </div>
         <span class="status-tag success">✓ APPLICATION CONFIRMED</span>
-        <h2 class="welcome-text">YOU'RE ON THE LIST!</h2>
-        <p style="color:var(--text-muted); font-size:13px; margin-top:8px;">Your EVM wallet address is bound to the mint whitelist.</p>
+        <h2 class="welcome-text">JOIN COMPLETE — YOU'RE ON THE LIST!</h2>
+        <p style="color:var(--text-muted); font-size:13px; margin-top:8px;">Your EVM wallet address is permanently bound to the mint whitelist. This entry is saved and will not be removed.</p>
 
         <div class="success-card">
           <div class="success-card-row">
             <span style="color:var(--text-faint)">WALLET:</span>
-            <strong id="summary-wallet" style="color:var(--primary)">0x000...000</strong>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong id="summary-wallet" style="color:var(--primary)">0x000...000</strong>
+              <button class="copy-btn" id="copy-wallet">COPY</button>
+            </div>
           </div>
           <div class="success-card-row">
             <span style="color:var(--text-faint)">HANDLE:</span>
@@ -328,8 +352,19 @@ button{ font-family:inherit; cursor:pointer; }
           </div>
           <div class="success-card-row">
             <span style="color:var(--text-faint)">STATUS:</span>
-            <strong style="color:var(--primary)">ELIGIBLE</strong>
+            <strong id="summary-status" style="color:var(--primary)">ELIGIBLE</strong>
           </div>
+        </div>
+
+        <div class="trust-row">
+          <span class="trust-pill">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+            SECURED BY REOWN
+          </span>
+          <span class="trust-pill">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+            RECORD PERMANENTLY STORED
+          </span>
         </div>
       </div>
     </div>
@@ -344,186 +379,277 @@ button{ font-family:inherit; cursor:pointer; }
   </div>
 </footer>
 
-<div class="modal-overlay" id="wallet-modal">
-  <div class="modal">
-    <button class="modal-close" id="modal-close">✕</button>
-    <h3 style="margin:0 0 4px; font-size:16px; font-family:var(--font-display);">CONNECT WALLET</h3>
-    <p style="margin:0; font-size:12px; color:var(--text-muted);">Choose EVM wallet provider.</p>
-    
-    <div class="wallet-options">
-      <button class="wallet-option" id="connect-metamask">
-        <span style="color:var(--primary);">◆</span> METAMASK / BROWSER WALLET
-      </button>
-      <button class="wallet-option" id="connect-coinbase">
-        <span style="color:var(--primary);">●</span> COINBASE WALLET
-      </button>
-    </div>
-  </div>
-</div>
+<script type="module">
+/* =========================================================================
+   MR.STONK — WHITELIST ENGINE
+   Real wallet auth (Reown AppKit) + duplicate-safe task recording (Firebase)
+   -------------------------------------------------------------------------
+   BEFORE GOING LIVE, YOU MUST:
 
-<script>
-(function(){
-  'use strict';
+   1) Get a Reown (WalletConnect) Project ID at https://dashboard.reown.com
+      and paste it into REOWN_PROJECT_ID below. The demo ID included here
+      only works on "localhost" and is for local testing only.
 
-  const STORAGE_KEY = 'mrstonk_whitelisted_wallets';
-  
-  function getSubmittedWallets(){
-    try {
-      const data = localStorage.getItem(STORAGE_KEY);
-      return data ? JSON.parse(data) : {};
-    } catch(e) { return {}; }
-  }
+   2) Create a free Firebase project at https://console.firebase.google.com,
+      enable "Firestore Database" (production mode), and paste your web
+      app config into FIREBASE_CONFIG below.
 
-  function saveSubmittedWallet(address, data){
-    const current = getSubmittedWallets();
-    current[address.toLowerCase()] = data;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
-    } catch(e) {}
-  }
+   3) In Firestore, set security rules so wallets can only create their own
+      entry and can never edit/delete an existing one, e.g.:
 
-  function isWalletSubmitted(address){
-    if(!address) return false;
-    const current = getSubmittedWallets();
-    return !!current[address.toLowerCase()];
-  }
+         rules_version = '2';
+         service cloud.firestore {
+           match /databases/{database}/documents {
+             match /whitelist_entries/{wallet} {
+               allow read: if true;
+               allow create: if request.resource.id == wallet
+                              && !exists(/databases/$(database)/documents/whitelist_entries/$(wallet));
+               allow update, delete: if false;
+             }
+           }
+         }
 
-  const state = {
-    walletConnected: false,
-    walletAddress: null,
-    xUsername: '',
-    repostLink: ''
-  };
+      "allow update, delete: if false" is what guarantees entries are never
+      auto-deleted or overwritten — exactly what keeps the whitelist a
+      permanent, append-only ledger.
+   ========================================================================= */
 
-  function toast(msg, type = 'info'){
-    const container = document.getElementById('toast-container');
-    if(!container) return;
-    const el = document.createElement('div');
-    el.className = 'toast ' + type;
-    el.textContent = msg;
-    container.appendChild(el);
-    setTimeout(()=>{
-      el.remove();
-    }, 3200);
-  }
+import { createAppKit } from 'https://esm.sh/@reown/appkit@1.8.20';
+import { EthersAdapter } from 'https://esm.sh/@reown/appkit-adapter-ethers@1.8.20';
+import { mainnet } from 'https://esm.sh/@reown/appkit@1.8.20/networks';
 
-  function shortAddr(addr){
-    if(!addr) return '0x000...000';
-    return addr.slice(0,6) + '...' + addr.slice(-4);
-  }
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js';
+import {
+  getFirestore, doc, runTransaction, getDoc, serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js';
 
-  function goToStep(stepNumber){
-    document.querySelectorAll('.wl-step').forEach(step=>{
-      step.classList.toggle('active', parseInt(step.dataset.step) === stepNumber);
-    });
+/* ---------------- CONFIG — replace before production ---------------- */
+const REOWN_PROJECT_ID = 'b56e18d47c72ab683b10814fe9495694'; // demo id, localhost only — replace with your own
 
-    document.querySelectorAll('.wl-progress-step').forEach(indicator=>{
-      const idx = parseInt(indicator.dataset.stepIndicator);
-      indicator.classList.toggle('active', idx === stepNumber);
-      indicator.classList.toggle('done', idx < stepNumber);
-    });
-  }
+const FIREBASE_CONFIG = {
+  apiKey: 'YOUR_FIREBASE_API_KEY',
+  authDomain: 'YOUR_PROJECT.firebaseapp.com',
+  projectId: 'YOUR_FIREBASE_PROJECT_ID',
+  storageBucket: 'YOUR_PROJECT.appspot.com',
+  messagingSenderId: 'YOUR_SENDER_ID',
+  appId: 'YOUR_APP_ID'
+};
 
-  const walletModal = document.getElementById('wallet-modal');
+const WHITELIST_COLLECTION = 'whitelist_entries';
+/* ----------------------------------------------------------------------- */
 
-  function openWalletModal(){ walletModal.classList.add('open'); }
-  function closeWalletModal(){ walletModal.classList.remove('open'); }
+const firebaseIsConfigured = FIREBASE_CONFIG.apiKey !== 'YOUR_FIREBASE_API_KEY';
+let db = null;
+if (firebaseIsConfigured) {
+  const firebaseApp = initializeApp(FIREBASE_CONFIG);
+  db = getFirestore(firebaseApp);
+} else {
+  console.warn('[MR.STONK] Firebase is not configured yet — fill in FIREBASE_CONFIG in index.html to enable saving whitelist entries.');
+}
 
-  document.getElementById('modal-close').addEventListener('click', closeWalletModal);
+const metadata = {
+  name: 'MR.STONK',
+  description: 'MR.STONK Exclusive Whitelist Protocol',
+  url: window.location.origin || 'https://mrstonk.example',
+  icons: ['https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/usdg-logo.svg']
+};
 
-  /* REAL ETHEREUM WEB3 CONNECTION ENGINE */
-  async function requestRealWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if(accounts.length > 0) {
-          handleWalletSuccess(accounts[0]);
-        }
-      } catch (error) {
-        toast('Connection Rejected: ' + (error.message || 'User denied access'), 'error');
-      }
-    } else {
-      toast('No Web3 Wallet detected! Installing MetaMask recommended.', 'warning');
-      window.open('https://metamask.io/download/', '_blank');
-    }
-  }
+const appKit = createAppKit({
+  adapters: [new EthersAdapter()],
+  networks: [mainnet],
+  projectId: REOWN_PROJECT_ID,
+  metadata,
+  themeMode: 'dark',
+  themeVariables: {
+    '--w3m-accent': '#35ff8f',
+    '--w3m-border-radius-master': '4px'
+  },
+  features: { analytics: true }
+});
 
-  function handleWalletSuccess(address) {
+const state = {
+  walletConnected: false,
+  walletAddress: null,
+  xUsername: '',
+  repostLink: ''
+};
+
+function toast(msg, type = 'info'){
+  const container = document.getElementById('toast-container');
+  if(!container) return;
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(()=>{ el.remove(); }, 3200);
+}
+
+function shortAddr(addr){
+  if(!addr) return '0x000...000';
+  return addr.slice(0,6) + '...' + addr.slice(-4);
+}
+
+function goToStep(stepNumber){
+  document.querySelectorAll('.wl-step').forEach(step=>{
+    step.classList.toggle('active', parseInt(step.dataset.step) === stepNumber);
+  });
+  document.querySelectorAll('.wl-progress-step').forEach(indicator=>{
+    const idx = parseInt(indicator.dataset.stepIndicator);
+    indicator.classList.toggle('active', idx === stepNumber);
+    indicator.classList.toggle('done', idx < stepNumber);
+  });
+}
+
+function fillSummary({ wallet, xUsername, status }){
+  document.getElementById('summary-wallet').textContent = shortAddr(wallet);
+  document.getElementById('summary-x').textContent = xUsername || '@registered';
+  document.getElementById('summary-status').textContent = status || 'ELIGIBLE';
+}
+
+/* ---------------- Wallet connection (Reown AppKit) ---------------- */
+
+document.getElementById('header-wallet-btn').addEventListener('click', ()=> appKit.open());
+document.getElementById('btn-step1-connect').addEventListener('click', ()=> appKit.open());
+
+appKit.subscribeAccount(async (account) => {
+  const headerText = document.getElementById('header-wallet-text');
+  const headerBtn = document.getElementById('header-wallet-btn');
+  const step1Btn = document.getElementById('btn-step1-connect');
+  const step1Text = document.getElementById('btn-step1-text');
+
+  if (account?.isConnected && account.address) {
     state.walletConnected = true;
-    state.walletAddress = address;
-    closeWalletModal();
-    
-    document.getElementById('header-wallet-text').textContent = shortAddr(address);
-    toast('Wallet Authenticated!', 'info');
+    state.walletAddress = account.address;
 
-    if(isWalletSubmitted(address)){
-      const data = getSubmittedWallets()[address.toLowerCase()];
-      document.getElementById('summary-wallet').textContent = shortAddr(address);
-      document.getElementById('summary-x').textContent = data.xUsername || '@registered';
+    headerText.textContent = shortAddr(account.address);
+    headerBtn.classList.add('btn-connected');
+    step1Text.textContent = 'WALLET CONNECTED';
+    step1Btn.disabled = false;
+
+    await handleWalletReady(account.address);
+  } else {
+    state.walletConnected = false;
+    state.walletAddress = null;
+    headerText.textContent = 'CONNECT WALLET';
+    headerBtn.classList.remove('btn-connected');
+    step1Text.textContent = 'CONNECT WALLET';
+    goToStep(1);
+  }
+});
+
+async function handleWalletReady(address){
+  if (!firebaseIsConfigured) {
+    toast('Wallet connected. Configure Firebase to enable saving.', 'warning');
+    goToStep(2);
+    return;
+  }
+  try {
+    const ref = doc(db, WHITELIST_COLLECTION, address.toLowerCase());
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      const data = snap.data();
+      fillSummary({ wallet: address, xUsername: data.xUsername, status: 'ALREADY WHITELISTED' });
       goToStep(4);
-      toast('Address already whitelisted!', 'warning');
+      toast('This wallet has already joined the whitelist.', 'warning');
     } else {
+      toast('Wallet authenticated. Continue with the tasks below.', 'info');
       goToStep(2);
     }
+  } catch (err) {
+    console.error(err);
+    toast('Could not reach the database. Check your Firebase setup.', 'error');
+  }
+}
+
+/* ---------------- Step 2: X handle ---------------- */
+
+document.getElementById('btn-step2-next').addEventListener('click', ()=>{
+  const usernameInput = document.getElementById('x-username').value.trim();
+  if(!usernameInput){
+    toast('Please enter your X handle.', 'error');
+    return;
+  }
+  state.xUsername = usernameInput.startsWith('@') ? usernameInput : '@' + usernameInput;
+  goToStep(3);
+});
+
+/* ---------------- Step 3: repost link + save to Firestore ---------------- */
+
+document.getElementById('btn-step3-submit').addEventListener('click', async ()=>{
+  const repostLinkInput = document.getElementById('repost-link').value.trim();
+  if(!repostLinkInput){
+    toast('Please enter your repost link.', 'error');
+    return;
+  }
+  if(!/^https?:\/\/(x|twitter)\.com\/.+\/status\/\d+/i.test(repostLinkInput)){
+    toast('That does not look like a valid X post link.', 'error');
+    return;
+  }
+  if(!state.walletConnected || !state.walletAddress){
+    toast('Please connect your wallet first.', 'error');
+    goToStep(1);
+    return;
+  }
+  if (!firebaseIsConfigured) {
+    toast('Firebase is not configured — this entry cannot be saved yet.', 'error');
+    return;
   }
 
-  /* Network & Account Change Listeners */
-  if (typeof window.ethereum !== 'undefined') {
-    window.ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        handleWalletSuccess(accounts[0]);
-      } else {
-        location.reload();
+  state.repostLink = repostLinkInput;
+
+  const submitBtn = document.getElementById('btn-step3-submit');
+  const submitText = document.getElementById('btn-step3-text');
+  submitBtn.disabled = true;
+  submitText.innerHTML = '<span class="spinner"></span> SUBMITTING...';
+
+  const ref = doc(db, WHITELIST_COLLECTION, state.walletAddress.toLowerCase());
+
+  try {
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref);
+      if (snap.exists()) {
+        throw new Error('DUPLICATE_WALLET');
       }
-    });
-  }
-
-  document.getElementById('connect-metamask').addEventListener('click', requestRealWallet);
-  document.getElementById('connect-coinbase').addEventListener('click', requestRealWallet);
-
-  document.getElementById('header-wallet-btn').addEventListener('click', ()=>{
-    if(state.walletConnected){
-      toast('Connected: ' + shortAddr(state.walletAddress), 'info');
-    } else {
-      openWalletModal();
-    }
-  });
-
-  document.getElementById('btn-step1-connect').addEventListener('click', openWalletModal);
-
-  document.getElementById('btn-step2-next').addEventListener('click', ()=>{
-    const usernameInput = document.getElementById('x-username').value.trim();
-    if(!usernameInput){
-      toast('Please enter your X handle!', 'error');
-      return;
-    }
-    state.xUsername = usernameInput.startsWith('@') ? usernameInput : '@' + usernameInput;
-    goToStep(3);
-  });
-
-  document.getElementById('btn-step3-submit').addEventListener('click', ()=>{
-    const repostLinkInput = document.getElementById('repost-link').value.trim();
-    if(!repostLinkInput){
-      toast('Please enter your Repost link!', 'error');
-      return;
-    }
-
-    state.repostLink = repostLinkInput;
-
-    saveSubmittedWallet(state.walletAddress, {
-      xUsername: state.xUsername,
-      repostLink: state.repostLink,
-      timestamp: new Date().toISOString()
+      tx.set(ref, {
+        walletAddress: state.walletAddress,
+        xUsername: state.xUsername,
+        repostLink: state.repostLink,
+        joinedAt: serverTimestamp()
+      });
     });
 
-    document.getElementById('summary-wallet').textContent = shortAddr(state.walletAddress);
-    document.getElementById('summary-x').textContent = state.xUsername;
-
+    fillSummary({ wallet: state.walletAddress, xUsername: state.xUsername, status: 'ELIGIBLE' });
     goToStep(4);
-    toast('Whitelist application completed!', 'info');
-  });
+    toast('Join complete — your whitelist application was saved!', 'info');
 
-})();
+  } catch (err) {
+    if (err.message === 'DUPLICATE_WALLET') {
+      const snap = await getDoc(ref);
+      const data = snap.data();
+      fillSummary({ wallet: state.walletAddress, xUsername: data.xUsername, status: 'ALREADY WHITELISTED' });
+      goToStep(4);
+      toast('This wallet has already joined the whitelist.', 'warning');
+    } else {
+      console.error(err);
+      toast('Something went wrong while saving. Please try again.', 'error');
+    }
+  } finally {
+    submitBtn.disabled = false;
+    submitText.textContent = 'SUBMIT APPLICATION';
+  }
+});
+
+/* ---------------- Step 4: copy wallet ---------------- */
+
+document.getElementById('copy-wallet').addEventListener('click', async ()=>{
+  if(!state.walletAddress) return;
+  try {
+    await navigator.clipboard.writeText(state.walletAddress);
+    toast('Wallet address copied.', 'info');
+  } catch (e) {
+    toast('Could not copy — please copy manually.', 'error');
+  }
+});
 </script>
 </body>
 </html>
