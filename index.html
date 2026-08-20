@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>MR.STONK — The NFT That Trades The Market</title>
+<title>MR.STONK — Whitelist Access</title>
 <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/usdg-logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
-   MR.STONK — Premium Design System
+   MR.STONK — Premium Design System (Exact Match)
    ========================================================================== */
 :root{
   --bg: #050706;
@@ -55,7 +55,7 @@
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; scroll-padding-top:96px; }
+html{ scroll-behavior:smooth; }
 body{
   margin:0;
   background:var(--bg);
@@ -65,24 +65,18 @@ body{
   line-height:1.65;
   overflow-x:hidden;
   position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   -webkit-font-smoothing:antialiased;
-}
-@media (prefers-reduced-motion:reduce){
-  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
-  html{ scroll-behavior:auto; }
 }
 
 a{ color:inherit; text-decoration:none; }
-ul{ list-style:none; margin:0; padding:0; }
 button{ font-family:inherit; cursor:pointer; }
-img{ max-width:100%; display:block; }
-h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
-:focus-visible{ outline:2px solid var(--primary); outline-offset:3px; border-radius:4px; }
 .mono{ font-family:var(--font-mono); }
 
-/* ==========================================================================
-   Background — refined, barely-there grid + soft ambient glow
-   ========================================================================== */
+/* Background Grid + Glow */
 .grid-bg{
   position:fixed; inset:0; z-index:-2;
   background-image:
@@ -99,100 +93,20 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
     radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, rgba(0,0,0,.55) 100%);
 }
 
-/* ==========================================================================
-   Layout helpers
-   ========================================================================== */
-.section-inner{ max-width:var(--container); margin:0 auto; padding:0 24px; }
-.section-inner.narrow{ max-width:760px; }
-.section{ padding:112px 0; position:relative; }
-.section.alt{ background:linear-gradient(180deg, transparent, rgba(255,255,255,.012), transparent); border-top:1px solid var(--border-hairline); border-bottom:1px solid var(--border-hairline); }
-
-.eyebrow{
-  display:inline-flex; align-items:center; gap:8px; color:var(--primary); font-size:12px; letter-spacing:.14em;
-  font-weight:600; margin-bottom:16px; text-transform:uppercase; font-family:var(--font-body);
-}
-.eyebrow::before{ content:''; width:14px; height:1px; background:var(--primary); display:inline-block; }
-.section-head{ margin-bottom:52px; max-width:640px; }
-.section-head.center{ max-width:640px; margin-left:auto; margin-right:auto; text-align:center; }
-.section-head.center .eyebrow::before{ display:none; }
-.section-title{
-  font-size:clamp(30px, 3.6vw, 44px); letter-spacing:-.02em;
-  font-weight:700; margin:0 0 14px; color:var(--text); line-height:1.1;
-}
-.section-sub{ color:var(--text); font-weight:600; font-size:16px; margin:0 0 10px; }
-.section-sub.gold-sub{ color:var(--gold); }
-.section-text{ color:var(--text-muted); font-size:15px; max-width:560px; line-height:1.7; }
-.section-text.center{ margin:16px auto 40px; text-align:center; }
-
-.text-green{ color:var(--primary); }
-.text-gold{ color:var(--gold); }
-
-/* ==========================================================================
-   Buttons
-   ========================================================================== */
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:13px 24px; font-family:var(--font-body); font-weight:600;
-  font-size:14px; letter-spacing:-.005em;
-  border-radius:var(--radius-sm); border:1px solid transparent;
-  cursor:pointer; transition:all .2s var(--ease); white-space:nowrap; position:relative;
-}
-.btn-primary{
-  background:var(--primary); color:#04140a; border-color:var(--primary);
-  box-shadow:0 1px 0 rgba(255,255,255,.15) inset, 0 8px 24px -8px var(--primary-glow);
-}
-.btn-primary:hover{ background:#4dffa1; transform:translateY(-1px); box-shadow:0 1px 0 rgba(255,255,255,.2) inset, 0 12px 28px -8px var(--primary-glow); }
-.btn-primary:active{ transform:translateY(0); }
-.btn-ghost{
-  background:rgba(255,255,255,.03); color:var(--text); border:1px solid var(--border-strong);
-}
-.btn-ghost:hover{ border-color:var(--primary); color:var(--primary); background:var(--primary-soft); }
-.btn-outline{
-  background:transparent; color:var(--text-muted); border:1px solid var(--border-strong);
-}
-.btn-outline:hover{ border-color:var(--primary); color:var(--primary); }
-.btn-gold{
-  background:var(--gold); color:#241a02; border-color:var(--gold);
-  box-shadow:0 1px 0 rgba(255,255,255,.15) inset, 0 8px 24px -8px var(--gold-glow);
-}
-.btn-gold:hover{ background:#f5d24a; transform:translateY(-1px); }
-.btn-danger{ background:var(--error-soft); color:var(--error); border:1px solid rgba(255,92,92,.35); }
-.btn-danger:hover{ background:rgba(255,92,92,.2); }
-.btn-lg{ padding:16px 32px; font-size:15px; }
-.btn-sm{ padding:9px 16px; font-size:12.5px; }
-.btn-block{ width:100%; }
-.btn:disabled{ opacity:.4; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
-.btn:focus-visible{ outline-offset:2px; }
-
-/* ==========================================================================
-   Header
-   ========================================================================== */
+/* Header */
 .header{
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,7,6,.72); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
   border-bottom:1px solid var(--border-hairline);
-  transition:box-shadow .3s var(--ease), border-color .3s var(--ease);
 }
 .header-inner{
   max-width:var(--container); margin:0 auto; padding:0 24px; height:76px;
   display:flex; align-items:center; justify-content:space-between; gap:24px;
 }
-.logo{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.logo{ display:flex; align-items:center; gap:10px; }
 .logo-mark{ color:var(--primary); display:flex; filter:drop-shadow(0 0 6px var(--primary-glow)); }
 .logo-text{ font-family:var(--font-display); font-weight:700; font-size:19px; letter-spacing:-.01em; }
 .logo-text .dot{ color:var(--gold); }
-
-.nav{ display:flex; align-items:center; gap:36px; }
-.nav-link{
-  font-size:13.5px; font-weight:500; letter-spacing:-.005em; color:var(--text-muted);
-  position:relative; padding:6px 0; transition:color .2s var(--ease); font-family:var(--font-body);
-}
-.nav-link:hover{ color:var(--text); }
-.nav-link.active{ color:var(--primary); }
-.nav-link.active::after{
-  content:''; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--primary);
-  border-radius:2px; box-shadow:0 0 8px var(--primary-glow);
-}
 
 .header-actions{ display:flex; align-items:center; gap:12px; }
 .network-pill{
@@ -206,516 +120,158 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
 }
 @keyframes pulse-dot{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
 
-.mobile-toggle{
-  display:none; flex-direction:column; gap:4px; background:none; border:none; padding:8px;
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 24px; font-family:var(--font-body); font-weight:600;
+  font-size:14px; letter-spacing:-.005em;
+  border-radius:var(--radius-sm); border:1px solid transparent;
+  cursor:pointer; transition:all .2s var(--ease); white-space:nowrap; position:relative;
+  text-transform:uppercase;
 }
-.mobile-toggle span{ width:20px; height:1.5px; background:var(--text); display:block; border-radius:2px; }
+.btn-primary{
+  background:var(--primary); color:#04140a; border-color:var(--primary);
+  box-shadow:0 1px 0 rgba(255,255,255,.15) inset, 0 8px 24px -8px var(--primary-glow);
+}
+.btn-primary:hover{ background:#4dffa1; transform:translateY(-1px); box-shadow:0 1px 0 rgba(255,255,255,.2) inset, 0 12px 28px -8px var(--primary-glow); }
+.btn-primary:active{ transform:translateY(0); }
+.btn-ghost{
+  background:rgba(255,255,255,.03); color:var(--text); border:1px solid var(--border-strong);
+}
+.btn-ghost:hover{ border-color:var(--primary); color:var(--primary); background:var(--primary-soft); }
+.btn-block{ width:100%; }
+.btn-sm{ padding:9px 16px; font-size:12.5px; }
 
-.mobile-drawer{
-  position:fixed; top:76px; left:0; right:0; z-index:99; background:rgba(5,7,6,.98); backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border); display:flex; flex-direction:column;
-  padding:0 24px; max-height:0; overflow:hidden; transition:max-height .35s var(--ease);
+/* Whitelist Container */
+.main-content{
+  padding:120px 24px 60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-grow:1;
 }
-.mobile-drawer.open{ max-height:360px; padding:12px 24px 20px; }
-.mobile-drawer .nav-link{ padding:14px 0; border-bottom:1px solid var(--border-hairline); font-size:14px; }
+.wl-panel{
+  width:100%;
+  max-width:580px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:44px;
+  box-shadow:var(--shadow-soft);
+  position:relative;
+}
+.wl-header{
+  text-align:center;
+  margin-bottom:32px;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; color:var(--primary); font-size:12px; letter-spacing:.14em;
+  font-weight:600; margin-bottom:12px; text-transform:uppercase; font-family:var(--font-body);
+}
+.wl-title{
+  font-size:clamp(26px, 4vw, 36px); letter-spacing:-.02em; font-weight:700; margin:0 0 10px; color:var(--text); line-height:1.2;
+}
+.wl-desc{
+  color:var(--text-muted); font-size:14px; margin:0; line-height:1.6;
+}
 
-/* ==========================================================================
-   Ticker
-   ========================================================================== */
-.ticker-wrap{
-  position:sticky; top:76px; z-index:90; background:var(--panel);
-  border-bottom:1px solid var(--border-hairline); overflow:hidden; height:40px;
-}
-.ticker-track{
-  display:flex; align-items:center; gap:40px; white-space:nowrap;
-  height:100%; width:max-content; animation:ticker-scroll 34s linear infinite;
-  padding-left:40px;
-}
-.ticker-wrap:hover .ticker-track{ animation-play-state:paused; }
-@keyframes ticker-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-.ticker-item{ font-size:12px; letter-spacing:0; color:var(--text-muted); display:flex; gap:8px; align-items:center; font-family:var(--font-mono); }
-.ticker-item strong{ color:var(--primary); font-weight:600; }
-.ticker-item .gold{ color:var(--gold); }
-.ticker-sep{ color:var(--border-strong); }
-
-/* ==========================================================================
-   Hero
-   ========================================================================== */
-.hero{ padding:92px 0 72px; }
-.hero-inner{
-  max-width:var(--container); margin:0 auto; padding:0 24px;
-  display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center;
-}
-.status-line{
-  display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:500;
-  color:var(--text-muted); border:1px solid var(--border); font-family:var(--font-mono);
-  padding:7px 14px; border-radius:20px; margin-bottom:28px; background:rgba(255,255,255,.02);
-}
-.hero-title{
-  font-size:clamp(48px, 7vw, 84px); font-weight:700; letter-spacing:-.03em; line-height:.98;
-  margin:0 0 16px; color:var(--text);
-}
-.hero-title .dot{ color:var(--gold); }
-.hero-sub{
-  font-size:clamp(14px, 1.6vw, 17px); font-weight:600; letter-spacing:.06em; color:var(--primary);
-  margin:0 0 22px; text-transform:uppercase; font-family:var(--font-body);
-}
-.hero-desc{ color:var(--text-muted); font-size:16px; max-width:460px; margin:0 0 36px; line-height:1.7; }
-.hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:32px; }
-.hero-quicklinks{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--text-faint); font-family:var(--font-mono); }
-.hero-quicklinks a{ color:var(--text-muted); transition:color .2s; }
-.hero-quicklinks a:hover{ color:var(--primary); }
-.hero-quicklinks span{ color:var(--border-strong); }
-
-/* ==========================================================================
-   NFT Card — premium collectible presentation
-   ========================================================================== */
-.nft-card{
-  background:linear-gradient(180deg, var(--panel-2), var(--panel)); border:1px solid var(--border); border-radius:var(--radius-lg);
-  padding:20px; position:relative; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
-  box-shadow:var(--shadow-card);
-}
-.nft-card[data-tilt]:hover{
-  transform:perspective(1000px) rotateX(2deg) rotateY(-3deg) translateY(-6px);
-  border-color:var(--border-strong); box-shadow:var(--shadow-soft), 0 0 0 1px var(--primary-soft);
-}
-.nft-card[data-tilt]:hover .nft-art img{ transform:scale(1.06); }
-.nft-card-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-.nft-card-id{ font-size:13px; font-weight:600; color:var(--text-muted); font-family:var(--font-mono); }
-.badge{ font-size:10.5px; font-weight:700; letter-spacing:.06em; padding:5px 10px; border-radius:20px; font-family:var(--font-body); }
-.badge-rare{ background:var(--primary-soft); color:var(--primary); border:1px solid rgba(53,255,143,.25); }
-.badge-legendary{ background:var(--gold-soft); color:var(--gold); border:1px solid rgba(240,196,25,.3); }
-
-.nft-art{
-  position:relative; aspect-ratio:1/.86; background:
-    radial-gradient(circle at 50% 30%, rgba(53,255,143,.06), transparent 65%), var(--bg-deep);
-  border:1px solid var(--border-hairline); border-radius:var(--radius-md);
-  display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:18px;
-}
-.nft-art-scan{ display:none; }
-.nft-glyph{ width:56%; color:var(--primary); position:relative; z-index:1; }
-.nft-glyph.gold-glyph{ color:var(--gold); }
-.nft-art img{
-  width:66%; height:66%; object-fit:contain; position:relative; z-index:1;
-  filter:drop-shadow(0 8px 24px rgba(0,0,0,.5));
-  transition:transform .5s var(--ease);
-}
-.nft-art-label{
-  position:absolute; bottom:12px; left:12px; font-size:10px; letter-spacing:.1em; font-weight:600;
-  color:var(--text-faint); font-family:var(--font-mono); text-transform:uppercase;
-}
-.nft-card-footer{ display:flex; justify-content:space-between; gap:12px; }
-.nft-card-footer.stack{ flex-direction:column; gap:16px; }
-.nft-stat{ display:flex; flex-direction:column; gap:5px; }
-.nft-stat span{ font-size:10.5px; letter-spacing:.08em; color:var(--text-faint); text-transform:uppercase; font-weight:600; }
-.nft-stat strong{ font-size:15px; font-family:var(--font-mono); font-weight:600; }
-.tag-row{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-.tag{ font-size:10.5px; font-weight:600; letter-spacing:.04em; padding:6px 11px; border-radius:20px; }
-.tag-green{ background:var(--primary-soft); color:var(--primary); border:1px solid rgba(53,255,143,.22); }
-.tag-gold{ background:var(--gold-soft); color:var(--gold); border:1px solid rgba(240,196,25,.25); }
-.btn-row{ display:flex; gap:8px; flex-wrap:wrap; }
-
-.featured-hero-card{ max-width:400px; margin-left:auto; }
-#hero-index{ font-family:var(--font-mono); }
-
-/* ==========================================================================
-   Stats — clean financial dashboard
-   ========================================================================== */
-.stats-section{ padding:0 0 72px; }
-.stats-grid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:1px; background:var(--border-hairline); border:1px solid var(--border-hairline); border-radius:var(--radius-md); overflow:hidden; }
-.stat-card{
-  background:var(--panel); padding:24px 20px; display:flex; flex-direction:column; gap:9px;
-}
-.stat-label{ font-size:10.5px; letter-spacing:.09em; color:var(--text-faint); font-weight:600; text-transform:uppercase; }
-.stat-value{ font-size:clamp(19px, 2vw, 24px); font-weight:600; color:var(--text); letter-spacing:-.01em; font-family:var(--font-mono); }
-.stat-value.gold{ color:var(--gold); }
-.stat-value.small-value{ font-size:14px; }
-.stat-change{ font-size:11.5px; font-weight:600; letter-spacing:0; font-family:var(--font-mono); }
-.stat-change.up{ color:var(--primary); }
-.stat-change.up::before{ content:'↑ '; }
-
-/* ==========================================================================
-   Showcase / Collection
-   ========================================================================== */
-.showcase-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:44px; align-items:start; }
-.showcase-card{ max-width:420px; }
-.collection-info{
-  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px;
-  display:flex; flex-direction:column; gap:18px; align-self:stretch; justify-content:center; box-shadow:var(--shadow-card);
-}
-.info-row{ display:flex; justify-content:space-between; font-size:13.5px; color:var(--text-muted); border-bottom:1px solid var(--border-hairline); padding-bottom:14px; }
-.info-row strong{ color:var(--text); font-family:var(--font-mono); font-weight:600; }
-.progress-bar{ height:6px; background:var(--bg-deep); border:1px solid var(--border-hairline); border-radius:6px; overflow:hidden; margin-top:4px; }
-.progress-fill{ height:100%; background:linear-gradient(90deg, var(--primary-dim), var(--primary)); }
-
-/* ==========================================================================
-   Steps timeline
-   ========================================================================== */
-.steps-timeline{ display:flex; align-items:stretch; gap:16px; flex-wrap:wrap; position:relative; }
-.step-card{
-  flex:1 1 200px; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg);
-  padding:28px 24px; position:relative; transition:border-color .25s var(--ease), transform .25s var(--ease);
-  box-shadow:var(--shadow-card);
-}
-.step-card:hover{ border-color:var(--border-strong); transform:translateY(-3px); }
-.step-num{ display:block; font-size:13px; font-weight:700; color:var(--primary); margin-bottom:14px; font-family:var(--font-mono); letter-spacing:.06em; }
-.step-card h3{ margin:0 0 10px; font-size:17px; letter-spacing:-.01em; font-weight:700; }
-.step-card p{ font-size:13.5px; color:var(--text-muted); margin:0 0 16px; line-height:1.6; }
-.step-highlight{ display:inline-block; font-size:11px; font-weight:600; color:var(--gold); background:var(--gold-soft); padding:7px 11px; border-radius:20px; font-family:var(--font-mono); }
-.step-arrow{ display:flex; align-items:center; justify-content:center; color:var(--text-faint); font-size:18px; padding:0 4px; flex:0 0 auto; }
-
-/* ==========================================================================
-   Free Claim / Whitelist
-   ========================================================================== */
-.wl-panel{ max-width:640px; margin:0 auto; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:44px; box-shadow:var(--shadow-soft); }
-.wl-progress{ display:flex; align-items:center; margin-bottom:38px; }
+/* Progress Stepper */
+.wl-progress{ display:flex; align-items:center; margin-bottom:36px; justify-content:space-between; }
 .wl-progress-step{
-  width:36px; height:36px; border-radius:50%; border:1px solid var(--border-strong); display:flex; align-items:center; justify-content:center;
-  font-size:12px; font-weight:700; color:var(--text-faint); flex-shrink:0; transition:all .3s var(--ease); font-family:var(--font-mono);
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--border-strong); display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:700; color:var(--text-faint); flex-shrink:0; transition:all .3s var(--ease); font-family:var(--font-mono);
   background:var(--bg-deep);
 }
 .wl-progress-step.active{ border-color:var(--primary); color:var(--primary); box-shadow:0 0 0 4px var(--primary-soft); }
 .wl-progress-step.done{ background:var(--primary); color:#04140a; border-color:var(--primary); }
 .wl-progress-line{ flex:1; height:1px; background:var(--border-strong); margin:0 8px; }
+
+/* Steps Content */
 .wl-step{ display:none; animation:fade-in .35s var(--ease); }
 .wl-step.active{ display:block; }
-.wl-step h3{ font-size:17px; letter-spacing:-.01em; margin:0 0 10px; font-weight:700; }
-.wl-step p{ color:var(--text-muted); font-size:13.5px; margin:0 0 22px; line-height:1.6; }
+.wl-step h3{ font-size:18px; letter-spacing:-.01em; margin:0 0 8px; font-weight:700; color:var(--text); }
+.wl-step p{ color:var(--text-muted); font-size:14px; margin:0 0 24px; line-height:1.6; }
 @keyframes fade-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+
+/* Form inputs */
+.input-group{ margin-bottom:20px; text-align:left; }
+.input-label{ display:block; font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:8px; font-family:var(--font-mono); letter-spacing:.05em; text-transform:uppercase; }
+.input-field{
+  width:100%; background:var(--panel-2); border:1px solid var(--border-strong);
+  color:var(--text); padding:14px 16px; border-radius:var(--radius-sm); font-size:14px;
+  font-family:var(--font-mono); transition:border-color .2s var(--ease); outline:none;
+}
+.input-field:focus{ border-color:var(--primary); box-shadow:0 0 0 2px var(--primary-soft); }
+
+.wallet-display{
+  font-size:13.5px; font-weight:600; color:var(--primary); background:var(--panel-2); border:1px solid var(--border);
+  padding:14px 16px; border-radius:var(--radius-sm); margin-bottom:20px; font-family:var(--font-mono); display:flex; align-items:center; justify-content:space-between;
+}
+.badge-status{ font-size:11px; padding:4px 8px; border-radius:12px; background:var(--primary-soft); color:var(--primary); font-weight:700; border:1px solid rgba(53,255,143,.3); }
+
 .status-tag{
   display:inline-block; margin-top:16px; font-size:11.5px; font-weight:600; letter-spacing:.02em;
   color:var(--gold); background:var(--gold-soft); padding:7px 13px; border-radius:20px; font-family:var(--font-mono);
 }
 .status-tag.success{ color:var(--primary); background:var(--primary-soft); }
-.wallet-display{
-  font-size:14px; font-weight:600; color:var(--primary); background:var(--bg-deep); border:1px solid var(--border);
-  padding:13px 16px; border-radius:var(--radius-sm); margin-bottom:22px; font-family:var(--font-mono);
-}
-.wl-success{ text-align:center; padding:24px 0; }
+
+.wl-success{ text-align:center; padding:20px 0; }
 .welcome-text{ font-size:26px; margin-top:16px; color:var(--text); letter-spacing:-.02em; font-weight:700; }
+.success-card{ background:var(--panel-2); border:1px solid var(--border-strong); border-radius:var(--radius-md); padding:20px; margin-top:20px; text-align:left; font-family:var(--font-mono); font-size:13px; }
+.success-card-row{ display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid var(--border-hairline); padding-bottom:8px; }
+.success-card-row:last-child{ margin-bottom:0; border-bottom:none; padding-bottom:0; }
+.success-card-row span{ color:var(--text-faint); }
+.success-card-row strong{ color:var(--text); }
 
-/* ==========================================================================
-   Farm
-   ========================================================================== */
-.farm-dash{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border-hairline); border:1px solid var(--border-hairline); border-radius:var(--radius-md); overflow:hidden; margin-bottom:28px; }
-.farm-dash.small{ grid-template-columns:repeat(5,1fr); margin-bottom:36px; }
-.countdown{ font-variant-numeric:tabular-nums; color:var(--primary); }
-.farm-claim-row{ margin-bottom:48px; }
-
-.staking-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:20px; }
-.stake-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; transition:border-color .25s var(--ease), transform .25s var(--ease); box-shadow:var(--shadow-card); }
-.stake-card:hover{ border-color:var(--border-strong); transform:translateY(-2px); }
-.stake-card .nft-art{ aspect-ratio:1/.7; margin-bottom:14px; }
-.stake-meta{ display:flex; justify-content:space-between; margin-bottom:10px; font-size:12.5px; }
-.stake-meta span{ color:var(--text-faint); }
-.stake-meta strong{ color:var(--text); font-family:var(--font-mono); }
-.stake-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:6px; }
-.stake-row strong{ color:var(--gold); font-family:var(--font-mono); font-weight:600; }
-.stake-actions{ display:flex; gap:8px; margin-top:14px; }
-
-/* ==========================================================================
-   Reward ticker grid — financial asset cards
-   ========================================================================== */
-.ticker-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:16px; margin-bottom:26px; }
-.ticker-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:20px; text-align:center; transition:border-color .25s var(--ease), transform .25s var(--ease); box-shadow:var(--shadow-card); }
-.ticker-card:hover{ border-color:var(--border-strong); transform:translateY(-3px); }
-.ticker-card .logo-img{ width:40px; height:40px; object-fit:contain; margin:0 auto 12px; display:block; }
-.ticker-card .symbol{ display:block; font-size:15px; font-weight:600; letter-spacing:0; margin-bottom:8px; font-family:var(--font-mono); }
-.ticker-card .mini-chart{ width:100%; height:28px; margin-bottom:8px; }
-.ticker-card .pct{ font-size:11.5px; font-weight:600; font-family:var(--font-mono); }
-.ticker-card .pct.up{ color:var(--primary); }
-.ticker-card .pct.down{ color:var(--error); }
-.ticker-card .avail{ display:block; margin-top:12px; font-size:9.5px; letter-spacing:.06em; font-weight:600; padding:5px 9px; border-radius:20px; text-transform:uppercase; }
-.ticker-card .avail.on{ color:var(--primary); background:var(--primary-soft); }
-.ticker-card .avail.off{ color:var(--text-faint); background:rgba(255,255,255,.03); }
-.disclaimer{ font-size:11.5px; color:var(--text-faint); max-width:560px; line-height:1.6; }
-
-/* ==========================================================================
-   Jackpot
-   ========================================================================== */
-.jackpot-section{ text-align:center; }
-.jackpot-pool{ display:flex; flex-direction:column; align-items:center; margin-bottom:22px; }
-.jackpot-amount{
-  font-size:clamp(38px, 5.5vw, 60px); font-weight:700; color:var(--gold);
-  letter-spacing:-.02em; font-family:var(--font-mono);
-}
-.jackpot-label{ font-size:11.5px; letter-spacing:.1em; color:var(--text-faint); font-weight:600; margin-top:8px; text-transform:uppercase; }
-.current-reward{ margin-top:20px; display:flex; align-items:center; gap:10px; font-size:12.5px; color:var(--text-muted); }
-.current-reward strong{ color:var(--primary); font-size:16px; font-family:var(--font-mono); }
-
-.spin-machine{ display:flex; flex-direction:column; align-items:center; margin:48px auto; max-width:480px; }
-.machine-frame{
-  width:100%; background:var(--panel); border:1px solid var(--border-strong); border-radius:var(--radius-lg);
-  padding:16px; position:relative; box-shadow:var(--shadow-soft);
-  display:flex; gap:10px;
-}
-.reel-col{
-  flex:1; height:96px; overflow:hidden; border:1px solid var(--border); border-radius:var(--radius-sm);
-  position:relative; background:var(--bg-deep);
-}
-.reel-track{ display:flex; flex-direction:column; width:100%; will-change:transform; }
-.reel-cell{
-  width:100%; height:96px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
-  padding:12px; box-sizing:border-box; border-bottom:1px solid var(--border-hairline);
-}
-.reel-cell img{ width:52px; height:52px; object-fit:contain; }
-.reel-col.spinning .reel-track{ animation:reel-spin-v .1s linear infinite; }
-@keyframes reel-spin-v{ from{ transform:translateY(0); } to{ transform:translateY(-96px); } }
-.reel-col.win{ border-color:var(--gold); box-shadow:0 0 0 3px var(--gold-soft); }
-
-.btn-spin{
-  margin-top:26px; width:164px; height:56px; border-radius:50px; font-size:15px; letter-spacing:.02em;
-}
-.spin-status{ margin-top:14px; font-size:12.5px; font-weight:500; color:var(--text-muted); font-family:var(--font-mono); }
-
-.decentral-panel{
-  margin-top:64px; text-align:left; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:40px;
-  box-shadow:var(--shadow-card);
-}
-.decentral-panel h3{ font-size:18px; letter-spacing:-.01em; margin:0 0 10px; font-weight:700; }
-.decentral-panel > p{ color:var(--text-muted); font-size:13.5px; max-width:640px; margin:0 0 30px; line-height:1.6; }
-.decentral-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:22px; }
-.decentral-card{ border:1px solid var(--border); border-radius:var(--radius-md); padding:20px; background:var(--panel-2); }
-.decentral-card h4{ font-size:12px; letter-spacing:.05em; color:var(--primary); margin:0 0 8px; text-transform:uppercase; font-weight:700; }
-.decentral-card p{ font-size:12.5px; color:var(--text-muted); margin:0; line-height:1.6; }
-
-/* ==========================================================================
-   Modals
-   ========================================================================== */
+/* Modals */
 .modal-overlay{
-  position:fixed; inset:0; background:rgba(2,4,3,.8); backdrop-filter:blur(8px); z-index:1000;
+  position:fixed; inset:0; background:rgba(2,4,3,.85); backdrop-filter:blur(8px); z-index:1000;
   display:none; align-items:center; justify-content:center; padding:20px;
 }
 .modal-overlay.open{ display:flex; }
 .modal{
   position:relative; background:var(--panel); border:1px solid var(--border-strong); border-radius:var(--radius-lg);
-  padding:44px; max-width:420px; width:100%; text-align:center; animation:modal-in .3s var(--ease);
+  padding:36px; max-width:420px; width:100%; text-align:left; animation:modal-in .3s var(--ease);
   box-shadow:var(--shadow-soft);
 }
 @keyframes modal-in{ from{ opacity:0; transform:scale(.96) translateY(8px); } to{ opacity:1; transform:none; } }
 .modal-close{
   position:absolute; top:16px; right:16px; background:rgba(255,255,255,.04); border:1px solid var(--border); color:var(--text-muted); font-size:14px;
-  width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .2s;
+  width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .2s; cursor:pointer;
 }
 .modal-close:hover{ color:var(--text); border-color:var(--border-strong); }
-
-.win-modal{ border-color:var(--gold); overflow:hidden; }
-.win-flash{ position:absolute; inset:0; background:radial-gradient(circle, var(--gold-glow), transparent 70%); opacity:.5; pointer-events:none; }
-.win-emoji{ font-size:36px; display:block; margin-bottom:12px; }
-.win-modal h3{ font-size:24px; color:var(--gold); letter-spacing:-.01em; margin:0 0 8px; font-weight:700; }
-.win-sub{ color:var(--text-muted); font-size:13px; margin:0 0 18px; font-family:var(--font-mono); }
-.win-reward{ font-size:16px; margin:0 0 24px; }
-.win-reward span{ color:var(--primary); font-weight:700; font-family:var(--font-mono); }
-
-/* Wallet modal */
-.wallet-modal{ text-align:left; }
-.wallet-modal h3{ font-size:19px; letter-spacing:-.01em; margin:0 0 8px; font-weight:700; }
-.wallet-modal p{ color:var(--text-muted); font-size:13.5px; margin:0 0 24px; }
-.wallet-options{ display:flex; flex-direction:column; gap:10px; }
+.wallet-options{ display:flex; flex-direction:column; gap:10px; margin-top:20px; }
 .wallet-option{
   display:flex; align-items:center; gap:12px; background:var(--panel-2); border:1px solid var(--border);
-  color:var(--text); padding:15px 16px; border-radius:var(--radius-sm); font-size:13.5px; font-weight:500;
-  transition:border-color .2s var(--ease), background .2s var(--ease);
+  color:var(--text); padding:15px 16px; border-radius:var(--radius-sm); font-size:13.5px; font-weight:600;
+  transition:border-color .2s var(--ease), background .2s var(--ease); cursor:pointer; width:100%; text-align:left;
 }
 .wallet-option:hover{ border-color:var(--primary); background:var(--primary-soft); color:var(--primary); }
-.wallet-icon{ color:var(--primary); }
 .connecting-state{ display:flex; align-items:center; gap:12px; padding:20px 0 0; font-size:12.5px; color:var(--primary); font-family:var(--font-mono); }
 .spinner{ width:16px; height:16px; border:2px solid var(--border-strong); border-top-color:var(--primary); border-radius:50%; animation:spin 0.8s linear infinite; }
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
-/* ==========================================================================
-   My NFT
-   ========================================================================== */
-.mynft-disconnected{ text-align:center; padding:76px 24px; border:1px solid var(--border); border-radius:var(--radius-lg); max-width:560px; margin:0 auto; background:var(--panel); box-shadow:var(--shadow-card); }
-.mynft-disconnected h3{ font-size:20px; letter-spacing:-.01em; margin:0 0 12px; color:var(--text); font-weight:700; }
-.mynft-disconnected p{ color:var(--text-muted); font-size:13.5px; max-width:400px; margin:0 auto 28px; line-height:1.6; }
-.mynft-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:20px; }
-
-/* ==========================================================================
-   Mint
-   ========================================================================== */
-.mint-panel{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:44px; text-align:center; box-shadow:var(--shadow-soft); }
-.mint-price-amount{ display:block; font-size:28px; font-weight:700; color:var(--gold); font-family:var(--font-mono); }
-.mint-price-label{ font-size:11.5px; letter-spacing:.1em; color:var(--text-faint); text-transform:uppercase; margin-top:6px; }
-.mint-qty{ display:flex; align-items:center; justify-content:center; gap:26px; margin:32px 0; }
-.qty-btn{
-  width:44px; height:44px; border-radius:50%; border:1px solid var(--border-strong); background:var(--panel-2);
-  color:var(--text); font-size:19px; font-weight:500; transition:all .2s var(--ease);
-}
-.qty-btn:hover{ border-color:var(--primary); color:var(--primary); }
-.qty-value{ font-size:26px; font-weight:700; min-width:40px; font-family:var(--font-mono); }
-.mint-total{ display:flex; justify-content:space-between; padding:18px 0; border-top:1px solid var(--border-hairline); border-bottom:1px solid var(--border-hairline); margin-bottom:28px; font-size:13.5px; }
-.mint-total strong{ color:var(--gold); font-size:16px; font-family:var(--font-mono); }
-.mint-status{ font-size:12.5px; color:var(--text-muted); margin:18px 0 8px; }
-
-/* ==========================================================================
-   Ecosystem flow
-   ========================================================================== */
-.eco-flow{ display:flex; flex-direction:column; align-items:center; gap:8px; }
-.eco-node{
-  border:1px solid var(--border); border-radius:20px; padding:13px 32px; font-weight:600;
-  font-size:13.5px; color:var(--text); background:var(--panel);
-}
-.eco-node.highlight{ border-color:var(--gold); color:var(--gold); background:var(--gold-soft); }
-.eco-arrow{ color:var(--text-faint); font-size:15px; }
-
-/* ==========================================================================
-   Accordion
-   ========================================================================== */
-.accordion-item{ border-bottom:1px solid var(--border-hairline); }
-.accordion-head{
-  width:100%; display:flex; justify-content:space-between; align-items:center; background:none; border:none;
-  color:var(--text); padding:22px 4px; font-size:15px; font-weight:600; text-align:left; font-family:var(--font-body);
-}
-.accordion-head:hover{ color:var(--primary); }
-.accordion-icon{ color:var(--text-muted); font-size:16px; transition:transform .25s var(--ease); font-weight:400; }
-.accordion-item.open .accordion-icon{ transform:rotate(45deg); color:var(--primary); }
-.accordion-body{ max-height:0; overflow:hidden; transition:max-height .35s var(--ease); }
-.accordion-item.open .accordion-body{ max-height:200px; }
-.accordion-body p{ padding:0 4px 22px; margin:0; font-size:13.5px; color:var(--text-muted); line-height:1.65; }
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.footer{ border-top:1px solid var(--border-hairline); padding:60px 0 28px; background:var(--panel); }
-.footer-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px; padding-bottom:32px; border-bottom:1px solid var(--border-hairline); }
-.footer-tagline{ font-size:12px; letter-spacing:.04em; color:var(--text-faint); margin:8px 0 0; font-family:var(--font-mono); }
-.footer-nav{ display:flex; gap:24px; flex-wrap:wrap; }
-.footer-nav a{ font-size:13px; color:var(--text-muted); font-weight:500; }
-.footer-nav a:hover{ color:var(--primary); }
-.footer-social{ display:flex; gap:20px; }
-.footer-social a{ font-size:13px; color:var(--text-muted); font-weight:500; }
-.footer-social a:hover{ color:var(--primary); }
-.footer-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:24px; font-size:12px; color:var(--text-faint); font-family:var(--font-mono); }
-
-/* ==========================================================================
-   Sticky mobile nav
-   ========================================================================== */
-.sticky-nav{
-  display:none; position:fixed; bottom:0; left:0; right:0; z-index:95; background:rgba(5,7,6,.96);
-  backdrop-filter:blur(16px); border-top:1px solid var(--border); padding:10px 6px calc(10px + env(safe-area-inset-bottom));
-  justify-content:space-around;
-}
-.sticky-link{ font-size:10.5px; font-weight:600; color:var(--text-faint); display:flex; flex-direction:column; align-items:center; padding:4px 8px; }
-.sticky-link.active{ color:var(--primary); }
-
-/* ==========================================================================
-   Toasts
-   ========================================================================== */
+/* Toasts */
 .toast-container{ position:fixed; top:96px; right:20px; z-index:1100; display:flex; flex-direction:column; gap:10px; }
 .toast{
   background:var(--panel); border:1px solid var(--border-strong); border-left:3px solid var(--primary); border-radius:var(--radius-sm);
-  padding:15px 18px; font-size:12.5px; color:var(--text); min-width:220px; box-shadow:var(--shadow-soft);
-  animation:toast-in .3s var(--ease);
+  padding:15px 18px; font-size:13px; color:var(--text); min-width:260px; box-shadow:var(--shadow-soft);
+  animation:toast-in .3s var(--ease); font-family:var(--font-mono);
 }
 .toast.error{ border-color:var(--border-strong); border-left-color:var(--error); }
+.toast.warning{ border-color:var(--border-strong); border-left-color:var(--gold); }
 @keyframes toast-in{ from{ opacity:0; transform:translateX(20px); } to{ opacity:1; transform:none; } }
 .toast.hide{ animation:toast-out .25s var(--ease) forwards; }
 @keyframes toast-out{ to{ opacity:0; transform:translateX(20px); } }
 
-/* ==========================================================================
-   $STONK Token Packages — premium banknote-style cards
-   ========================================================================== */
-.note-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-bottom:30px; }
-.stonk-note{
-  position:relative; cursor:pointer; border-radius:var(--radius-lg); overflow:hidden;
-  background:var(--panel); border:1px solid var(--border); box-shadow:var(--shadow-card);
-  transition:all .3s var(--ease); display:flex; flex-direction:column;
-}
-.stonk-note:hover{ transform:translateY(-4px); border-color:var(--border-strong); }
-.stonk-note.selected{ border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft), var(--shadow-soft); }
+/* Footer */
+.footer{ border-top:1px solid var(--border-hairline); padding:28px 0; background:var(--panel); }
+.footer-bottom{ max-width:var(--container); margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--text-faint); font-family:var(--font-mono); }
 
-.note-face{
-  position:relative; aspect-ratio:16/9; margin:14px 14px 0; border-radius:var(--radius-md);
-  background:
-    repeating-linear-gradient(115deg, rgba(240,196,25,.035) 0px, rgba(240,196,25,.035) 1px, transparent 1px, transparent 7px),
-    linear-gradient(135deg, #0c1310, #070b08 60%);
-  border:1px solid var(--gold-dim); overflow:hidden; padding:16px;
-  display:flex; flex-direction:column; justify-content:space-between;
-}
-.note-face::before{
-  content:''; position:absolute; inset:5px; border:1px dashed rgba(240,196,25,.28); border-radius:calc(var(--radius-md) - 4px); pointer-events:none;
-}
-.note-watermark{
-  position:absolute; right:-6%; top:50%; transform:translateY(-50%); width:62%; height:120%;
-  opacity:.14; filter:grayscale(1) contrast(1.1); pointer-events:none;
-}
-.note-watermark img{ width:100%; height:100%; object-fit:contain; }
-.note-top-row{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; }
-.note-currency-tag{ font-size:9.5px; letter-spacing:.14em; color:var(--gold); font-weight:700; text-transform:uppercase; font-family:var(--font-mono); }
-.note-seal{
-  font-size:10px; font-weight:700; color:#04140a; background:var(--primary); padding:4px 9px; border-radius:20px;
-  font-family:var(--font-mono); letter-spacing:.02em;
-}
-.note-denom{ position:relative; z-index:1; font-family:var(--font-mono); font-weight:700; color:var(--text); font-size:clamp(22px,2.4vw,28px); letter-spacing:-.01em; line-height:1; }
-.note-denom span{ font-size:13px; color:var(--text-faint); font-weight:600; margin-left:6px; }
-.note-bottom-row{ display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:1; }
-.note-serial{ font-size:9px; color:var(--text-faint); letter-spacing:.08em; font-family:var(--font-mono); }
-.note-eth{ font-size:12.5px; font-weight:700; color:var(--gold); font-family:var(--font-mono); }
-
-.stonk-note .pkg-check{
-  position:absolute; top:22px; right:22px; width:22px; height:22px; border-radius:50%; border:1px solid var(--border-strong);
-  background:var(--bg-deep); display:flex; align-items:center; justify-content:center; font-size:12px; color:transparent; transition:all .2s var(--ease); z-index:2;
-}
-.stonk-note.selected .pkg-check{ background:var(--primary); border-color:var(--primary); color:#04140a; }
-
-.note-info{ padding:16px 18px 18px; text-align:left; }
-.note-info h4{ font-size:13.5px; font-weight:700; letter-spacing:.02em; color:var(--text); margin:0 0 6px; text-transform:uppercase; }
-.note-info p{ font-size:12.5px; color:var(--text-muted); line-height:1.6; margin:0; }
-
-.package-summary{
-  display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap;
-  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:18px 24px;
-  max-width:640px; margin:0 auto; font-size:13px; color:var(--text-muted); animation:fade-in .3s var(--ease);
-}
-.package-summary strong{ color:var(--text); font-family:var(--font-mono); }
-.package-summary-price strong{ color:var(--gold); }
-
-@media (max-width:980px){
-  .note-grid{ grid-template-columns:repeat(2, 1fr); }
-}
 @media (max-width:600px){
-  .note-grid{ grid-template-columns:1fr; }
-  .package-summary{ flex-direction:column; gap:10px; text-align:center; }
+  .wl-panel{ padding:28px 20px; }
+  .main-content{ padding:100px 16px 40px; }
 }
-
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
-@media (max-width:980px){
-  .hero-inner{ grid-template-columns:1fr; }
-  .featured-hero-card{ margin:0 auto; }
-  .showcase-grid{ grid-template-columns:1fr; }
-  .stats-grid{ grid-template-columns:repeat(3,1fr); }
-  .farm-dash{ grid-template-columns:repeat(2,1fr); }
-  .farm-dash.small{ grid-template-columns:repeat(2,1fr); }
-  .decentral-grid{ grid-template-columns:1fr; }
-}
-
-@media (max-width:760px){
-  .nav{ display:none; }
-  .mobile-toggle{ display:flex; }
-  .header-actions{ gap:10px; }
-  .network-pill{ display:none; }
-  .section{ padding:72px 0; }
-  .stats-grid{ grid-template-columns:repeat(2,1fr); }
-  .steps-timeline{ flex-direction:column; }
-  .step-arrow{ transform:rotate(90deg); padding:6px 0; }
-  .wl-panel{ padding:28px; }
-  .btn-wallet{ font-size:12px; padding:11px 16px; }
-  .sticky-nav{ display:flex; }
-  main{ padding-bottom:68px; }
-  .footer{ padding-bottom:94px; }
-  .ticker-wrap{ top:auto; }
-}
-
-@media (max-width:480px){
-  .stats-grid{ grid-template-columns:1fr 1fr; }
-  .btn-lg{ width:100%; }
-  .hero-actions{ flex-direction:column; }
-  .hero-actions .btn{ width:100%; }
-}
-
 </style>
 </head>
 <body>
@@ -725,655 +281,198 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
 <div id="toast-container" class="toast-container"></div>
 
 <!-- ============ HEADER ============ -->
-<header class="header" id="header">
+<header class="header">
   <div class="header-inner">
-    <a href="#home" class="logo">
+    <a href="#" class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 32 32" width="26" height="26"><path d="M3 24L11 14L17 19L29 5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="square"/><path d="M22 5H29V12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="square"/></svg>
       </span>
       <span class="logo-text">MR<span class="dot">.</span>STONK</span>
     </a>
 
-    <nav class="nav" id="main-nav">
-      <a href="#home" class="nav-link active">HOME</a>
-      <a href="#collection" class="nav-link">COLLECTION</a>
-      <a href="#packages" class="nav-link">PACKAGES</a>
-      <a href="#how" class="nav-link">HOW IT WORKS</a>
-      <a href="#farm" class="nav-link">FARM</a>
-      <a href="#jackpot" class="nav-link">JACKPOT</a>
-      <a href="#mynft" class="nav-link">MY NFT</a>
-    </nav>
-
     <div class="header-actions">
       <span class="network-pill"><span class="dot-pulse"></span>MAINNET</span>
-      <button class="btn btn-primary btn-wallet" id="wallet-btn">
-        <span id="wallet-btn-text">CONNECT WALLET</span>
-      </button>
-      <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
+      <button class="btn btn-primary" id="header-wallet-btn">
+        <span id="header-wallet-text">CONNECT WALLET</span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- ============ MOBILE NAV DRAWER ============ -->
-<div class="mobile-drawer" id="mobile-drawer">
-  <a href="#home" class="nav-link">HOME</a>
-  <a href="#collection" class="nav-link">COLLECTION</a>
-      <a href="#packages" class="nav-link">PACKAGES</a>
-  <a href="#how" class="nav-link">HOW IT WORKS</a>
-  <a href="#farm" class="nav-link">FARM</a>
-  <a href="#jackpot" class="nav-link">JACKPOT</a>
-  <a href="#mynft" class="nav-link">MY NFT</a>
-</div>
-
-<!-- ============ TICKER ============ -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker-track">
-    <!-- duplicated via JS for seamless loop -->
-  </div>
-</div>
-
-<main>
-
-<!-- ============ HERO ============ -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="status-line">
-        <span class="dot-pulse"></span>MAINNET &nbsp;•&nbsp; MR.STONK PROTOCOL
-      </div>
-      <span class="eyebrow">THE NFT THAT TRADES THE MARKET</span>
-      <h1 class="hero-title">MR<span class="dot">.</span>STONK</h1>
-      <p class="hero-desc">Enter the Mr.Stonk ecosystem — collect, stake, farm, spin, and compete for decentralized stock-token jackpots.</p>
-      <div class="hero-actions">
-        <a href="#collection" class="btn btn-primary btn-lg">EXPLORE COLLECTION</a>
-        <a href="#freeclaim" class="btn btn-ghost btn-lg">JOIN WHITELIST</a>
-      </div>
-      <div class="hero-quicklinks">
-        <span>10,000 NFTS</span><span>/</span>
-        <span>LIVE ON MAINNET</span><span>/</span>
-        <span>STAKE • FARM • SPIN • WIN</span>
-      </div>
+<!-- ============ MAIN CONTENT ============ -->
+<main class="main-content">
+  <div class="wl-panel">
+    <div class="wl-header">
+      <span class="eyebrow">EARLY ACCESS</span>
+      <h1 class="wl-title">JOIN THE WHITELIST</h1>
+      <p class="wl-desc">Complete all tasks below to verify your eligibility for the exclusive Mr.Stonk NFT whitelist.</p>
     </div>
 
-    <div class="hero-right">
-      <div class="nft-card featured-hero-card" data-tilt>
-        <div class="nft-card-top">
-          <span class="nft-card-id">MR.STONK #0001</span>
-          <span class="badge badge-rare">RARE</span>
-        </div>
-        <div class="nft-art">
-          <div class="nft-art-scan"></div>
-          <img src="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/1.png" alt="MR.STONK #0001">
-          <div class="nft-art-label">STONK INDEX</div>
-        </div>
-        <div class="nft-card-footer">
-          <div class="nft-stat"><span>INDEX</span><strong id="hero-index">+128.4%</strong></div>
-          <div class="nft-stat"><span>STATUS</span><strong class="text-green">ACTIVE</strong></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ LIVE MARKET STATISTICS ============ -->
-<section class="stats-section">
-  <div class="section-inner">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-label">FLOOR PRICE</span>
-        <span class="stat-value" data-counter data-target="0.412" data-decimals="3" data-suffix=" ETH">0.000 ETH</span>
-        <span class="stat-change up">+6.4%</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">24H VOLUME</span>
-        <span class="stat-value" data-counter data-target="184.7" data-decimals="1" data-suffix=" ETH">0.0 ETH</span>
-        <span class="stat-change up">+22.1%</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">HOLDERS</span>
-        <span class="stat-value" data-counter data-target="1662" data-decimals="0">0</span>
-        <span class="stat-change up">+3.2%</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">STAKED</span>
-        <span class="stat-value" data-counter data-target="83.1" data-decimals="1" data-suffix="%">0%</span>
-        <span class="stat-change up">+1.1%</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">$STONK REWARDS</span>
-        <span class="stat-value gold" data-counter data-target="912.3" data-decimals="1" data-suffix="K">0K</span>
-        <span class="stat-change up">+9.8%</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">JACKPOT POOL</span>
-        <span class="stat-value gold" data-counter data-target="48250" data-decimals="0" data-suffix=" $STONK">0 $STONK</span>
-        <span class="stat-change up">LIVE</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FEATURED NFT COLLECTION ============ -->
-<section class="section" id="collection">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">COLLECTION</span>
-      <h2 class="section-title">THE MR.STONK COLLECTION</h2>
-      <p class="section-sub">Every Stonk is a ticket into the ecosystem.</p>
+    <!-- Step Progress Bar -->
+    <div class="wl-progress">
+      <div class="wl-progress-step active" data-step-indicator="1">01</div>
+      <div class="wl-progress-line"></div>
+      <div class="wl-progress-step" data-step-indicator="2">02</div>
+      <div class="wl-progress-line"></div>
+      <div class="wl-progress-step" data-step-indicator="3">03</div>
+      <div class="wl-progress-line"></div>
+      <div class="wl-progress-step" data-step-indicator="4">04</div>
     </div>
 
-    <div class="showcase-grid">
-      <div class="nft-card showcase-card" data-tilt>
-        <div class="nft-card-top">
-          <span class="nft-card-id">MR.STONK #1024</span>
-          <span class="badge badge-legendary">LEGENDARY</span>
-        </div>
-        <div class="nft-art">
-          <div class="nft-art-scan"></div>
-          <img src="https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/2.png" alt="MR.STONK #1024">
-          <div class="nft-art-label">STONK INDEX</div>
-        </div>
-        <div class="tag-row">
-          <span class="tag tag-green">STAKED</span>
-          <span class="tag tag-gold">DAILY FARM ACTIVE</span>
-        </div>
-        <div class="nft-card-footer stack">
-          <div class="nft-stat"><span>DAILY REWARD</span><strong class="text-gold">1,000 $STONK</strong></div>
-          <div class="btn-row">
-            <button class="btn btn-primary btn-sm" data-action="stake-nft">STAKE NFT</button>
-            <button class="btn btn-outline btn-sm" data-action="view-nft">VIEW NFT</button>
-            <a href="#mynft" class="btn btn-outline btn-sm">MY NFT</a>
+    <!-- STEP 1: Connect Wallet -->
+    <div class="wl-step active" data-step="1">
+      <h3>STEP 01 — CONNECT WALLET</h3>
+      <p>Connect your Web3 wallet to begin the whitelist verification process.</p>
+      <button class="btn btn-primary btn-block" id="btn-step1-connect">CONNECT WALLET</button>
+    </div>
+
+    <!-- STEP 2: Follow on X & Input Username -->
+    <div class="wl-step" data-step="2">
+      <h3>STEP 02 — FOLLOW ON X</h3>
+      <p>Follow our official X handle to receive announcements and updates.</p>
+      
+      <div style="margin-bottom:20px;">
+        <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" id="btn-x-follow" style="margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          FOLLOW @MRSTONK ON X
+        </a>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="x-username">X Username (@handle)</label>
+        <input type="text" id="x-username" class="input-field" placeholder="@username">
+      </div>
+
+      <button class="btn btn-primary btn-block" id="btn-step2-next">VERIFY & NEXT STEP</button>
+    </div>
+
+    <!-- STEP 3: Like, Repost & Repost Link -->
+    <div class="wl-step" data-step="3">
+      <h3>STEP 03 — LIKE & REPOST</h3>
+      <p>Like & repost our official pinned announcement post on X, then paste your repost link below.</p>
+      
+      <div style="margin-bottom:20px;">
+        <a href="https://x.com" target="_blank" class="btn btn-ghost btn-block" id="btn-x-post" style="margin-bottom:16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          OPEN PINNED POST
+        </a>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="repost-link">Repost Tweet URL</label>
+        <input type="url" id="repost-link" class="input-field" placeholder="https://x.com/username/status/123456789">
+      </div>
+
+      <button class="btn btn-primary btn-block" id="btn-step3-submit">SUBMIT APPLICATION</button>
+    </div>
+
+    <!-- STEP 4: Success / Congratulations -->
+    <div class="wl-step" data-step="4">
+      <div class="wl-success">
+        <span class="status-tag success">✓ APPLICATION CONFIRMED</span>
+        <h2 class="welcome-text">CONGRATULATIONS!</h2>
+        <p style="color:var(--text-muted); font-size:14px; margin-top:10px;">Your wallet has been successfully registered for the Mr.Stonk Whitelist.</p>
+
+        <div class="success-card">
+          <div class="success-card-row">
+            <span>REGISTERED WALLET:</span>
+            <strong id="summary-wallet">0x000...000</strong>
+          </div>
+          <div class="success-card-row">
+            <span>X USERNAME:</span>
+            <strong id="summary-x">@username</strong>
+          </div>
+          <div class="success-card-row">
+            <span>STATUS:</span>
+            <strong style="color:var(--primary);">WHITELISTED</strong>
           </div>
         </div>
-      </div>
 
-      <div class="collection-info">
-        <div class="info-row"><span>TOTAL SUPPLY</span><strong>10,000</strong></div>
-        <div class="info-row"><span>MINTED</span><strong>7,214 / 10,000</strong></div>
-        <div class="info-row"><span>MINT PRICE</span><strong class="text-gold">25,000 $STONK</strong></div>
-        <div class="info-row"><span>ROYALTY</span><strong>4.2%</strong></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:72.1%"></div></div>
-        <a href="#mint" class="btn btn-primary btn-block">MINT MR.STONK</a>
+        <p style="font-size:12px; color:var(--text-faint); margin-top:24px;">Note: You cannot re-submit with this wallet address. Your access allocation is tied directly to your connected address.</p>
       </div>
     </div>
+
   </div>
-</section>
-
-<!-- ============ STONK TOKEN PACKAGES ============ -->
-<section class="section alt" id="packages">
-  <div class="section-inner">
-    <div class="section-head center">
-      <span class="eyebrow">CLAIM OR BUY $STONK</span>
-      <h2 class="section-title">$STONK TOKEN PACKAGES</h2>
-      <p class="section-text center">Claim or purchase $STONK in fixed denominations with ETH — the exact balance you need toward minting, staking, and jackpot spins. 1,000 $STONK ≈ 0.0005 ETH.</p>
-    </div>
-
-    <div class="note-grid" id="package-grid"><!-- injected by JS --></div>
-
-    <div class="package-summary" id="package-summary" hidden>
-      <span>SELECTED: <strong id="package-summary-name">—</strong></span>
-      <span class="package-summary-price">PRICE: <strong id="package-summary-price" class="text-gold">0 ETH</strong></span>
-      <a href="#mint" class="btn btn-primary btn-sm" data-action="proceed-mint">PROCEED TO MINT</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW IT WORKS ============ -->
-<section class="section" id="how">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">PROTOCOL SEQUENCE</span>
-      <h2 class="section-title">HOW MR.STONK WORKS</h2>
-    </div>
-
-    <div class="steps-timeline">
-      <div class="step-card">
-        <span class="step-num">01</span>
-        <h3>MINT</h3>
-        <p>Mint your Mr.Stonk NFT using $STONK.</p>
-        <span class="step-highlight">25,000 $STONK = 1 MINT</span>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step-card">
-        <span class="step-num">02</span>
-        <h3>STAKE</h3>
-        <p>Stake your NFT and activate your daily earning system.</p>
-        <span class="step-highlight">1,000 $STONK DAILY FARM</span>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step-card">
-        <span class="step-num">03</span>
-        <h3>SPIN</h3>
-        <p>Every staked NFT receives one jackpot spin every 24 hours.</p>
-        <span class="step-highlight">1 SPIN / 24H</span>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step-card">
-        <span class="step-num">04</span>
-        <h3>WIN</h3>
-        <p>Match three NFTs on the jackpot machine and win the current decentralized jackpot.</p>
-        <span class="step-highlight">3 MATCH = JACKPOT</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FREE CLAIM / WHITELIST ============ -->
-<section class="section alt" id="freeclaim">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">EARLY ACCESS</span>
-      <h2 class="section-title">JOIN THE MR.STONK WHITELIST</h2>
-      <p class="section-text">Complete the social verification steps and submit your wallet for the Mr.Stonk whitelist.</p>
-    </div>
-
-    <div class="wl-panel">
-      <div class="wl-progress">
-        <div class="wl-progress-step active" data-step-indicator="1">01</div>
-        <div class="wl-progress-line"></div>
-        <div class="wl-progress-step" data-step-indicator="2">02</div>
-        <div class="wl-progress-line"></div>
-        <div class="wl-progress-step" data-step-indicator="3">03</div>
-        <div class="wl-progress-line"></div>
-        <div class="wl-progress-step" data-step-indicator="4">04</div>
-      </div>
-
-      <div class="wl-step active" data-step="1">
-        <h3>01 — WALLET</h3>
-        <p>Connect your wallet to continue.</p>
-        <button class="btn btn-primary" data-action="wl-connect">CONNECT WALLET</button>
-      </div>
-
-      <div class="wl-step" data-step="2">
-        <h3>02 — SOCIAL</h3>
-        <p>Follow Mr.Stonk on X to unlock the next step.</p>
-        <button class="btn btn-primary" data-action="wl-follow">FOLLOW ON X</button>
-        <span class="status-tag" data-status="follow">● PENDING</span>
-      </div>
-
-      <div class="wl-step" data-step="3">
-        <h3>03 — VERIFY</h3>
-        <p>Like and repost the official Mr.Stonk announcement.</p>
-        <div class="btn-row">
-          <button class="btn btn-primary btn-sm" data-action="wl-like">LIKE POST</button>
-          <button class="btn btn-primary btn-sm" data-action="wl-repost">REPOST</button>
-        </div>
-        <span class="status-tag" data-status="social">● INCOMPLETE</span>
-      </div>
-
-      <div class="wl-step" data-step="4">
-        <h3>04 — SUBMIT</h3>
-        <p>Wallet ready for submission:</p>
-        <div class="wallet-display" id="wl-wallet-display">0x0000...0000</div>
-        <button class="btn btn-primary" data-action="wl-submit">SUBMIT APPLICATION</button>
-      </div>
-
-      <div class="wl-step" data-step="done">
-        <div class="wl-success">
-          <span class="status-tag success">✓ APPLICATION RECEIVED</span>
-          <h3 class="welcome-text">Welcome to MR.STONK</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FARM SECTION ============ -->
-<section class="section" id="farm">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">STAKING TERMINAL</span>
-      <h2 class="section-title">FARM YOUR STONK</h2>
-      <p class="section-sub">Put your NFT to work.</p>
-    </div>
-
-    <div class="farm-dash">
-      <div class="stat-card"><span class="stat-label">MY STAKED NFTS</span><span class="stat-value">04</span></div>
-      <div class="stat-card"><span class="stat-label">DAILY REWARD</span><span class="stat-value gold">4,000 $STONK</span></div>
-      <div class="stat-card"><span class="stat-label">TOTAL EARNED</span><span class="stat-value gold">18,420 $STONK</span></div>
-      <div class="stat-card">
-        <span class="stat-label">NEXT CLAIM</span>
-        <span class="stat-value countdown" id="farm-countdown">18:42:31</span>
-      </div>
-    </div>
-    <div class="farm-claim-row">
-      <button class="btn btn-primary btn-lg" data-action="claim-reward">CLAIM REWARD</button>
-    </div>
-
-    <div class="staking-grid" id="staking-grid">
-      <!-- staking cards injected by JS -->
-    </div>
-  </div>
-</section>
-
-<!-- ============ STOCK TOKEN REWARDS ============ -->
-<section class="section alt" id="rewards">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">REWARD ASSETS</span>
-      <h2 class="section-title">WHAT CAN YOU FARM?</h2>
-    </div>
-    <div class="ticker-grid" id="ticker-grid">
-      <!-- injected by JS -->
-    </div>
-    <p class="disclaimer">Farm and jackpot rewards are randomized and may vary between rounds. Reward tickers shown are illustrative of the ecosystem's stock-token theme.</p>
-  </div>
-</section>
-
-<!-- ============ JACKPOT ============ -->
-<section class="section jackpot-section" id="jackpot">
-  <div class="section-inner">
-    <div class="section-head center">
-      <span class="eyebrow">GRAND PRIZE</span>
-      <h2 class="section-title">MR.STONK JACKPOT</h2>
-      <p class="section-sub gold-sub">3 MATCH. 1 WINNER.</p>
-    </div>
-
-    <div class="jackpot-pool">
-      <span class="jackpot-amount" id="jackpot-amount" data-counter data-target="48250" data-decimals="0" data-suffix=" $STONK">0 $STONK</span>
-      <span class="jackpot-label">CURRENT REWARD POOL</span>
-      <div class="current-reward">
-        <span>CURRENT REWARD</span>
-        <strong id="current-reward-ticker">NVDA</strong>
-      </div>
-    </div>
-    <p class="section-text center">The jackpot reward changes dynamically. Every round may feature a different stock-token reward.</p>
-
-    <!-- ============ SPIN MACHINE ============ -->
-    <div class="spin-machine" id="spin-machine">
-      <div class="machine-frame">
-        <div class="reel-col" id="row-1"><div class="reel-track" id="reel-1"></div></div>
-        <div class="reel-col" id="row-2"><div class="reel-track" id="reel-2"></div></div>
-        <div class="reel-col" id="row-3"><div class="reel-track" id="reel-3"></div></div>
-      </div>
-      <button class="btn btn-primary btn-spin" id="spin-btn">SPIN</button>
-      <span class="spin-status" id="spin-status">1 SPIN AVAILABLE</span>
-    </div>
-
-    <!-- Winning Modal -->
-    <div class="modal-overlay" id="win-modal">
-      <div class="modal win-modal">
-        <div class="win-flash"></div>
-        <span class="win-emoji">🎉</span>
-        <h3>JACKPOT WINNER</h3>
-        <p class="win-sub">3 × MR.STONK</p>
-        <p class="win-reward">REWARD: <span id="win-amount">48,250 $STONK</span></p>
-        <button class="btn btn-primary" data-action="claim-jackpot">CLAIM REWARD</button>
-        <button class="modal-close" data-action="close-modal">✕</button>
-      </div>
-    </div>
-
-    <!-- ============ DECENTRALIZED EXPLANATION ============ -->
-    <div class="decentral-panel">
-      <h3>DECENTRALIZED JACKPOT</h3>
-      <p>Jackpot winners are selected through a decentralized randomization mechanism from eligible staked NFTs. The winning reward can change between rounds.</p>
-      <div class="decentral-grid">
-        <div class="decentral-card">
-          <h4>ELIGIBLE</h4>
-          <p>All qualifying staked NFTs.</p>
-        </div>
-        <div class="decentral-card">
-          <h4>RANDOMIZED</h4>
-          <p>Winner selection uses decentralized randomness.</p>
-        </div>
-        <div class="decentral-card">
-          <h4>INSTANT CLAIM</h4>
-          <p>Winners can claim the available reward immediately.</p>
-        </div>
-      </div>
-      <span class="status-tag success">● RANDOMNESS SYSTEM ACTIVE</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MY NFT ============ -->
-<section class="section" id="mynft">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="eyebrow">DASHBOARD</span>
-      <h2 class="section-title">MY NFT</h2>
-    </div>
-
-    <div class="mynft-disconnected" id="mynft-disconnected">
-      <h3>CONNECT YOUR WALLET</h3>
-      <p>Connect your wallet to view your Mr.Stonk NFTs, staking status, rewards and jackpot eligibility.</p>
-      <button class="btn btn-primary" data-action="connect-wallet">CONNECT WALLET</button>
-    </div>
-
-    <div class="mynft-connected" id="mynft-connected" hidden>
-      <div class="farm-dash small">
-        <div class="stat-card"><span class="stat-label">WALLET</span><span class="stat-value small-value" id="mynft-wallet">0x0000...0000</span></div>
-        <div class="stat-card"><span class="stat-label">NFT COUNT</span><span class="stat-value">06</span></div>
-        <div class="stat-card"><span class="stat-label">STAKED</span><span class="stat-value">04</span></div>
-        <div class="stat-card"><span class="stat-label">TOTAL EARNED</span><span class="stat-value gold">18,420 $STONK</span></div>
-        <div class="stat-card"><span class="stat-label">AVAILABLE SPINS</span><span class="stat-value" id="mynft-spins">1</span></div>
-      </div>
-      <div class="mynft-grid" id="mynft-grid"><!-- injected by JS --></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MINT ============ -->
-<section class="section alt" id="mint">
-  <div class="section-inner narrow">
-    <div class="section-head center">
-      <span class="eyebrow">MINT TERMINAL</span>
-      <h2 class="section-title">MINT MR.STONK</h2>
-    </div>
-
-    <div class="mint-panel">
-      <div class="mint-price">
-        <span class="mint-price-amount">25,000 $STONK</span>
-        <span class="mint-price-label">PER NFT</span>
-      </div>
-
-      <div class="mint-qty">
-        <button class="qty-btn" data-action="qty-minus">−</button>
-        <span class="qty-value" id="mint-qty">1</span>
-        <button class="qty-btn" data-action="qty-plus">+</button>
-      </div>
-
-      <div class="mint-total">
-        <span>TOTAL</span>
-        <strong id="mint-total">25,000 $STONK</strong>
-      </div>
-
-      <button class="btn btn-primary btn-block btn-lg" data-action="mint-now">MINT NOW</button>
-      <p class="mint-status" id="mint-status">Wallet not connected.</p>
-      <p class="disclaimer">Make sure your connected wallet holds enough $STONK before minting.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ECOSYSTEM DIAGRAM ============ -->
-<section class="section" id="ecosystem">
-  <div class="section-inner">
-    <div class="section-head center">
-      <span class="eyebrow">TOKEN FLOW</span>
-      <h2 class="section-title">THE $STONK ECONOMY</h2>
-    </div>
-    <div class="eco-flow">
-      <div class="eco-node">$STONK</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node">MINT</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node">NFT</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node">STAKE</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node">FARM</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node">SPIN</div>
-      <div class="eco-arrow">↓</div>
-      <div class="eco-node highlight">JACKPOT</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="section alt" id="faq">
-  <div class="section-inner narrow">
-    <div class="section-head center">
-      <span class="eyebrow">FAQ</span>
-      <h2 class="section-title">FREQUENTLY ASKED</h2>
-    </div>
-    <div class="accordion" id="accordion">
-      <div class="accordion-item">
-        <button class="accordion-head">What is Mr.Stonk?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Mr.Stonk is an NFT collection connected to the $STONK token ecosystem, combining staking, farming, and a decentralized jackpot inspired by the stock market.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How much does one mint cost?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Each Mr.Stonk NFT costs 25,000 $STONK to mint.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How does staking work?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Stake your Mr.Stonk NFT to activate its daily farming rate and become eligible for jackpot spins.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How much can I farm?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Each staked NFT generates 1,000 $STONK per day in daily farm rewards.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">When do I receive a spin?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Every staked NFT receives one jackpot spin every 24 hours.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How does the jackpot work?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Spin the three-row machine — matching three Mr.Stonk symbols across all rows wins the current jackpot pool.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How are winners selected?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Winners are selected through a decentralized randomization mechanism among eligible staked NFTs.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">What rewards can be won?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Jackpot rewards rotate between $STONK and stock-themed reward tickers, and may vary each round.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How do I claim rewards?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Use the CLAIM REWARD button on the Farm dashboard or the jackpot win screen once eligible.</p></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-head">How do I connect my wallet?<span class="accordion-icon">+</span></button>
-        <div class="accordion-body"><p>Click CONNECT WALLET in the header or in any section that requires wallet access.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
-  <div class="section-inner footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="logo-text">MR<span class="dot">.</span>STONK</span>
-        <p class="footer-tagline">STAKE. FARM. SPIN. WIN.</p>
-      </div>
-      <nav class="footer-nav">
-        <a href="#home">HOME</a>
-        <a href="#collection">COLLECTION</a>
-        <a href="#how">HOW IT WORKS</a>
-        <a href="#farm">FARM</a>
-        <a href="#jackpot">JACKPOT</a>
-        <a href="#mynft">MY NFT</a>
-        <a href="#freeclaim">WHITELIST</a>
-      </nav>
-      <div class="footer-social">
-        <a href="#" aria-label="X">X</a>
-        <a href="#" aria-label="Discord">DISCORD</a>
-        <a href="#" aria-label="Telegram">TELEGRAM</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 MR.STONK</span>
-      <span>BUILT FOR THE NEXT MARKET</span>
-      <span class="status-tag success">● SYSTEM ONLINE</span>
-    </div>
+  <div class="footer-bottom">
+    <span>© 2026 MR.STONK PROTOCOL</span>
+    <span>EXCLUSIVE WHITELIST LANDING PAGE</span>
+    <span class="status-tag success" style="margin:0;">● SYSTEM ONLINE</span>
   </div>
 </footer>
 
-<!-- ============ MOBILE STICKY NAV ============ -->
-<nav class="sticky-nav">
-  <a href="#home" class="sticky-link active" data-sticky="home">HOME</a>
-  <a href="#farm" class="sticky-link" data-sticky="farm">FARM</a>
-  <a href="#jackpot" class="sticky-link" data-sticky="jackpot">JACKPOT</a>
-  <a href="#mynft" class="sticky-link" data-sticky="mynft">MY NFT</a>
-</nav>
-
 <!-- ============ WALLET MODAL ============ -->
 <div class="modal-overlay" id="wallet-modal">
-  <div class="modal wallet-modal">
-    <h3>CONNECT WALLET</h3>
-    <p>Select a wallet provider to continue.</p>
-    <div class="wallet-options">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <h3 style="margin:0 0 6px; font-size:18px;">CONNECT WALLET</h3>
+    <p style="margin:0; font-size:13px; color:var(--text-muted);">Select your preferred Web3 provider to proceed.</p>
+    
+    <div class="wallet-options" id="wallet-options">
       <button class="wallet-option" data-provider="MetaMask">
-        <span class="wallet-icon">◆</span> METAMASK
+        <span style="color:var(--primary);">◆</span> METAMASK
       </button>
       <button class="wallet-option" data-provider="WalletConnect">
-        <span class="wallet-icon">◇</span> WALLETCONNECT
+        <span style="color:var(--primary);">◇</span> WALLETCONNECT
       </button>
       <button class="wallet-option" data-provider="Coinbase">
-        <span class="wallet-icon">●</span> COINBASE WALLET
+        <span style="color:var(--primary);">●</span> COINBASE WALLET
       </button>
     </div>
+
     <div class="connecting-state" id="connecting-state" hidden>
       <div class="spinner"></div>
-      <span>ESTABLISHING CONNECTION...</span>
+      <span>ESTABLISHING SECURE CONNECTION...</span>
     </div>
-    <button class="modal-close" data-action="close-modal">✕</button>
   </div>
 </div>
 
 <script>
-/* ==========================================================================
-   MR.STONK — Front-end interactions
-   All state below is local UI state only. No blockchain calls are made.
-   Structured so real wallet/contract calls can be wired in later at the
-   marked INTEGRATION POINT comments.
-   ========================================================================== */
 (function(){
   'use strict';
 
-  /* ---------------- Global state ---------------- */
+  // State Management & LocalStorage Duplication Check
+  const STORAGE_KEY = 'mrstonk_whitelisted_wallets';
+  
+  function getSubmittedWallets(){
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch(e) {
+      return {};
+    }
+  }
+
+  function saveSubmittedWallet(address, data){
+    const current = getSubmittedWallets();
+    current[address.toLowerCase()] = data;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+    } catch(e) {}
+  }
+
+  function isWalletSubmitted(address){
+    if(!address) return false;
+    const current = getSubmittedWallets();
+    return !!current[address.toLowerCase()];
+  }
+
   const state = {
-    walletConnected:false,
-    walletAddress:null,
-    walletProvider:null,
-    mintQty:1,
-    mintPricePerNft:25000,
-    spinAvailable:true,
-    spinning:false,
-    freeClaim:{ step:1, followed:false, liked:false, reposted:false }
+    walletConnected: false,
+    walletAddress: null,
+    xUsername: '',
+    repostLink: ''
   };
 
-  /* ---------------- Asset library ---------------- */
-  const ASSET_BASE = 'https://raw.githubusercontent.com/lneon86/logoaset/main/logosvg/';
-  const NFT_IMAGES = Array.from({length:10}, (_,i)=> ASSET_BASE + (i+1) + '.png'); // 1.png .. 10.png
-  const STOCK_LOGOS = [
-    { symbol:'AAPL', img: ASSET_BASE + 'AAPL.png' },
-    { symbol:'AMZN', img: ASSET_BASE + 'AMZN.png' },
-    { symbol:'MSFT', img: ASSET_BASE + 'MSFT.png' },
-    { symbol:'NVDA', img: ASSET_BASE + 'NVDA.png' },
-    { symbol:'TSLA', img: ASSET_BASE + 'TSLA.png' },
-    { symbol:'ETH',  img: ASSET_BASE + 'eth-logo.svg' },
-    { symbol:'USDG', img: ASSET_BASE + 'usdg-logo.svg' }
-  ];
-  function randomNftImg(){ return NFT_IMAGES[Math.floor(Math.random()*NFT_IMAGES.length)]; }
-
-  const SYMBOLS = NFT_IMAGES; // spin reels use the Mr.Stonk NFT artwork
-  const REEL_COUNT = 24; // cells per reel for spin illusion
-
-  /* ---------------- Utility: toast ---------------- */
-  function toast(msg, type){
+  /* Toast Notification */
+  function toast(msg, type = 'info'){
     const container = document.getElementById('toast-container');
     if(!container) return;
     const el = document.createElement('div');
-    el.className = 'toast' + (type === 'error' ? ' error' : '');
+    el.className = 'toast ' + type;
     el.textContent = msg;
     container.appendChild(el);
     setTimeout(()=>{
@@ -1383,680 +482,138 @@ h1,h2,h3,h4{ font-family:var(--font-display); margin:0; }
   }
 
   function shortAddr(addr){
-    if(!addr) return '0x0000...0000';
+    if(!addr) return '0x000...000';
     return addr.slice(0,6) + '...' + addr.slice(-4);
   }
 
-  function fakeAddress(){
-    const chars = '0123456789ABCDEF';
+  function generateFakeAddress(){
+    const chars = '0123456789abcdef';
     let out = '0x';
-    for(let i=0;i<40;i++) out += chars[Math.floor(Math.random()*chars.length)];
+    for(let i=0; i<40; i++) out += chars[Math.floor(Math.random()*chars.length)];
     return out;
   }
 
-  /* =========================================================================
-     HEADER / MOBILE NAV
-     ========================================================================= */
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-  mobileToggle && mobileToggle.addEventListener('click', ()=>{
-    mobileDrawer.classList.toggle('open');
-  });
-  mobileDrawer && mobileDrawer.querySelectorAll('.nav-link').forEach(a=>{
-    a.addEventListener('click', ()=> mobileDrawer.classList.remove('open'));
-  });
-
-  /* Active nav link on scroll + sticky mobile nav */
-  const sections = ['home','farm','jackpot','mynft','freeclaim'].map(id=>document.getElementById(id)).filter(Boolean);
-  const navLinks = document.querySelectorAll('.nav-link');
-  const stickyLinks = document.querySelectorAll('.sticky-link');
-
-  function onScrollSpy(){
-    let current = 'home';
-    sections.forEach(sec=>{
-      const rect = sec.getBoundingClientRect();
-      if(rect.top <= 140 && rect.bottom > 140) current = sec.id;
-    });
-    navLinks.forEach(l=>{
-      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
-    });
-    stickyLinks.forEach(l=>{
-      l.classList.toggle('active', l.dataset.sticky === current);
+  /* Stepper Logic */
+  function goToStep(stepNumber){
+    document.querySelectorAll('.wl-step').forEach(step=>{
+      step.classList.toggle('active', parseInt(step.dataset.step) === stepNumber);
     });
 
-    const header = document.getElementById('header');
-    if(header) header.style.boxShadow = window.scrollY > 10 ? '0 8px 24px rgba(0,0,0,.35)' : 'none';
-  }
-  window.addEventListener('scroll', onScrollSpy, { passive:true });
-  onScrollSpy();
-
-  /* =========================================================================
-     TICKER
-     ========================================================================= */
-  const tickerData = [
-    { text:'#001 0.25 ETH → 1,842 STONK HOLDERS' },
-    { text:'FARM +12.4%', cls:'text-green' },
-    { text:'JACKPOT 4,820 $STONK', cls:'gold' },
-    { text:'NFT FLOOR 0.42 ETH' },
-    { text:'STAKED 68.4%' },
-    { text:'VOLUME 24H 184.7 ETH' },
-    { text:'#1024 STAKED → +1,000 $STONK/DAY' },
-    { text:'HOLDERS 1,662' }
-  ];
-  function buildTicker(){
-    const track = document.getElementById('ticker-track');
-    if(!track) return;
-    let html = '';
-    for(let rep=0; rep<2; rep++){
-      tickerData.forEach((item, i)=>{
-        html += `<span class="ticker-item">${item.cls ? '<strong class="'+item.cls+'">'+item.text+'</strong>' : item.text}</span>`;
-        html += `<span class="ticker-sep">///</span>`;
-      });
-    }
-    track.innerHTML = html;
-  }
-  buildTicker();
-
-  /* =========================================================================
-     ANIMATED COUNTERS (stats + jackpot pool)
-     ========================================================================= */
-  function animateCounter(el){
-    const target = parseFloat(el.dataset.target);
-    const decimals = parseInt(el.dataset.decimals || '0', 10);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1400;
-    const start = performance.now();
-
-    function frame(now){
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = target * eased;
-      el.textContent = value.toLocaleString('en-US', {
-        minimumFractionDigits:decimals, maximumFractionDigits:decimals
-      }) + suffix;
-      if(progress < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
-  const counterObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
-      }
+    document.querySelectorAll('.wl-progress-step').forEach(indicator=>{
+      const idx = parseInt(indicator.dataset.stepIndicator);
+      indicator.classList.toggle('active', idx === stepNumber);
+      indicator.classList.toggle('done', idx < stepNumber);
     });
-  }, { threshold:0.4 });
-  document.querySelectorAll('[data-counter]').forEach(el=> counterObserver.observe(el));
-
-  /* =========================================================================
-     FARM COUNTDOWN
-     ========================================================================= */
-  function startCountdown(elId, seedSeconds){
-    const el = document.getElementById(elId);
-    if(!el) return;
-    let remaining = seedSeconds;
-    function render(){
-      const h = String(Math.floor(remaining/3600)).padStart(2,'0');
-      const m = String(Math.floor((remaining%3600)/60)).padStart(2,'0');
-      const s = String(Math.floor(remaining%60)).padStart(2,'0');
-      el.textContent = `${h}:${m}:${s}`;
-    }
-    render();
-    setInterval(()=>{
-      remaining = remaining > 0 ? remaining - 1 : 24*3600 - 1;
-      render();
-    }, 1000);
   }
-  startCountdown('farm-countdown', 18*3600 + 42*60 + 31);
 
-  /* =========================================================================
-     WALLET CONNECTION
-     ========================================================================= */
+  /* Wallet Modal Control */
   const walletModal = document.getElementById('wallet-modal');
   const connectingState = document.getElementById('connecting-state');
-  const walletOptionsBox = document.querySelector('.wallet-options');
-  let walletModalContext = null; // 'header' | 'freeclaim' | 'mynft' | 'mint'
+  const walletOptions = document.getElementById('wallet-options');
 
-  function openWalletModal(context){
-    walletModalContext = context || 'header';
+  function openWalletModal(){
     connectingState.hidden = true;
-    walletOptionsBox.hidden = false;
+    walletOptions.hidden = false;
     walletModal.classList.add('open');
   }
-  function closeAllModals(){
-    document.querySelectorAll('.modal-overlay').forEach(m=> m.classList.remove('open'));
+
+  function closeWalletModal(){
+    walletModal.classList.remove('open');
   }
 
+  document.getElementById('modal-close').addEventListener('click', closeWalletModal);
+  walletModal.addEventListener('click', (e)=>{ if(e.target === walletModal) closeWalletModal(); });
+
+  /* Wallet Connect Simulation */
   function connectWallet(provider){
     connectingState.hidden = false;
-    walletOptionsBox.hidden = true;
+    walletOptions.hidden = true;
 
-    /* INTEGRATION POINT: replace this timeout + fakeAddress()
-       with a real provider connection, e.g. window.ethereum.request(...) */
     setTimeout(()=>{
       state.walletConnected = true;
-      state.walletAddress = fakeAddress();
-      state.walletProvider = provider;
+      state.walletAddress = generateFakeAddress();
+      closeWalletModal();
+      toast('Wallet Connected Successfully!', 'info');
 
-      updateWalletUI();
-      closeAllModals();
-      toast(`Wallet connected via ${provider}`);
+      // Update Header Button
+      document.getElementById('header-wallet-text').textContent = shortAddr(state.walletAddress);
 
-      if(walletModalContext === 'freeclaim'){
-        goToClaimStep(2);
+      // Check Duplicate Address Submission
+      if(isWalletSubmitted(state.walletAddress)){
+        const submittedData = getSubmittedWallets()[state.walletAddress.toLowerCase()];
+        document.getElementById('summary-wallet').textContent = shortAddr(state.walletAddress);
+        document.getElementById('summary-x').textContent = submittedData.xUsername || '@registered';
+        goToStep(4);
+        toast('Wallet already registered on Whitelist!', 'warning');
+      } else {
+        // Auto transition to Step 2
+        goToStep(2);
       }
     }, 1200);
   }
-
-  function updateWalletUI(){
-    const btnText = document.getElementById('wallet-btn-text');
-    if(state.walletConnected){
-      btnText.textContent = shortAddr(state.walletAddress);
-    } else {
-      btnText.textContent = 'CONNECT WALLET';
-    }
-
-    // Free claim wallet display
-    const wlDisplay = document.getElementById('wl-wallet-display');
-    if(wlDisplay) wlDisplay.textContent = shortAddr(state.walletAddress);
-
-    // My NFT section
-    const disconnectedBox = document.getElementById('mynft-disconnected');
-    const connectedBox = document.getElementById('mynft-connected');
-    if(state.walletConnected){
-      disconnectedBox.hidden = true;
-      connectedBox.hidden = false;
-      document.getElementById('mynft-wallet').textContent = shortAddr(state.walletAddress);
-      renderMyNftGrid();
-    } else {
-      disconnectedBox.hidden = false;
-      connectedBox.hidden = true;
-    }
-
-    // Mint status
-    const mintStatus = document.getElementById('mint-status');
-    if(mintStatus){
-      mintStatus.textContent = state.walletConnected
-        ? `Connected: ${shortAddr(state.walletAddress)}`
-        : 'Wallet not connected.';
-    }
-  }
-
-  document.getElementById('wallet-btn').addEventListener('click', ()=>{
-    if(state.walletConnected){
-      toast(`Connected: ${shortAddr(state.walletAddress)}`);
-      return;
-    }
-    openWalletModal('header');
-  });
 
   document.querySelectorAll('.wallet-option').forEach(btn=>{
     btn.addEventListener('click', ()=> connectWallet(btn.dataset.provider));
   });
 
-  document.querySelectorAll('[data-action="close-modal"]').forEach(btn=>{
-    btn.addEventListener('click', closeAllModals);
-  });
-  document.querySelectorAll('.modal-overlay').forEach(overlay=>{
-    overlay.addEventListener('click', (e)=>{
-      if(e.target === overlay) closeAllModals();
-    });
-  });
-
-  document.querySelectorAll('[data-action="connect-wallet"]').forEach(btn=>{
-    btn.addEventListener('click', ()=> openWalletModal('mynft'));
-  });
-
-  /* =========================================================================
-     FREE CLAIM / WHITELIST STEPPER
-     ========================================================================= */
-  const wlSteps = document.querySelectorAll('.wl-step');
-  const wlProgressSteps = document.querySelectorAll('.wl-progress-step');
-
-  function goToClaimStep(step){
-    state.freeClaim.step = step;
-    wlSteps.forEach(s=> s.classList.toggle('active', s.dataset.step === String(step)));
-    wlProgressSteps.forEach(p=>{
-      const n = parseInt(p.dataset.stepIndicator, 10);
-      p.classList.toggle('active', n === step);
-      p.classList.toggle('done', n < step);
-    });
-  }
-
-  document.querySelector('[data-action="wl-connect"]').addEventListener('click', ()=>{
+  document.getElementById('header-wallet-btn').addEventListener('click', ()=>{
     if(state.walletConnected){
-      goToClaimStep(2);
+      if(isWalletSubmitted(state.walletAddress)){
+        toast('Connected: ' + shortAddr(state.walletAddress) + ' (Whitelisted)', 'info');
+      } else {
+        toast('Connected: ' + shortAddr(state.walletAddress), 'info');
+      }
     } else {
-      openWalletModal('freeclaim');
+      openWalletModal();
     }
   });
 
-  document.querySelector('[data-action="wl-follow"]').addEventListener('click', function(){
-    state.freeClaim.followed = true;
-    document.querySelector('[data-status="follow"]').outerHTML = '<span class="status-tag success" data-status="follow">✓ VERIFIED</span>';
-    this.disabled = true;
-    toast('Follow verified');
-    setTimeout(()=> goToClaimStep(3), 500);
-  });
+  document.getElementById('btn-step1-connect').addEventListener('click', openWalletModal);
 
-  document.querySelector('[data-action="wl-like"]').addEventListener('click', function(){
-    state.freeClaim.liked = true;
-    this.disabled = true;
-    checkSocialStep();
-  });
-  document.querySelector('[data-action="wl-repost"]').addEventListener('click', function(){
-    state.freeClaim.reposted = true;
-    this.disabled = true;
-    checkSocialStep();
-  });
-  function checkSocialStep(){
-    if(state.freeClaim.liked && state.freeClaim.reposted){
-      document.querySelector('[data-status="social"]').outerHTML = '<span class="status-tag success" data-status="social">✓ VERIFIED</span>';
-      toast('Social verification complete');
-      setTimeout(()=> goToClaimStep(4), 500);
-    }
-  }
-
-  document.querySelector('[data-action="wl-submit"]').addEventListener('click', function(){
-    this.disabled = true;
-    this.textContent = 'SUBMITTING...';
-    setTimeout(()=>{
-      goToClaimStep('done');
-      toast('Whitelist application received');
-    }, 1000);
-  });
-
-  /* =========================================================================
-     $STONK TOKEN PACKAGES
-     ========================================================================= */
-  const packageData = [
-    { amount:1000,  eth:'0.0005', img: NFT_IMAGES[0], title:'STARTER TOP-UP',  desc:'Top up your balance and get started with $STONK.' },
-    { amount:7000,  eth:'0.0035', img: NFT_IMAGES[1], title:'FARM BOOST',      desc:'Accelerate daily farming rewards on staked NFTs.' },
-    { amount:10000, eth:'0.0050', img: NFT_IMAGES[2], title:'STAKE READY',     desc:'40% of the balance needed toward one NFT mint.' },
-    { amount:15000, eth:'0.0075', img: NFT_IMAGES[3], title:'MINT BUILDER',    desc:'60% of the balance needed toward one NFT mint.' },
-    { amount:20000, eth:'0.0100', img: NFT_IMAGES[4], title:'ALMOST THERE',    desc:'80% of the balance needed toward one NFT mint.' },
-    { amount:25000, eth:'0.0125', img: NFT_IMAGES[5], title:'FULL MINT',       desc:'Exactly enough $STONK to mint 1 Mr.Stonk NFT.' }
-  ];
-  let selectedPackage = null;
-
-  function renderPackageGrid(){
-    const grid = document.getElementById('package-grid');
-    if(!grid) return;
-    grid.innerHTML = packageData.map((p, idx)=> `
-      <div class="stonk-note" data-idx="${idx}">
-        <span class="pkg-check">✓</span>
-        <div class="note-face">
-          <div class="note-watermark"><img src="${p.img}" alt=""></div>
-          <div class="note-top-row">
-            <span class="note-currency-tag">MR.STONK PROTOCOL</span>
-            <span class="note-seal">${p.eth} ETH</span>
-          </div>
-          <div class="note-denom">${p.amount.toLocaleString('en-US')}<span>$STONK</span></div>
-          <div class="note-bottom-row">
-            <span class="note-serial">PKG-${String(idx+1).padStart(2,'0')} · MAINNET</span>
-            <span class="note-eth">${p.eth} ETH</span>
-          </div>
-        </div>
-        <div class="note-info">
-          <h4>${p.title}</h4>
-          <p>${p.desc}</p>
-        </div>
-      </div>
-    `).join('');
-
-    grid.querySelectorAll('.stonk-note').forEach(card=>{
-      card.addEventListener('click', ()=>{
-        const idx = parseInt(card.dataset.idx, 10);
-        selectPackage(idx);
-      });
-    });
-  }
-
-  function selectPackage(idx){
-    selectedPackage = packageData[idx];
-    document.querySelectorAll('.stonk-note').forEach((c,i)=> c.classList.toggle('selected', i === idx));
-
-    const summary = document.getElementById('package-summary');
-    summary.hidden = false;
-    document.getElementById('package-summary-name').textContent = selectedPackage.amount.toLocaleString('en-US') + ' $STONK';
-    document.getElementById('package-summary-price').textContent = selectedPackage.eth + ' ETH';
-    toast(`${selectedPackage.amount.toLocaleString('en-US')} $STONK package selected — ${selectedPackage.eth} ETH`);
-  }
-
-  renderPackageGrid();
-
-  const proceedMintBtn = document.querySelector('[data-action="proceed-mint"]');
-  if(proceedMintBtn){
-    proceedMintBtn.addEventListener('click', ()=>{
-      if(!selectedPackage) return;
-      /* Carry the selected package's $STONK amount over to the mint total display */
-      const mintTotal = document.getElementById('mint-total');
-      if(mintTotal) mintTotal.textContent = selectedPackage.amount.toLocaleString('en-US') + ' $STONK';
-    });
-  }
-
-  /* =========================================================================
-     MINT
-     ========================================================================= */
-  const mintQtyEl = document.getElementById('mint-qty');
-  const mintTotalEl = document.getElementById('mint-total');
-
-  function refreshMint(){
-    mintQtyEl.textContent = String(state.mintQty).padStart(1,'0');
-    const total = state.mintQty * state.mintPricePerNft;
-    mintTotalEl.textContent = total.toLocaleString('en-US') + ' $STONK';
-  }
-  document.querySelector('[data-action="qty-minus"]').addEventListener('click', ()=>{
-    state.mintQty = Math.max(1, state.mintQty - 1);
-    refreshMint();
-  });
-  document.querySelector('[data-action="qty-plus"]').addEventListener('click', ()=>{
-    state.mintQty = Math.min(20, state.mintQty + 1);
-    refreshMint();
-  });
-  refreshMint();
-
-  document.querySelector('[data-action="mint-now"]').addEventListener('click', function(){
-    if(!state.walletConnected){
-      openWalletModal('mint');
-      toast('Connect your wallet to mint', 'error');
+  /* Step 2 Validation */
+  document.getElementById('btn-step2-next').addEventListener('click', ()=>{
+    const usernameInput = document.getElementById('x-username').value.trim();
+    if(!usernameInput){
+      toast('Please enter your X username!', 'error');
       return;
     }
-    const originalText = this.textContent;
-    this.disabled = true;
-    this.textContent = 'MINTING...';
-    /* INTEGRATION POINT: replace with real contract mint call */
-    setTimeout(()=>{
-      this.disabled = false;
-      this.textContent = originalText;
-      toast(`Minted ${state.mintQty} MR.STONK NFT${state.mintQty>1?'s':''}`);
-    }, 1400);
+    
+    state.xUsername = usernameInput.startsWith('@') ? usernameInput : '@' + usernameInput;
+    toast('X Username Verified!', 'info');
+    goToStep(3);
   });
 
-  /* =========================================================================
-     STAKING GRID (Farm section)
-     ========================================================================= */
-  const stakingData = [
-    { id:'#1024', staked:true, remaining:'14:22:08', daily:1000, earned:6120 },
-    { id:'#1187', staked:true, remaining:'09:04:51', daily:1000, earned:4880 },
-    { id:'#2043', staked:true, remaining:'21:58:12', daily:1000, earned:3900 },
-    { id:'#3311', staked:true, remaining:'02:41:37', daily:1000, earned:3520 },
-    { id:'#4102', staked:false, remaining:'—', daily:0, earned:0 },
-    { id:'#5820', staked:false, remaining:'—', daily:0, earned:0 }
-  ];
-
-  function stakeCardHTML(nft, idx){
-    return `
-    <div class="stake-card" data-id="${nft.id}">
-      <div class="nft-art">
-        <div class="nft-art-scan"></div>
-        <img src="${NFT_IMAGES[idx % NFT_IMAGES.length]}" alt="MR.STONK ${nft.id}">
-        <div class="nft-art-label">MR.STONK ${nft.id}</div>
-      </div>
-      <div class="stake-meta">
-        <span>TOKEN ID</span><strong>${nft.id}</strong>
-      </div>
-      <div class="stake-row"><span>STATUS</span><strong style="color:${nft.staked ? 'var(--green)' : 'var(--text-faint)'}">${nft.staked ? 'STAKED' : 'UNSTAKED'}</strong></div>
-      <div class="stake-row"><span>TIME REMAINING</span><strong>${nft.remaining}</strong></div>
-      <div class="stake-row"><span>DAILY REWARD</span><strong>${nft.daily.toLocaleString()} $STONK</strong></div>
-      <div class="stake-row"><span>TOTAL EARNED</span><strong>${nft.earned.toLocaleString()} $STONK</strong></div>
-      <div class="stake-actions">
-        ${nft.staked
-          ? `<button class="btn btn-outline btn-sm" data-action="unstake" data-id="${nft.id}">UNSTAKE</button><button class="btn btn-primary btn-sm" data-action="claim-single" data-id="${nft.id}">CLAIM</button>`
-          : `<button class="btn btn-primary btn-sm" data-action="stake-single" data-id="${nft.id}">STAKE NFT</button>`}
-      </div>
-    </div>`;
-  }
-
-  function renderStakingGrid(){
-    const grid = document.getElementById('staking-grid');
-    if(!grid) return;
-    grid.innerHTML = stakingData.map((nft, idx)=> stakeCardHTML(nft, idx)).join('');
-  }
-  renderStakingGrid();
-
-  document.getElementById('staking-grid').addEventListener('click', (e)=>{
-    const btn = e.target.closest('button[data-action]');
-    if(!btn) return;
-    const id = btn.dataset.id;
-    const nft = stakingData.find(n=> n.id === id);
-    if(!nft) return;
-
-    if(btn.dataset.action === 'stake-single'){
-      nft.staked = true; nft.daily = 1000; nft.remaining = '24:00:00';
-      toast(`${id} staked successfully`);
-    } else if(btn.dataset.action === 'unstake'){
-      nft.staked = false; nft.daily = 0; nft.remaining = '—';
-      toast(`${id} unstaked`);
-    } else if(btn.dataset.action === 'claim-single'){
-      toast(`Claimed rewards for ${id}`);
-    }
-    renderStakingGrid();
-  });
-
-  document.querySelector('[data-action="claim-reward"]').addEventListener('click', function(){
-    this.disabled = true;
-    const original = this.textContent;
-    this.textContent = 'CLAIMING...';
-    setTimeout(()=>{
-      this.disabled = false;
-      this.textContent = original;
-      toast('4,000 $STONK claimed to wallet');
-    }, 1000);
-  });
-
-  document.querySelectorAll('[data-action="stake-nft"]').forEach(btn=>{
-    btn.addEventListener('click', ()=> toast('MR.STONK #1024 staked'));
-  });
-  document.querySelectorAll('[data-action="view-nft"]').forEach(btn=>{
-    btn.addEventListener('click', ()=> toast('Opening NFT viewer...'));
-  });
-
-  /* =========================================================================
-     REWARD TICKER GRID (stock + token rewards farmed by staked NFTs)
-     ========================================================================= */
-  const rewardTickers = [
-    { symbol:'AAPL', pct:'-0.6%', up:false, avail:false },
-    { symbol:'AMZN', pct:'+1.4%', up:true, avail:false },
-    { symbol:'MSFT', pct:'+0.9%', up:true, avail:true },
-    { symbol:'NVDA', pct:'+5.2%', up:true, avail:true },
-    { symbol:'TSLA', pct:'+3.8%', up:true, avail:true },
-    { symbol:'ETH',  pct:'+2.3%', up:true, avail:false },
-    { symbol:'USDG', pct:'+0.0%', up:true, avail:true }
-  ];
-  function renderTickerGrid(){
-    const grid = document.getElementById('ticker-grid');
-    if(!grid) return;
-    grid.innerHTML = rewardTickers.map(t=>{
-      const logo = STOCK_LOGOS.find(s=> s.symbol === t.symbol);
-      return `
-      <div class="ticker-card">
-        <img class="logo-img" src="${logo.img}" alt="${t.symbol}">
-        <span class="symbol">${t.symbol}</span>
-        <span class="pct ${t.up ? 'up' : 'down'}">${t.pct}</span>
-        <span class="avail ${t.avail ? 'on' : 'off'}">${t.avail ? 'AVAILABLE' : 'NEXT REWARD'}</span>
-      </div>`;
-    }).join('');
-  }
-  renderTickerGrid();
-
-  /* =========================================================================
-     MY NFT GRID
-     ========================================================================= */
-  const myNfts = [
-    { id:'#1024', rarity:'LEGENDARY', staked:true, daily:1000, spin:true },
-    { id:'#1187', rarity:'RARE', staked:true, daily:1000, spin:true },
-    { id:'#2043', rarity:'RARE', staked:true, daily:1000, spin:false },
-    { id:'#3311', rarity:'COMMON', staked:true, daily:1000, spin:false },
-    { id:'#4102', rarity:'COMMON', staked:false, daily:0, spin:false },
-    { id:'#5820', rarity:'RARE', staked:false, daily:0, spin:false }
-  ];
-  function renderMyNftGrid(){
-    const grid = document.getElementById('mynft-grid');
-    if(!grid) return;
-    grid.innerHTML = myNfts.map((n, idx)=> `
-      <div class="nft-card" data-tilt>
-        <div class="nft-card-top">
-          <span class="nft-card-id">MR.STONK ${n.id}</span>
-          <span class="badge ${n.rarity === 'LEGENDARY' ? 'badge-legendary' : 'badge-rare'}">${n.rarity}</span>
-        </div>
-        <div class="nft-art">
-          <div class="nft-art-scan"></div>
-          <img src="${NFT_IMAGES[(idx + 4) % NFT_IMAGES.length]}" alt="MR.STONK ${n.id}">
-        </div>
-        <div class="tag-row">
-          <span class="tag ${n.staked ? 'tag-green':'tag-gold'}">${n.staked ? 'STAKED' : 'UNSTAKED'}</span>
-          ${n.spin ? '<span class="tag tag-gold">SPIN READY</span>' : ''}
-        </div>
-        <div class="nft-card-footer stack">
-          <div class="nft-stat"><span>DAILY REWARD</span><strong class="text-gold">${n.daily.toLocaleString()} $STONK</strong></div>
-          <div class="btn-row">
-            ${n.staked
-              ? '<button class="btn btn-outline btn-sm" data-action="mynft-unstake" data-id="'+n.id+'">UNSTAKE</button>'
-              : '<button class="btn btn-primary btn-sm" data-action="mynft-stake" data-id="'+n.id+'">STAKE</button>'}
-            <button class="btn btn-outline btn-sm" data-action="mynft-view" data-id="${n.id}">VIEW</button>
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-    grid.querySelectorAll('button[data-action]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const id = btn.dataset.id;
-        const nft = myNfts.find(n=> n.id === id);
-        if(btn.dataset.action === 'mynft-stake'){ nft.staked = true; nft.daily = 1000; toast(`${id} staked`); renderMyNftGrid(); }
-        if(btn.dataset.action === 'mynft-unstake'){ nft.staked = false; nft.daily = 0; toast(`${id} unstaked`); renderMyNftGrid(); }
-        if(btn.dataset.action === 'mynft-view'){ toast(`Opening ${id}...`); }
-      });
-    });
-  }
-
-  /* =========================================================================
-     JACKPOT SPIN MACHINE
-     ========================================================================= */
-  const rewardPool = ['NVDA','TSLA','AAPL','MSFT','SP500'];
-  let currentRewardIndex = 0;
-
-  function cycleCurrentReward(){
-    const el = document.getElementById('current-reward-ticker');
-    setInterval(()=>{
-      currentRewardIndex = (currentRewardIndex + 1) % rewardPool.length;
-      el.textContent = rewardPool[currentRewardIndex];
-    }, 6000);
-  }
-  cycleCurrentReward();
-
-  function buildReel(reelId){
-    const track = document.getElementById(reelId);
-    let html = '';
-    for(let i=0;i<REEL_COUNT;i++){
-      html += `<div class="reel-cell"><img src="${randomNftImg()}" alt="MR.STONK"></div>`;
-    }
-    track.innerHTML = html;
-  }
-  ['reel-1','reel-2','reel-3'].forEach(buildReel);
-
-  const spinBtn = document.getElementById('spin-btn');
-  const spinStatus = document.getElementById('spin-status');
-
-  function setSpinAvailable(available){
-    state.spinAvailable = available;
-    spinBtn.disabled = !available || state.spinning;
-    spinStatus.textContent = available ? '1 SPIN AVAILABLE' : 'NEXT SPIN IN 23:41:09';
-  }
-  setSpinAvailable(true);
-
-  function runSpin(){
-    if(state.spinning) return;
-    if(!state.walletConnected){
-      openWalletModal('mint');
-      toast('Connect your wallet to spin', 'error');
-      return;
-    }
-    if(!state.spinAvailable){
-      toast('No spins available right now', 'error');
+  /* Step 3 Submission & Duplicate Protection */
+  document.getElementById('btn-step3-submit').addEventListener('click', ()=>{
+    const repostLinkInput = document.getElementById('repost-link').value.trim();
+    if(!repostLinkInput){
+      toast('Please enter your Repost link!', 'error');
       return;
     }
 
-    state.spinning = true;
-    spinBtn.disabled = true;
-    spinStatus.textContent = 'SPINNING...';
-
-    const rows = ['row-1','row-2','row-3'];
-    rows.forEach(r=> document.getElementById(r).classList.add('spinning'));
-
-    /* Decide outcome: small chance of a win, for demonstration purposes.
-       INTEGRATION POINT: replace with server/contract-verified randomness. */
-    const willWin = Math.random() < 0.28;
-    const finalSymbol = randomNftImg();
-    const cellHeight = 96;
-
-    const stopDelays = [1400, 2000, 2600];
-    rows.forEach((r, i)=>{
-      setTimeout(()=>{
-        const colEl = document.getElementById(r);
-        colEl.classList.remove('spinning');
-        const track = document.getElementById('reel-' + (i+1));
-        const symbolForRow = willWin ? finalSymbol : randomNftImg();
-        // rebuild vertically with the resulting NFT image centered in the window
-        let html = '';
-        for(let c=0;c<REEL_COUNT;c++){
-          const img = c === Math.floor(REEL_COUNT/2) ? symbolForRow : randomNftImg();
-          html += `<div class="reel-cell"><img src="${img}" alt="MR.STONK"></div>`;
-        }
-        track.innerHTML = html;
-        track.style.transform = `translateY(-${Math.floor(REEL_COUNT/2)*cellHeight}px)`;
-
-        if(i === rows.length - 1){
-          finishSpin(willWin);
-        }
-      }, stopDelays[i]);
-    });
-  }
-
-  function finishSpin(won){
-    state.spinning = false;
-    if(won){
-      document.querySelectorAll('.reel-col').forEach(r=> r.classList.add('win'));
-      setTimeout(()=> showWinModal(), 400);
-    } else {
-      toast('No match this round — try again in 24h');
+    if(!repostLinkInput.includes('x.com') && !repostLinkInput.includes('twitter.com')){
+      toast('Please provide a valid X / Twitter link!', 'error');
+      return;
     }
-    setSpinAvailable(false);
-  }
 
-  function showWinModal(){
-    document.getElementById('win-amount').textContent = document.getElementById('jackpot-amount').textContent;
-    document.getElementById('win-modal').classList.add('open');
-  }
+    state.repostLink = repostLinkInput;
 
-  spinBtn.addEventListener('click', runSpin);
-
-  document.querySelector('[data-action="claim-jackpot"]').addEventListener('click', function(){
-    closeAllModals();
-    document.querySelectorAll('.reel-col').forEach(r=> r.classList.remove('win'));
-    toast('Jackpot reward claimed to wallet');
-  });
-
-  /* =========================================================================
-     FAQ ACCORDION
-     ========================================================================= */
-  document.querySelectorAll('.accordion-item').forEach(item=>{
-    const head = item.querySelector('.accordion-head');
-    head.addEventListener('click', ()=>{
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.accordion-item').forEach(i=> i.classList.remove('open'));
-      if(!isOpen) item.classList.add('open');
+    // Save submission to prevent duplicates
+    saveSubmittedWallet(state.walletAddress, {
+      xUsername: state.xUsername,
+      repostLink: state.repostLink,
+      timestamp: new Date().toISOString()
     });
+
+    // Populate Success Summary
+    document.getElementById('summary-wallet').textContent = shortAddr(state.walletAddress);
+    document.getElementById('summary-x').textContent = state.xUsername;
+
+    goToStep(4);
+    toast('Congratulations! Whitelist application submitted.', 'info');
   });
 
-  /* =========================================================================
-     INIT
-     ========================================================================= */
-  updateWalletUI();
 })();
-
 </script>
 </body>
 </html>
